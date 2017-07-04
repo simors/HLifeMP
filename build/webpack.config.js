@@ -75,7 +75,7 @@ config.module.rules.push({
         ],
         ['import', { libraryName: 'antd', style: 'css' }],
         ['import', { libraryName: 'react-weui', style: 'css' }],
-        ['import', { libraryName: 'weui', libraryDirectory: 'dist', style: 'css' }],
+        ['import', { libraryName: 'weui', libraryDirectory: 'dist', style: true }],
       ],
       presets: [
         'babel-preset-react',
