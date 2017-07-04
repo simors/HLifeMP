@@ -8,7 +8,7 @@ import {requestDomain} from '../../actions/configActions'
 import {selectDomain} from '../../selector/configSelector'
 import WeUI from 'react-weui'
 
-// import 'weui'
+import 'weui'
 // import 'react-weui/lib/react-weui.min.css'
 
 const {Button} = WeUI
