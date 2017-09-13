@@ -1,23 +1,17 @@
 // We only need to import the modules necessary for initial render
 import React from 'react'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import AppIndex from '../components/AppIndex'
-import Home from '../components/Home'
-import About from '../components/About'
-import PromoterPerformance from '../components/Mine/promoter/PromoterPerformance'
+import {Route, Switch, Redirect} from 'react-router-dom'
+import AuthRoute from './AuthRoute'
+import Login from './Login'
+import Home from './Home'
+import NoMatch from './NoMatch'
 
-const routes = (
-  <Route path="/" component={AppIndex}>
-    <IndexRoute component={Home}/>
-    <Route path="about" component={About}/>
-  </Route>
+const rootRoutes = (
+  <Switch>
+    <Route exact path="/login" component={Login}/>
+    <AuthRoute path="/" component={Home}/>
+    <Route component={NoMatch}/>
+  </Switch>
 )
 
-const rootRouter = (
-  <Router history={browserHistory}>
-    {routes}
-    <Route path="promoter/performance/:promoterId" component={PromoterPerformance}/>
-  </Router>
-)
-
-export default rootRouter
+export default rootRoutes
