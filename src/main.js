@@ -38,13 +38,15 @@ if (__DEV__) {
 
     // Setup hot module replacement
     module.hot.accept([
-        './App',
-        './routes/index',
-      ], () =>
-        setImmediate(() => {
-          ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-          render()
-        })
+      './App',
+      './routes/index',
+      './saga/rootSaga',
+      './store/reducers',
+    ], () =>
+      setImmediate(() => {
+        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+        render()
+      })
     )
   }
 }
