@@ -5,7 +5,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { Button } from 'antd'
-import {configAction, configSelector} from '../../utils/config'
+import {configAction, configSelector} from '../util/config'
 
 class Dashboard extends React.Component {
   constructor(props) {

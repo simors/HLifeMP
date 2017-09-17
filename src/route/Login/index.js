@@ -2,10 +2,10 @@
  * Created by yangyang on 2017/9/4.
  */
 import React from 'react'
-import {fakeAuth} from '../../utils/auth'
+import {fakeAuth} from '../../util/auth'
 import {Redirect} from 'react-router-dom'
 import {Button, Row, Form, Input} from 'antd'
-import './login.scss'
+import style from './style.module.scss'
 
 const FormItem = Form.Item
 
@@ -41,8 +41,8 @@ class Login extends React.Component {
     }
 
     return (
-      <div className="form">
-        <div className="logo">
+      <div className={style.form}>
+        <div className={style.logo}>
           <img src={require("../../asset/image/logo.jpg")}/>
           <span>绿蚁网络</span>
         </div>
