@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom'
 import {store} from './store/persistStore'
 import {history} from './store/createStore'
 import App from './App'
+import AV from 'leancloud-storage'
+import * as appConfig from './util/appConfig'
 import './main.scss'
+
+//leancloud init
+AV.init(appConfig.LC_APP_ID, appConfig.LC_APP_KEY)
 
 // Render Setup
 // ------------------------------------
@@ -18,7 +23,7 @@ let render = () => {
 
 // Development Tools
 // ------------------------------------
-if (__DEV__) {
+if (__DEV__ || __STAGE__) {
   if (module.hot) {
     const renderApp = render
     const renderError = (error) => {
