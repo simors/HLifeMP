@@ -2,29 +2,22 @@
  * Created by yangyang on 2017/9/11.
  */
 import React from 'react'
-import {connect} from 'react-redux'
 import {withRouter, Route, Redirect} from 'react-router-dom'
-import {fakeAuth} from '../util/auth'
+import {wechatOauth} from '../util/wechatUtil'
+import {appStateSelector} from '../util/appstate'
+import {store} from '../store/persistStore'
 
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
+const AuthRoute = ({ component: Component, ...rest }) => {
+  let {location} = rest
+  let comp = wechatOauth(location)
+  if (!comp) {
+    return (
+      <Route {...rest} render={props => (
+        <Component {...props}/>
+      )}/>
     )
-  )}/>
-)
-
-const mapStateToProps = (appState, ownProps) => {
-  return {
   }
+  return comp
 }
 
-const mapDispatchToProps = {
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthRoute));
+export default AuthRoute

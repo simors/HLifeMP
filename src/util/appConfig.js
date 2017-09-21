@@ -18,20 +18,36 @@ const WECHAT_MP_APPID_DEV = "wx3dfde3f7184c8c51"
 const WECHAT_MP_APPID_PRE = "wxd1cc733cd20fdaea"
 const WECHAT_MP_APPID_PRO = "wxc13204ac7a37acb4"
 
+// 后台域名
+var BACKEND_DOMAIN = ""
+const BACKEND_DOMAIN_DEV = "http://hlyd-dev.leanapp.cn"
+const BACKEND_DOMAIN_STAGE = "http://hlyd-pre.leanapp.cn"
+const BACKEND_DOMAIN_PRO = "http://share.xiaojee.cn"
+
+// 客户端域名
+var CLIENT_DOMAIN = ''
+const CLIENT_DOMAIN_DEV = 'http://dev.mp.ngrok.io'
+const CLIENT_DOMAIN_STAGE = 'http://dev.mp.ngrok.io'
+const CLIENT_DOMAIN_PRO = ''
+
 if(__DEV__) {          //开发环境
   LC_APP_ID = LC_DEV_APP_ID
   LC_APP_KEY = LC_DEV_APP_KEY
   WECHAT_MP_APPID = WECHAT_MP_APPID_DEV
-
+  BACKEND_DOMAIN = BACKEND_DOMAIN_DEV
+  CLIENT_DOMAIN = CLIENT_DOMAIN_DEV
 } else if(__STAGE__) { //预上线环境
   LC_APP_ID = LC_STAGE_APP_ID
   LC_APP_KEY = LC_STAGE_APP_KEY
   WECHAT_MP_APPID = WECHAT_MP_APPID_PRE
-
+  BACKEND_DOMAIN = BACKEND_DOMAIN_STAGE
+  CLIENT_DOMAIN = CLIENT_DOMAIN_STAGE
 } else if(__PROD__) {   //生产环境
   LC_APP_ID = LC_PRO_APP_ID
   LC_APP_KEY = LC_PRO_APP_KEY
   WECHAT_MP_APPID = WECHAT_MP_APPID_PRO
+  BACKEND_DOMAIN = BACKEND_DOMAIN_PRO
+  CLIENT_DOMAIN = CLIENT_DOMAIN_PRO
 }
 
 var appConfig = {
@@ -41,6 +57,8 @@ var appConfig = {
   LC_APP_KEY: LC_APP_KEY,
 
   WECHAT_MP_APPID: WECHAT_MP_APPID,
+  BACKEND_DOMAIN: BACKEND_DOMAIN,
+  CLIENT_DOMAIN: CLIENT_DOMAIN,
 }
 
 module.exports = appConfig

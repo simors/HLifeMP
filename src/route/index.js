@@ -4,11 +4,17 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 import AuthRoute from './AuthRoute'
 import Login from './Login'
 import Home from './Home'
+import PromoterPerformance from './Promoter/PromoterPerformance'
 import NoMatch from './NoMatch'
+import ErrorPage from './Error'
+import LoadingPage from './Loading'
 
 const rootRoutes = (
   <Switch>
     <Route exact path="/login" component={Login}/>
+    <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <Route path="/error" component={ErrorPage} />
+    <Route path="/loading" component={LoadingPage}/>
     <AuthRoute path="/" component={Home}/>
     <Route component={NoMatch}/>
   </Switch>
