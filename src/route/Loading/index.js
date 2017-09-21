@@ -14,7 +14,6 @@ class LoadingPage extends React.Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     if (this.props.isRehydrated) {
-      console.log('redirct to ', from)
       return (
         <Redirect to={from}/>
       )

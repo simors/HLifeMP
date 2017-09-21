@@ -7,7 +7,7 @@ import querystring from 'querystring'
 import URL from  'url'
 import AV from 'leancloud-storage'
 import * as appConfig from './appConfig'
-import {authAction} from '../util/auth'
+import {authAction, authSelector} from '../util/auth'
 import {store} from '../store/persistStore'
 import {appStateSelector} from '../util/appstate'
 
@@ -25,14 +25,13 @@ function getAuthorizeURL(redirect, state, scope) {
 
 
 export function wechatOauth(nextPath) {
-  // 必须从持久化数据中获取数据，因为这个时候有可能持久化数据恢复还没有完成
-  let appState = appStateSelector.selectAppState(store.getState())
+  let state = store.getState()
+  let appState = appStateSelector.selectAppState(state)
   let isRehydrated = undefined
   if (appState) {
     isRehydrated = appState.isRehydrated
   }
   if (!isRehydrated) {
-    console.log('redirect to loading')
     return (
       <Redirect to={{
         pathname: '/loading',
@@ -40,16 +39,10 @@ export function wechatOauth(nextPath) {
       }}/>
     )
   }
-  let authInfo = localStorage.getItem('reduxPersist:AUTH')
-  let activeUser = authInfo? JSON.parse(authInfo).activeUser : undefined
+  let activeUser = authSelector.activeUserId(state)
   if (activeUser) {
-    console.log('authInfo', activeUser)
     return null
   }
-  // let currentUser = AV.User.current()
-  // if (currentUser) {
-  //   return null
-  // }
   let redirectUri = appConfig.BACKEND_DOMAIN + '/wxOauth/clientAuth'
   let urlObj = URL.parse(document.location.href)
   let {openid, access_token, expires_at} = querystring.parse(urlObj.query)

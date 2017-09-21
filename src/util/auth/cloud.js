@@ -22,6 +22,7 @@ export function loginAuthData(payload) {
 
   return AV.User.signUpOrlogInWithAuthData(authData, platform).then((leanUser) => {
     let token = leanUser.getSessionToken()
+    console.log('token:', token)
     return({
       userInfo: leanUser,
       token: token,
@@ -29,5 +30,17 @@ export function loginAuthData(payload) {
   }).catch((error) => {
     console.log("login error", error)
     throw error
+  })
+}
+
+export function become(payload) {
+  return AV.User.become(payload.token).then((leanUser) => {
+    let token = leanUser.getSessionToken()
+    return ({
+      token: token,
+      userInfo: leanUser,
+    })
+  }, (err) => {
+    throw err
   })
 }

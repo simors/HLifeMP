@@ -4,7 +4,7 @@
 import {Map, List, Record} from 'immutable'
 import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest, join } from 'redux-saga/effects'
 import * as datetime from '../datetime'
 import * as authCloud from './cloud'
 
@@ -148,6 +148,7 @@ export class UserState extends UserStateRecord {
 
 /**** Constant ****/
 
+const AUTO_LOGIN = 'AUTO_LOGIN'
 const LOGIN_WITH_AUTH_DATA = 'LOGIN_WITH_AUTH_DATA'
 const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 const LOGIN_OUT = "LOGIN_OUT"
@@ -183,6 +184,7 @@ const UPDATE_USER_IDENTITY = 'UPDATE_USER_IDENTITY'
 
 export const authAction = {
   loginWithAuthData: createAction(LOGIN_WITH_AUTH_DATA),
+  autoLogin: createAction(AUTO_LOGIN),
 }
 
 const loginSuccess = createAction(LOGIN_SUCCESS)
@@ -195,14 +197,35 @@ function* loginAuthData(action) {
   try {
     let user = yield call(authCloud.loginAuthData, payload)
     let userInfo = UserInfo.fromLeancloudObject(user.userInfo)
-    yield put(loginSuccess({token: user.token, userInfo}))
+    userInfo = userInfo.set('token', user.token)
+    yield put(loginSuccess({userInfo}))
   } catch (error) {
-    yield put(logoutSuccess({}))
+    // yield put(logoutSuccess({}))
   }
 }
 
+function* autoLogin(action) {
+  let payload = action.payload
+  try {
+    let result = yield call(authCloud.become, payload)
+    let token = result.token
+    let userInfo = UserInfo.fromLeancloudObject(result.userInfo)
+    userInfo = userInfo.set('token', token)
+    yield put(loginSuccess({userInfo: userInfo}))
+    console.log("自动登录成功：", userInfo)
+  } catch(error) {
+    console.log("自动登录失败：", error)
+    // yield put(logoutSuccess({}))
+  }
+}
+
+export const authSagaFunc = {
+  autoLogin,
+}
+
 export const authSaga = [
-  takeEvery(LOGIN_WITH_AUTH_DATA, loginAuthData),
+  takeLatest(LOGIN_WITH_AUTH_DATA, loginAuthData),
+  takeLatest(AUTO_LOGIN, autoLogin),
 ]
 
 /**** Reducer ****/
@@ -480,6 +503,11 @@ function getUserIdentity(state, userId) {
   return identity
 }
 
+function selectToken(state) {
+  let AUTH = state.AUTH
+  return AUTH.token
+}
+
 export const authSelector = {
   activeUserId,
   isUserLogined,
@@ -487,4 +515,5 @@ export const authSelector = {
   userInfoByIds,
   activeUserInfo,
   getUserIdentity,
+  selectToken,
 }

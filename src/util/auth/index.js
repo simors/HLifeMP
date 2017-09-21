@@ -5,6 +5,7 @@ import * as authRedux from './redux'
 
 /* export saga */
 export const authSaga = authRedux.authSaga
+export const authSagaFunc = authRedux.authSagaFunc
 
 /* export reducer */
 export const authReducer = authRedux.authReducer
