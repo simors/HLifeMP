@@ -2,10 +2,9 @@
  * Created by yangyang on 2017/9/19.
  */
 import React from 'react'
-import {withRouter, Route, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import querystring from 'querystring'
 import URL from  'url'
-import AV from 'leancloud-storage'
 import * as appConfig from './appConfig'
 import {authAction, authSelector} from '../util/auth'
 import {store} from '../store/persistStore'
