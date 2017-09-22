@@ -3,7 +3,7 @@ import React from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import AuthRoute from './AuthRoute'
 import Home from './Home'
-import PromoterPerformance from './Promoter/PromoterPerformance'
+import PromoterPerformance from './Promoter'
 import PromoterFriends from './Promoter/PromoterFriends'
 import NoMatch from './NoMatch'
 import ErrorPage from './Error'
@@ -11,7 +11,7 @@ import LoadingPage from './Loading'
 
 const rootRoutes = (
   <Switch>
-    <Route path="/promoter" component={PromoterPerformance}/>
+    <AuthRoute path="/promoter" component={PromoterPerformance}/>
     <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/error" component={ErrorPage} />
     <Route path="/loading" component={LoadingPage}/>

@@ -5,11 +5,13 @@ import { all } from 'redux-saga/effects'
 import {authSaga} from '../util/auth'
 import {appStateSaga} from '../util/appstate'
 import {rehydrateSaga} from '../util/rehydrateRedux'
+import {promoterSaga} from '../route/Promoter'
 
 export default function* rootSaga() {
   yield all([
     ...rehydrateSaga,
     ...authSaga,
     ...appStateSaga,
+    ...promoterSaga,
   ])
 }

@@ -4,11 +4,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
+import math from 'mathjs'
 import WeUI from 'react-weui'
 import 'weui'
 import 'react-weui/build/dist/react-weui.css'
 import styles from './promoter.module.scss'
 import PromoterLevelIcon from '../../component/promoter/levelIcon/PromoterLevelIcon'
+import {promoterAction, promoterSelector} from './redux'
 
 const {
   Page,
@@ -23,7 +25,14 @@ const {
 class PromoterPerformance extends React.PureComponent {
   constructor(props) {
     super(props)
-    document.title = "我的邻友"
+    document.title = "邻友圈"
+  }
+
+  componentWillMount() {
+    this.props.getCurrentPromoter({
+      success: () => {},
+      error: () => {},
+    })
   }
 
   friendCellClick(level) {
@@ -32,16 +41,20 @@ class PromoterPerformance extends React.PureComponent {
   }
 
   render() {
+    let {promoter} = this.props
+    if (!promoter) {
+      return <div>正在加载邻友信息……</div>
+    }
     return (
       <Page transition={true} infiniteLoader={false} ptr={false}>
         <div className={styles.performanceHeader}>
           <div className={styles.userLevel}>
-            <PromoterLevelIcon level={2}/>
+            <PromoterLevelIcon level={promoter.level}/>
           </div>
           <div className={styles.headerText}>推广总收益</div>
-          <div className={styles.headerEarn}>¥1000.55</div>
+          <div className={styles.headerEarn}>¥{Number(promoter.shopEarnings + promoter.royaltyEarnings).toFixed(2)}</div>
         </div>
-        <CellsTitle>我的邻友 | 20人</CellsTitle>
+        <CellsTitle>我的邻友 | {math.chain(promoter.teamMemNum).add(promoter.level2Num).add(promoter.level3Num).done()}人</CellsTitle>
         <Cells>
           <Cell access={true} onClick={() => this.friendCellClick(1)}>
             <CellHeader>
@@ -51,7 +64,7 @@ class PromoterPerformance extends React.PureComponent {
               好友
             </CellBody>
             <CellFooter>
-              99
+              {promoter.teamMemNum}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(2)}>
@@ -62,7 +75,7 @@ class PromoterPerformance extends React.PureComponent {
               熟人
             </CellBody>
             <CellFooter>
-              99
+              {promoter.level2Num}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(3)}>
@@ -73,7 +86,7 @@ class PromoterPerformance extends React.PureComponent {
               人脉
             </CellBody>
             <CellFooter>
-              99
+              {promoter.level3Num}
             </CellFooter>
           </Cell>
         </Cells>
@@ -103,12 +116,16 @@ class PromoterPerformance extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (appState, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
+  let activePromoterId = promoterSelector.activePromoter(state)
+  let promoter = promoterSelector.getPromoterById(state, activePromoterId)
   return {
+    promoter,
   }
 }
 
 const mapDispatchToProps = {
+  ...promoterAction
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PromoterPerformance))
