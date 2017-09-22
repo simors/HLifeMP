@@ -20,7 +20,7 @@ const {
   CellFooter,
 } = WeUI
 
-class PromoterPerformance extends React.Component {
+class PromoterPerformance extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = "我的邻友"
