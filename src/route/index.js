@@ -10,7 +10,7 @@ import LoadingPage from './Loading'
 
 const rootRoutes = (
   <Switch>
-    <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <Route path="/promoter" component={PromoterPerformance}/>
     <Route path="/error" component={ErrorPage} />
     <Route path="/loading" component={LoadingPage}/>
     <AuthRoute path="/" component={Home}/>

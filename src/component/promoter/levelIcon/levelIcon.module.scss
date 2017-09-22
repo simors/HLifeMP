@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 123pt;
+  height: 24pt;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  background-color: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  
+  .levelText {
+    color: #FFF;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

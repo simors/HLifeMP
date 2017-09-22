@@ -1,0 +1,24 @@
+.performanceHeader {
+  background-image: url('../../asset/image/bg_promoter@2x.png');
+  height: 171.5pt;
+
+  .userLevel {
+    padding: 13.5pt 20pt 0pt 20pt;
+    background-color: transparent;
+  }
+  
+  .headerText {
+    font-size: 34px;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    padding-top: 18.5pt;
+  }
+
+  .headerEarn {
+    font-size: 80px;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+  }
+}
