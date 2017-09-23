@@ -189,6 +189,7 @@ export const authAction = {
 
 const loginSuccess = createAction(LOGIN_SUCCESS)
 const logoutSuccess = createAction(LOGIN_OUT)
+const addUserProfile = createAction(ADD_USER_PROFILE)
 
 /**** Saga ****/
 
@@ -200,7 +201,7 @@ function* loginAuthData(action) {
     userInfo = userInfo.set('token', user.token)
     yield put(loginSuccess({userInfo}))
   } catch (error) {
-    // yield put(logoutSuccess({}))
+    yield put(logoutSuccess({}))
   }
 }
 
@@ -215,12 +216,22 @@ function* autoLogin(action) {
     console.log("自动登录成功：", userInfo)
   } catch(error) {
     console.log("自动登录失败：", error)
-    // yield put(logoutSuccess({}))
+    yield put(logoutSuccess({}))
+  }
+}
+
+function* addUserProfileSaga(payload) {
+  try {
+    let userInfo = UserInfo.fromLeancloudApi(payload.user)
+    yield put(addUserProfile({userInfo}))
+  } catch (error) {
+    console.log('add user profile error', error)
   }
 }
 
 export const authSagaFunc = {
   autoLogin,
+  addUserProfileSaga,
 }
 
 export const authSaga = [

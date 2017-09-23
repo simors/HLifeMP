@@ -6,7 +6,7 @@ import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
 import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects'
 import * as promoterCloud from './cloud'
-import {authSelector} from '../../util/auth'
+import {authSelector, authSagaFunc} from '../../util/auth'
 
 /****  Model  ****/
 
@@ -78,6 +78,7 @@ export const Promoter = Record({
 /**** Constant ****/
 
 const GET_CURRENT_PROMOTER = 'GET_CURRENT_PROMOTER'
+const GET_UP_PROMOTER = 'GET_UP_PROMOTER'
 const UPDATE_PROMOTER_INFO = 'UPDATE_PROMOTER_INFO'
 const UPDATE_BATCH_PROMOTER_INFO = 'UPDATE_BATCH_PROMOTER_INFO'
 const SET_ACTIVE_PROMOTER = 'SET_ACTIVE_PROMOTER'
@@ -89,11 +90,13 @@ export const UPDATE_UPPROMOTER_ID = 'UPDATE_UPPROMOTER_ID'
 
 export const promoterAction = {
   getCurrentPromoter: createAction(GET_CURRENT_PROMOTER),
+  getUpPromoter: createAction(GET_UP_PROMOTER),
 }
 
 const setActivePromoter = createAction(SET_ACTIVE_PROMOTER)
 const updatePromoter = createAction(UPDATE_PROMOTER_INFO)
 const setUserPromoterMap = createAction(SET_USER_PROMOTER_MAP)
+const updateUpPromoter = createAction(UPDATE_UPPROMOTER_ID)
 
 /**** Saga ****/
 
@@ -111,7 +114,6 @@ function* currentPromoterSaga(action) {
     }
     let promoterId = result.promoter.objectId
     let promoter = PromoterInfo.fromLeancloudObject(result.promoter)
-    console.log('promoter:', promoter)
     yield put(setActivePromoter({promoterId}))
     yield put(updatePromoter({promoterId, promoter}))
     yield put(setUserPromoterMap({userId, promoterId}))
@@ -124,8 +126,30 @@ function* currentPromoterSaga(action) {
   }
 }
 
+function* upPromoterSaga(action) {
+  let payload = action.payload
+  try {
+    let userId = payload.userId
+    let result = yield call(promoterCloud.getUpPromoter, {userId})
+    if (result.errcode != 0) {
+      return
+    }
+    let promoterId = result.promoter.objectId
+    let promoter = PromoterInfo.fromLeancloudObject(result.promoter)
+    yield authSagaFunc.addUserProfileSaga({user: result.user})
+    yield put(updatePromoter({promoterId, promoter}))
+    yield put(updateUpPromoter({upPromoterId: promoterId}))
+    yield put(setUserPromoterMap({userId, promoterId}))
+  } catch (error) {
+    if (payload.error) {
+      payload.error(error)
+    }
+  }
+}
+
 export const promoterSaga = [
   takeLatest(GET_CURRENT_PROMOTER, currentPromoterSaga),
+  takeLatest(GET_UP_PROMOTER, upPromoterSaga),
 ]
 
 /**** Reducer ****/

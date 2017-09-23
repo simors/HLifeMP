@@ -11,6 +11,7 @@ import 'react-weui/build/dist/react-weui.css'
 import styles from './promoter.module.scss'
 import PromoterLevelIcon from '../../component/promoter/levelIcon/PromoterLevelIcon'
 import {promoterAction, promoterSelector} from './redux'
+import {authSelector} from '../../util/auth'
 
 const {
   Page,
@@ -20,19 +21,45 @@ const {
   CellHeader,
   CellBody,
   CellFooter,
+  Toptips,
 } = WeUI
 
 class PromoterPerformance extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = "邻友圈"
+    this.state = {
+      showWarn: false,
+      warnTimer: null,
+    }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCurrentPromoter({
       success: () => {},
-      error: () => {},
+      error: () => {
+        this.showWarn()
+      },
     })
+    this.props.getUpPromoter({
+      userId: this.props.activeUserId,
+      success: () => {},
+      error: () => {
+        this.showWarn()
+      },
+    })
+  }
+
+  componentWillUnmount() {
+    this.state.warnTimer && clearTimeout(this.state.warnTimer)
+  }
+
+  showWarn() {
+    this.setState({showWarn: true});
+
+    this.state.warnTimer = setTimeout(()=> {
+      this.setState({showWarn: false});
+    }, 2000);
   }
 
   friendCellClick(level) {
@@ -41,7 +68,7 @@ class PromoterPerformance extends React.PureComponent {
   }
 
   render() {
-    let {promoter} = this.props
+    let {promoter, upUser} = this.props
     if (!promoter) {
       return <div>正在加载邻友信息……</div>
     }
@@ -93,34 +120,47 @@ class PromoterPerformance extends React.PureComponent {
 
         <div style={{backgroundColor: '#F5F5F5', paddingTop: 8}}>
           <Cells style={{marginTop: 0}}>
-            <Cell access={true} onClick={() => {console.log('xxx')}}>
-              <CellBody>
-                亲密好友
-              </CellBody>
-              <CellFooter>
-                大自然
-              </CellFooter>
-            </Cell>
+            {upUser ? (
+              <Cell access={true} onClick={() => {console.log('xxx')}}>
+                <CellBody>
+                  亲密好友
+                </CellBody>
+                <CellFooter>
+                  {upUser.nickname}
+                </CellFooter>
+              </Cell>
+            ) : null}
             <Cell access={true}>
               <CellBody>
                 邀请的店铺
               </CellBody>
               <CellFooter>
-                99家
+                {promoter.inviteShopNum}家
               </CellFooter>
             </Cell>
           </Cells>
         </div>
+
+        <Toptips type="warn" show={this.state.showWarn}> 数据未能完全加载 </Toptips>
       </Page>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let activeUserId = authSelector.activeUserId(state)
   let activePromoterId = promoterSelector.activePromoter(state)
   let promoter = promoterSelector.getPromoterById(state, activePromoterId)
+  let upUser = undefined
+  let upPromoterId = promoterSelector.getUpPromoterId(state)
+  let upPromoter = promoterSelector.getPromoterById(state, upPromoterId)
+  if (upPromoter) {
+    upUser = authSelector.userInfoById(state, upPromoter.userId).toJS()
+  }
   return {
+    activeUserId,
     promoter,
+    upUser,
   }
 }
 
