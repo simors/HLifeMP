@@ -4,11 +4,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import PromoterPerformanceItem from '../../component/promoter/performance/PromoterPerformanceItem'
+import {promoterAction, promoterSelector} from './redux'
 import WeUI from 'react-weui'
 import 'weui'
 import 'react-weui/build/dist/react-weui.css'
-import PromoterPerformanceItem from '../../component/promoter/performance/PromoterPerformanceItem'
-import {promoterAction, promoterSelector} from './redux'
 
 const {
   InfiniteLoader,
@@ -39,7 +39,7 @@ class PromoterFriends extends React.PureComponent {
         this.friendLabel = "好友"
     }
     document.title = "我的" + this.friendLabel
-    this.props.getPromoterFriends({level, more: false, limit: 2})
+    this.props.getPromoterFriends({level, more: false})
   }
 
   loadMoreData = (resolve, finish) => {
@@ -49,7 +49,6 @@ class PromoterFriends extends React.PureComponent {
       level,
       more: true,
       lastUpdatedAt: this.lastUpdatedAt,
-      limit: 2,
       success: (isEmpty) => {
         isEmpty ? finish() : resolve()
       },
