@@ -360,9 +360,24 @@ function getUpPromoterId(state) {
   return upPromoterId
 }
 
+function selectPromoterFriends(state, level) {
+  let friendsIds = state.PROMOTER.getIn(['friends', level])
+  let friends = []
+  if (!friendsIds) {
+    return []
+  }
+  friendsIds = friendsIds.toJS()
+  friendsIds.forEach((fid) => {
+    let friend = getPromoterById(state, fid)
+    friends.push(friend)
+  })
+  return friends
+}
+
 export const promoterSelector = {
   activePromoter,
   getPromoterById,
   selectPromoterByUserId,
-  getUpPromoterId
+  getUpPromoterId,
+  selectPromoterFriends,
 }

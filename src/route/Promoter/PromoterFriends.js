@@ -8,7 +8,7 @@ import WeUI from 'react-weui'
 import 'weui'
 import 'react-weui/build/dist/react-weui.css'
 import PromoterPerformanceItem from '../../component/promoter/performance/PromoterPerformanceItem'
-import {promoterAction} from './redux'
+import {promoterAction, promoterSelector} from './redux'
 
 const {
   Page,
@@ -19,6 +19,7 @@ const {
 class PromoterFriends extends React.PureComponent {
   constructor(props) {
     super(props)
+    this.friendLabel = ""
   }
 
   componentDidMount() {
@@ -27,17 +28,30 @@ class PromoterFriends extends React.PureComponent {
     this.props.getPromoterFriends({level})
     switch (level) {
       case 1:
-        document.title = "我的好友"
+        this.friendLabel = "好友"
         break
       case 2:
-        document.title = "我的熟人"
+        this.friendLabel = "熟人"
         break
       case 3:
-        document.title = "我的人脉"
+        this.friendLabel = "人脉"
         break
       default:
-        document.title = "我的好友"
+        this.friendLabel = "好友"
     }
+    document.title = "我的" + this.friendLabel
+  }
+
+  renderFriendRow() {
+    let {friends} = this.props
+    if (!friends || friends.length == 0) {
+      return <div>您暂时还没有{this.friendLabel}</div>
+    }
+    return (
+      friends.map((friend, index) => {
+        return <PromoterPerformanceItem key={index} friend={friend} />
+      })
+    )
   }
 
   render() {
@@ -45,10 +59,7 @@ class PromoterFriends extends React.PureComponent {
       <Page transition={true} infiniteLoader={false} ptr={false}>
         <InfiniteLoader onLoadMore={(resolve, finish) => {}}>
           <Cells style={{marginTop: 0}}>
-            <PromoterPerformanceItem/>
-            <PromoterPerformanceItem/>
-            <PromoterPerformanceItem/>
-            <PromoterPerformanceItem/>
+            {this.renderFriendRow()}
           </Cells>
         </InfiniteLoader>
       </Page>
@@ -56,8 +67,12 @@ class PromoterFriends extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (appState, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
+  let {match} = ownProps
+  let level = Number(match.params.level)
+  let friends = promoterSelector.selectPromoterFriends(state, level)
   return {
+    friends,
   }
 }
 

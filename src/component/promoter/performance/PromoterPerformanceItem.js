@@ -20,6 +20,8 @@ class PromoterPerformanceItem extends React.PureComponent {
   }
 
   render() {
+    let {friend} = this.props
+    console.log('friend', friend)
     return (
       <Panel className={styles.itemPanel}>
         <div style={{paddingRight: 8}}>
