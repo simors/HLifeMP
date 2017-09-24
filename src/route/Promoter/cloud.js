@@ -25,3 +25,16 @@ export function getUpPromoter(payload) {
     throw err
   })
 }
+
+export function getFriendsByLevel(payload) {
+  let params = {
+    userId: payload.level,
+    limit: payload.limit,
+    lastUpdatedAt: payload.lastUpdatedAt,
+  }
+  return AV.Cloud.run('promoterGetFriends', params).then((promoterInfo) => {
+    return promoterInfo
+  }, (err) => {
+    throw err
+  })
+}

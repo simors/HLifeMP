@@ -1,9 +1,9 @@
 /**
  * Created by yangyang on 2017/9/21.
  */
-import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects'
+import { call, takeLatest } from 'redux-saga/effects'
 import {createAction} from 'redux-actions'
-import {authSelector, authSagaFunc} from './auth'
+import {authSagaFunc} from './auth'
 import {appStateSagaFunc} from './appstate'
 
 /**** Constant ****/
@@ -17,8 +17,8 @@ export const rehydrateDone = createAction(REHYDRATE_DONE)
 /**** Saga ****/
 
 function* doneRehydrate(action) {
-  yield authSagaFunc.autoLogin(action)
-  yield appStateSagaFunc.updateAppRehydrate(action)
+  yield call(authSagaFunc.autoLogin, action)
+  yield call(appStateSagaFunc.updateAppRehydrate, action)
 }
 
 export const rehydrateSaga = [

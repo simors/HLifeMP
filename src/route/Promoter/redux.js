@@ -73,30 +73,39 @@ export const Promoter = Record({
   upPromoterId: undefined,          // 记录当前推广员的上级推广员id
   userToPromoter: Map(),            // 记录用户id与推广员id的对应关系
   promoters: Map(),                 // 推广员记录，键为推广员id，值为PromoterInfo
+  friends: Map(),                   // 推广员的好友，键为好友的级别，值为好友promoter id列表
 }, 'Promoter')
 
 /**** Constant ****/
 
 const GET_CURRENT_PROMOTER = 'GET_CURRENT_PROMOTER'
 const GET_UP_PROMOTER = 'GET_UP_PROMOTER'
+const GET_PROMOTER_FRIENDS = 'GET_PROMOTER_FRIENDS'
 const UPDATE_PROMOTER_INFO = 'UPDATE_PROMOTER_INFO'
 const UPDATE_BATCH_PROMOTER_INFO = 'UPDATE_BATCH_PROMOTER_INFO'
 const SET_ACTIVE_PROMOTER = 'SET_ACTIVE_PROMOTER'
 const SET_USER_PROMOTER_MAP = 'SET_USER_PROMOTER_MAP'
 const SET_USER_PROMOTER_BATCH_MAP = 'SET_USER_PROMOTER_BATCH_MAP'
-export const UPDATE_UPPROMOTER_ID = 'UPDATE_UPPROMOTER_ID'
+const UPDATE_UPPROMOTER_ID = 'UPDATE_UPPROMOTER_ID'
+const SET_PROMOTER_FRIENDS = 'SET_PROMOTER_FRIENDS'
+const ADD_PROMOTER_FRIENDS = 'ADD_PROMOTER_FRIENDS'
 
 /**** Action ****/
 
 export const promoterAction = {
   getCurrentPromoter: createAction(GET_CURRENT_PROMOTER),
   getUpPromoter: createAction(GET_UP_PROMOTER),
+  getPromoterFriends: createAction(GET_PROMOTER_FRIENDS),
 }
 
 const setActivePromoter = createAction(SET_ACTIVE_PROMOTER)
 const updatePromoter = createAction(UPDATE_PROMOTER_INFO)
 const setUserPromoterMap = createAction(SET_USER_PROMOTER_MAP)
 const updateUpPromoter = createAction(UPDATE_UPPROMOTER_ID)
+const updateBatchPromoter = createAction(UPDATE_BATCH_PROMOTER_INFO)
+const setUserPromoterBatchMap = createAction(SET_USER_PROMOTER_BATCH_MAP)
+const setPromoterFriends = createAction(SET_PROMOTER_FRIENDS)
+const addPromoterFriends = createAction(ADD_PROMOTER_FRIENDS)
 
 /**** Saga ****/
 
@@ -136,7 +145,7 @@ function* upPromoterSaga(action) {
     }
     let promoterId = result.promoter.objectId
     let promoter = PromoterInfo.fromLeancloudObject(result.promoter)
-    yield authSagaFunc.addUserProfileSaga({user: result.user})
+    yield call(authSagaFunc.addUserProfileSaga, {user: result.user})
     yield put(updatePromoter({promoterId, promoter}))
     yield put(updateUpPromoter({upPromoterId: promoterId}))
     yield put(setUserPromoterMap({userId, promoterId}))
@@ -147,9 +156,51 @@ function* upPromoterSaga(action) {
   }
 }
 
+function* getPromoterFriendsSaga(action) {
+  let payload = action.payload
+  try {
+    let level = payload.level
+    let more = payload.more
+    if (!more) {
+      more = false
+    }
+    let result = yield call(promoterCloud.getFriendsByLevel, payload)
+    console.log('result', result)
+    let friends = []
+    let userIds = []
+    let promoterIds = []
+    let promoters = result.promoters
+    let users = result.users
+    promoters.forEach((promoter) => {
+      let promoterId = promoter.objectId
+      let promoterRecord = PromoterInfo.fromLeancloudObject(promoter)
+      friends.push(promoterRecord)
+      userIds.push(promoter.user.id)
+      promoterIds.push(promoterId)
+    })
+    yield put(updateBatchPromoter({promoters: friends}))
+    yield put(setUserPromoterBatchMap({userIds, promoterIds}))
+    yield call(authSagaFunc.addBatchUserProfileSaga, {users})
+    if (more) {
+      yield put(addPromoterFriends({level, friends: promoterIds}))
+    } else {
+      yield put(setPromoterFriends({level, friends: promoterIds}))
+    }
+    if (payload.success) {
+      payload.success(friends.length < payload.limit)
+    }
+  } catch (error) {
+    console.log('get promoter friends error', error)
+    if (payload.error) {
+      payload.error(error.message)
+    }
+  }
+}
+
 export const promoterSaga = [
   takeLatest(GET_CURRENT_PROMOTER, currentPromoterSaga),
   takeLatest(GET_UP_PROMOTER, upPromoterSaga),
+  takeLatest(GET_PROMOTER_FRIENDS, getPromoterFriendsSaga),
 ]
 
 /**** Reducer ****/
@@ -170,6 +221,10 @@ export function promoterReducer(state = initialState, action) {
       return handleUpdateBatchPromoters(state, action)
     case UPDATE_UPPROMOTER_ID:
       return handleUpdateUpPromoter(state, action)
+    case SET_PROMOTER_FRIENDS:
+      return handleSetFriends(state, action)
+    case ADD_PROMOTER_FRIENDS:
+      return handleAddFriends(state, action)
     case REHYDRATE:
       return onRehydrate(state, action)
     default:
@@ -222,6 +277,23 @@ function handleUpdateBatchPromoters(state, action) {
 function handleUpdateUpPromoter(state, action) {
   let upPromoterId = action.payload.upPromoterId
   state = state.set('upPromoterId', upPromoterId)
+  return state
+}
+
+function handleSetFriends(state, action) {
+  let payload = action.payload
+  let level = payload.level
+  let friends = payload.friends
+  state = state.setIn(['friends', level], new List(friends))
+  return state
+}
+
+function handleAddFriends(state, action) {
+  let payload = action.payload
+  let level = payload.level
+  let friends = payload.friends
+  let oldFriends = state.getIn(['friends', level])
+  state = state.setIn(['friends', level], oldFriends.concat(new List(friends)))
   return state
 }
 

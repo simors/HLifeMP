@@ -8,15 +8,12 @@ import WeUI from 'react-weui'
 import 'weui'
 import 'react-weui/build/dist/react-weui.css'
 import PromoterPerformanceItem from '../../component/promoter/performance/PromoterPerformanceItem'
+import {promoterAction} from './redux'
 
 const {
   Page,
   InfiniteLoader,
   Cells,
-  CellsTitle,
-  Cell,
-  CellBody,
-  CellFooter
 } = WeUI
 
 class PromoterFriends extends React.PureComponent {
@@ -26,7 +23,9 @@ class PromoterFriends extends React.PureComponent {
 
   componentDidMount() {
     let {match} = this.props
-    switch (Number(match.params.level)) {
+    let level = Number(match.params.level)
+    this.props.getPromoterFriends({level})
+    switch (level) {
       case 1:
         document.title = "我的好友"
         break
@@ -63,6 +62,7 @@ const mapStateToProps = (appState, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  ...promoterAction,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PromoterFriends))

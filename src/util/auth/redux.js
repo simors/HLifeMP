@@ -164,7 +164,6 @@ const PUBLISH_ANNOUNCEMENT_SUCCESS = "PUBLISH_ANNOUNCEMENT_SUCCESS"
 const UPDATE_ANNOUNCEMENT_SUCCESS = "UPDATE_ANNOUNCEMENT_SUCCESS"
 const ADD_PERSONAL_IDENTITY = 'ADD_PERSONAL_IDENTITY'
 
-const PROFILE_SUBMIT_SUCCESS = "PROFILE_SUBMIT_SUCCESS"
 const ADD_USER_PROFILE = "ADD_USER_PROFILE"
 const ADD_USER_PROFILES = "ADD_USER_PROFILES"
 const FETCH_PERSONAL_INFO_SUCCESS = "FETCH_PERSONAL_INFO_SUCCESS"
@@ -190,6 +189,7 @@ export const authAction = {
 const loginSuccess = createAction(LOGIN_SUCCESS)
 const logoutSuccess = createAction(LOGIN_OUT)
 const addUserProfile = createAction(ADD_USER_PROFILE)
+const addUserBatchProfile = createAction(ADD_USER_PROFILES)
 
 /**** Saga ****/
 
@@ -229,9 +229,23 @@ function* addUserProfileSaga(payload) {
   }
 }
 
+function* addBatchUserProfileSaga(payload) {
+  try {
+    let userProfiles = []
+    let users = payload.users
+    users.forEach((user) => {
+      userProfiles.push(UserInfo.fromLeancloudApi(user))
+    })
+    yield put(addUserBatchProfile({userProfiles}))
+  } catch (error) {
+    console.log('add batch user profiles error', error)
+  }
+}
+
 export const authSagaFunc = {
   autoLogin,
   addUserProfileSaga,
+  addBatchUserProfileSaga,
 }
 
 export const authSaga = [
@@ -253,8 +267,6 @@ export function authReducer(state = initialState, action) {
       return handleUserLogout(state, action)
     case SHOP_CERTIFICATION_SUCCESS:
       return handleShopCertificationSuccess(state, action)
-    case PROFILE_SUBMIT_SUCCESS:
-      return handleProfileSubmitSuccess(state, action)
     case ADD_USER_PROFILE:
       return handleAddUserProfile(state, action)
     case ADD_USER_PROFILES:
@@ -319,13 +331,6 @@ function handleShopCertificationSuccess(state, action) {
   let payload = action.payload
   let shop = payload.shop
   state = state.set('shop',  shop)
-  return state
-}
-
-function handleProfileSubmitSuccess(state, action) {
-  let userInfo = action.payload.userInfo
-
-  state = state.setIn(['profiles', userInfo.id], userInfo)
   return state
 }
 

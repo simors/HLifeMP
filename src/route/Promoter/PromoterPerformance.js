@@ -35,19 +35,24 @@ class PromoterPerformance extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.getCurrentPromoter({
-      success: () => {},
-      error: () => {
-        this.showWarn()
-      },
-    })
-    this.props.getUpPromoter({
-      userId: this.props.activeUserId,
-      success: () => {},
-      error: () => {
-        this.showWarn()
-      },
-    })
+    let {history, location, activeUserId} = this.props
+    if (!activeUserId) {
+      history.replace(location.pathname)
+    } else {
+      this.props.getCurrentPromoter({
+        success: () => {},
+        error: () => {
+          this.showWarn()
+        },
+      })
+      this.props.getUpPromoter({
+        userId: activeUserId,
+        success: () => {},
+        error: () => {
+          this.showWarn()
+        },
+      })
+    }
   }
 
   componentWillUnmount() {
