@@ -11,7 +11,6 @@ import PromoterPerformanceItem from '../../component/promoter/performance/Promot
 import {promoterAction, promoterSelector} from './redux'
 
 const {
-  Page,
   InfiniteLoader,
   Cells,
 } = WeUI
@@ -44,7 +43,6 @@ class PromoterFriends extends React.PureComponent {
   }
 
   loadMoreData = (resolve, finish) => {
-    console.log('load more')
     let {match} = this.props
     let level = Number(match.params.level)
     this.props.getPromoterFriends({
@@ -74,13 +72,11 @@ class PromoterFriends extends React.PureComponent {
 
   render() {
     return (
-      <Page transition={true}>
-        <InfiniteLoader onLoadMore={this.loadMoreData}>
-          <Cells style={{marginTop: 0}}>
-            {this.renderFriendRow()}
-          </Cells>
-        </InfiniteLoader>
-      </Page>
+      <InfiniteLoader onLoadMore={this.loadMoreData}>
+        <Cells style={{marginTop: 0}}>
+          {this.renderFriendRow()}
+        </Cells>
+      </InfiniteLoader>
     )
   }
 }
