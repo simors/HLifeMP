@@ -28,7 +28,7 @@ export function getUpPromoter(payload) {
 
 export function getFriendsByLevel(payload) {
   let params = {
-    userId: payload.level,
+    level: payload.level,
     limit: payload.limit,
     lastUpdatedAt: payload.lastUpdatedAt,
   }
