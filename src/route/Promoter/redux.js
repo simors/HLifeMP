@@ -165,7 +165,6 @@ function* getPromoterFriendsSaga(action) {
       more = false
     }
     let result = yield call(promoterCloud.getFriendsByLevel, payload)
-    console.log('result', result)
     let friends = []
     let userIds = []
     let promoterIds = []

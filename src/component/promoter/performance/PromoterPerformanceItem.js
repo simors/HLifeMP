@@ -24,7 +24,6 @@ class PromoterPerformanceItem extends React.PureComponent {
 
   render() {
     let {friend, userInfo} = this.props
-    console.log('friend', friend, userInfo)
     return (
       <Panel className={styles.itemPanel}>
         <div style={{paddingRight: 8}}>
