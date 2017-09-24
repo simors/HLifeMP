@@ -20,12 +20,12 @@ class PromoterFriends extends React.PureComponent {
   constructor(props) {
     super(props)
     this.friendLabel = ""
+    this.lastUpdatedAt = undefined
   }
 
   componentDidMount() {
     let {match} = this.props
     let level = Number(match.params.level)
-    this.props.getPromoterFriends({level})
     switch (level) {
       case 1:
         this.friendLabel = "好友"
@@ -40,6 +40,23 @@ class PromoterFriends extends React.PureComponent {
         this.friendLabel = "好友"
     }
     document.title = "我的" + this.friendLabel
+    this.props.getPromoterFriends({level, more: false, limit: 2})
+  }
+
+  loadMoreData = (resolve, finish) => {
+    console.log('load more')
+    let {match} = this.props
+    let level = Number(match.params.level)
+    this.props.getPromoterFriends({
+      level,
+      more: true,
+      lastUpdatedAt: this.lastUpdatedAt,
+      limit: 2,
+      success: (isEmpty) => {
+        isEmpty ? finish() : resolve()
+      },
+      error: (err) => {},
+    })
   }
 
   renderFriendRow() {
@@ -49,6 +66,7 @@ class PromoterFriends extends React.PureComponent {
     }
     return (
       friends.map((friend, index) => {
+        this.lastUpdatedAt = friend.updatedAt
         return <PromoterPerformanceItem key={index} friend={friend} />
       })
     )
@@ -56,8 +74,8 @@ class PromoterFriends extends React.PureComponent {
 
   render() {
     return (
-      <Page transition={true} infiniteLoader={false} ptr={false}>
-        <InfiniteLoader onLoadMore={(resolve, finish) => {}}>
+      <Page transition={true}>
+        <InfiniteLoader onLoadMore={this.loadMoreData}>
           <Cells style={{marginTop: 0}}>
             {this.renderFriendRow()}
           </Cells>

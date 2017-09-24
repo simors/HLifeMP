@@ -158,6 +158,7 @@ function* upPromoterSaga(action) {
 
 function* getPromoterFriendsSaga(action) {
   let payload = action.payload
+  console.log('payload', payload)
   try {
     let level = payload.level
     let more = payload.more
