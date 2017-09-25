@@ -22,3 +22,54 @@
     justify-content: center;
   }
 }
+
+.itemPanel {
+  display: flex;
+  margin-top: 0px;
+  padding: 10px 10px;
+
+  &:after {
+    border-bottom: 0px;
+  }
+
+  .teamView {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px #F5F5F5;
+    padding-bottom: 6px;
+
+    .nameText {
+      font-size: 1.2rem;
+      color: #4A4A4A;
+    }
+
+    .performText {
+      font-size: 0.8rem;
+      color: #B5B5B5;
+    }
+
+    .teamnum {
+      font-size: 1rem;
+      color: #5A5A5A;
+    }
+  }
+
+  .performView {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0px 0px 6px;
+
+    .titleText {
+      font-size: 0.8rem;
+      color: #5A5A5A;
+    }
+
+    .earnText {
+      font-size: 0.8rem;
+      color: #FF7819;
+    }
+  }
+}

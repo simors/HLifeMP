@@ -135,7 +135,10 @@ class PromoterPerformance extends React.PureComponent {
         <div style={{backgroundColor: '#F5F5F5', paddingTop: 8}}>
           <Cells style={{marginTop: 0}}>
             {upUser ? (
-              <Cell access={true} onClick={() => {console.log('xxx')}}>
+              <Cell access={true} onClick={() => {
+                let {history} = this.props
+                history.push('/nearfriend')
+              }}>
                 <CellBody>
                   亲密好友
                 </CellBody>
@@ -144,14 +147,14 @@ class PromoterPerformance extends React.PureComponent {
                 </CellFooter>
               </Cell>
             ) : null}
-            <Cell access={true}>
-              <CellBody>
-                邀请的店铺
-              </CellBody>
-              <CellFooter>
-                {promoter.inviteShopNum}家
-              </CellFooter>
-            </Cell>
+            {/*<Cell access={true}>*/}
+              {/*<CellBody>*/}
+                {/*邀请的店铺*/}
+              {/*</CellBody>*/}
+              {/*<CellFooter>*/}
+                {/*{promoter.inviteShopNum}家*/}
+              {/*</CellFooter>*/}
+            {/*</Cell>*/}
           </Cells>
         </div>
 
