@@ -1,6 +1,6 @@
 // We only need to import the modules necessary for initial render
 import React from 'react'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import AuthRoute from './AuthRoute'
 import Home from './Home'
 import PromoterPerformance from './Promoter'
@@ -15,7 +15,7 @@ const rootRoutes = (
     <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/error" component={ErrorPage} />
     <Route path="/loading" component={LoadingPage}/>
-    <AuthRoute path="/" component={Home}/>
+    <Route path="/" component={Home}/>
     <Route component={NoMatch}/>
   </Switch>
 )
