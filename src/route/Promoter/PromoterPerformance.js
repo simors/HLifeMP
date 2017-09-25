@@ -78,7 +78,7 @@ class PromoterPerformance extends React.PureComponent {
       return <div>正在加载邻友信息……</div>
     }
     return (
-      <Page transition={true} infiniteLoader={false} ptr={false}>
+      <Page ptr={false}>
         <div className={styles.performanceHeader}>
           <div className={styles.userLevel}>
             <PromoterLevelIcon level={promoter.level}/>
