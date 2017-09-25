@@ -4,6 +4,10 @@
 import React from 'react'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
 
-const Home = () => (<div>邻家优点微信公众号主页</div>)
+const Home = () => (
+  <div>
+    <Link to="/promoter">邻友圈</Link>
+  </div>
+)
 
 export default Home
