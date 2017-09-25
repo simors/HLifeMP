@@ -95,7 +95,7 @@ class PromoterPerformance extends React.PureComponent {
           <div className={styles.headerText}>推广总收益</div>
           <div className={styles.headerEarn}>¥{Number(promoter.shopEarnings + promoter.royaltyEarnings).toFixed(2)}</div>
         </div>
-        <CellsTitle>我的邻友 | {math.chain(promoter.teamMemNum).add(promoter.level2Num).add(promoter.level3Num).done()}人</CellsTitle>
+        <CellsTitle>我的邻友</CellsTitle>
         <Cells>
           <Cell access={true} onClick={() => this.friendCellClick(1)}>
             <CellHeader>
@@ -105,7 +105,7 @@ class PromoterPerformance extends React.PureComponent {
               好友
             </CellBody>
             <CellFooter>
-              {promoter.teamMemNum}
+              {/*{promoter.teamMemNum}*/}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(2)}>
@@ -116,7 +116,7 @@ class PromoterPerformance extends React.PureComponent {
               熟人
             </CellBody>
             <CellFooter>
-              {promoter.level2Num}
+              {/*{promoter.level2Num}*/}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(3)}>
@@ -127,7 +127,7 @@ class PromoterPerformance extends React.PureComponent {
               人脉
             </CellBody>
             <CellFooter>
-              {promoter.level3Num}
+              {/*{promoter.level3Num}*/}
             </CellFooter>
           </Cell>
         </Cells>
