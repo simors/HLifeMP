@@ -87,7 +87,7 @@ class PromoterPerformance extends React.PureComponent {
       return <div>正在加载邻友信息……</div>
     }
     return (
-      <Page ptr={false}>
+      <div>
         <div className={styles.performanceHeader}>
           <div className={styles.userLevel}>
             <PromoterLevelIcon level={promoter.level}/>
@@ -156,7 +156,7 @@ class PromoterPerformance extends React.PureComponent {
         </div>
 
         <Toptips type="warn" show={this.state.showWarn}> 数据未能完全加载 </Toptips>
-      </Page>
+      </div>
     )
   }
 }
