@@ -28,7 +28,7 @@ const BACKEND_DOMAIN_PRO = "http://share.xiaojee.cn"
 var CLIENT_DOMAIN = ''
 const CLIENT_DOMAIN_DEV = 'http://dev.mp.ngrok.io'
 const CLIENT_DOMAIN_STAGE = 'http://dev.xiaojee.cn:6300'
-const CLIENT_DOMAIN_PRO = ''
+const CLIENT_DOMAIN_PRO = 'http://admin.xiaojee.cn:6300'
 
 if(__DEV__) {          //开发环境
   LC_APP_ID = LC_DEV_APP_ID
