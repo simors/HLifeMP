@@ -10,7 +10,6 @@
     "build-stage": "npm run clean && cross-env NODE_ENV=stage npm run compile",
     "start": "cross-env NODE_ENV=development node build/scripts/start",
     "start-stage": "cross-env NODE_ENV=stage node build/scripts/start",
-    "start-prod": "cross-env NODE_ENV=production node build/scripts/start",
     "test": "cross-env NODE_ENV=test karma start build/karma.config",
     "test:watch": "npm test -- --watch",
     "lint": "eslint .",
