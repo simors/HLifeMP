@@ -21,6 +21,7 @@ const {
 class MyNearFriend extends React.PureComponent {
   constructor(props) {
     super(props)
+    document.title = "我的密友"
   }
 
   render() {
