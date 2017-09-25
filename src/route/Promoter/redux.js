@@ -10,7 +10,7 @@ import {authSelector, authSagaFunc} from '../../util/auth'
 
 /****  Model  ****/
 
-export const PromoterRecord = Record({
+const PromoterRecord = Record({
   id: undefined,
   userId: undefined,              // 对应的用户id
   phone: undefined,               // 联系手机号码
@@ -36,7 +36,7 @@ export const PromoterRecord = Record({
   level3Num: undefined,
 }, 'PromoterRecord')
 
-export class PromoterInfo extends PromoterRecord {
+class PromoterInfo extends PromoterRecord {
   static fromLeancloudObject(lcObj) {
     let promoter = new PromoterInfo()
     promoter = promoter.withMutations((record) => {
@@ -68,7 +68,7 @@ export class PromoterInfo extends PromoterRecord {
   }
 }
 
-export const Promoter = Record({
+const Promoter = Record({
   activePromoter: undefined,        // 当前推广员id
   upPromoterId: undefined,          // 记录当前推广员的上级推广员id
   userToPromoter: Map(),            // 记录用户id与推广员id的对应关系

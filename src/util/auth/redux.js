@@ -10,7 +10,7 @@ import * as authCloud from './cloud'
 
 /****  Model  ****/
 
-export const UserInfoRecord = Record({
+const UserInfoRecord = Record({
   id: undefined,
   phone: undefined,
   token: undefined,
@@ -45,7 +45,7 @@ export const UserInfoRecord = Record({
   openid: undefined,         //公众号对应的微信openid
 }, 'UserInfoRecord')
 
-export const UserStateRecord = Record({
+const UserStateRecord = Record({
   activeUser: undefined,      // 已登录用户ID
   profiles: Map(),            // 用户个人信息列表，已用户id作为健值
   token: undefined,
@@ -57,7 +57,7 @@ export const UserStateRecord = Record({
   points: Map(),          // 用户积分
 }, 'UserStateRecord')
 
-export class UserInfo extends UserInfoRecord {
+class UserInfo extends UserInfoRecord {
   static fromLeancloudObject(lcObj, type) {
     let attrs = lcObj.attributes
     if(type) {
@@ -139,7 +139,7 @@ export class UserInfo extends UserInfoRecord {
 
 }
 
-export class UserState extends UserStateRecord {
+class UserState extends UserStateRecord {
   getUserInfoById(userId) {
     const userInfo = this.profiles.get(userId)
     return userInfo ? userInfo : new UserInfo()
