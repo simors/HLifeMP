@@ -32,7 +32,7 @@ const config = {
       inProject(project.srcDir),
       'node_modules',
     ],
-    extensions: ['*', '.js', '.jsx', '.json'],
+    extensions: ['*', '.web.js', '.web.jsx', '.js', '.jsx', '.json'],
   },
   externals: project.externals,
   module: {
@@ -75,7 +75,7 @@ config.module.rules.push({
             useBuiltIns: true // we polyfill Object.assign in src/normalize.js
           },
         ],
-        ['import', { libraryName: 'antd', style: 'css' }],
+        ['import', { libraryName: 'antd-mobile', style: true }],
       ],
       presets: [
         'babel-preset-react',
@@ -180,6 +180,48 @@ config.module.rules.push({
     ],
   })
 })
+
+// less style
+config.module.rules.push({
+  test: /\.less$/,
+  loader: extractStyles.extract({
+    fallback: 'style-loader',
+    use: [
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: project.sourcemaps,
+          minimize: {
+            autoprefixer: {
+              add: true,
+              remove: true,
+              browsers: ['last 2 versions'],
+            },
+            discardComments: {
+              removeAll : true,
+            },
+            discardUnused: false,
+            mergeIdents: false,
+            reduceIdents: false,
+            safe: true,
+            sourcemap: project.sourcemaps,
+          },
+        },
+      },
+      {
+        loader: 'less-loader',
+        options: {
+          sourceMap: project.sourcemaps,
+          includePaths: [
+            inProjectSrc('styles'),
+          ],
+          modifyVars: { "@primary-color": "#1DA57A" },
+        },
+      }
+    ],
+  })
+})
+
 config.plugins.push(extractStyles)
 
 // Images
@@ -190,6 +232,19 @@ config.module.rules.push({
   options : {
     limit : 8192,
   },
+})
+
+// SVG
+// ------------------------------------
+const svgDirs = [
+  require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+  //path.resolve(project.basePath, 'src/asset/svg'),  // 2. 自己私人的 svg 存放目录
+];
+
+config.module.rules.push({
+  test    : /\.(svg)$/i,
+  loader  : 'svg-sprite-loader',
+  include : svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
 })
 
 // Fonts
