@@ -19,6 +19,9 @@ class GoodsShare extends React.PureComponent {
   }
 
   componentDidMount() {
+    let {match} = this.props
+    let {goodsId} = match.params
+    console.log('goodsId', goodsId)
     // simulate img loading
     setTimeout(() => {
       this.setState({

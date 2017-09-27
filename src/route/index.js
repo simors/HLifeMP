@@ -2,11 +2,12 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 import AuthRoute from './AuthRoute'
+import ShareAuthRoute from './ShareAuthRoute'
 import Home from './Home'
 import PromoterPerformance from './Promoter'
 import PromoterFriends from './Promoter/PromoterFriends'
 import MyNearFriend from './Promoter/MyNearFriend'
-import GoodsShare from './Shop/GoodsShare'
+import GoodsShare from './Share/GoodsShare'
 import NoMatch from './NoMatch'
 import ErrorPage from './Error'
 import LoadingPage from './Loading'
@@ -16,7 +17,7 @@ const rootRoutes = (
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
     <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/nearfriend" component={MyNearFriend}/>
-    <Route path="/goodsShare" component={GoodsShare}/>
+    <ShareAuthRoute path="/shareGoods/:goodsId" component={GoodsShare}/>
     <Route path="/error" component={ErrorPage} />
     <Route path="/loading" component={LoadingPage}/>
     <Route path="/" component={Home}/>

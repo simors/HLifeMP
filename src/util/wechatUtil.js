@@ -54,11 +54,27 @@ export function wechatOauth(nextPath) {
     }
   }
   if(!authData) {
-    let nextPathname = appConfig.CLIENT_DOMAIN + nextPath.pathname
+    let nextPathname = nextPath.pathname
     let redirectUrl = getAuthorizeURL(redirectUri, nextPathname, 'snsapi_userinfo')
     document.location = redirectUrl
   } else {
     store.dispatch(authAction.loginWithAuthData(authData))
   }
   return null
+}
+
+export function shareOauth(nextPath) {
+  let redirectUri = appConfig.BACKEND_DOMAIN + '/wxOauth/shareAuth'
+  let urlObj = URL.parse(document.location.href)
+  let {userId, unionid} = querystring.parse(urlObj.query)
+  let nextPathname = nextPath.pathname
+  // state最多只能有128字节
+  let state = {
+    userId,
+    nextUri: nextPathname,
+  }
+  if (!unionid) {
+    let redirectUrl = getAuthorizeURL(redirectUri, JSON.stringify(state), 'snsapi_base')
+    document.location = redirectUrl
+  }
 }
