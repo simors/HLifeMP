@@ -76,5 +76,7 @@ export function shareOauth(nextPath) {
   if (!unionid) {
     let redirectUrl = getAuthorizeURL(redirectUri, JSON.stringify(state), 'snsapi_base')
     document.location = redirectUrl
+    return false
   }
+  return true
 }

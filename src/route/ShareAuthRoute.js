@@ -7,12 +7,14 @@ import {shareOauth} from '../util/wechatUtil'
 
 const ShareAuthRoute = ({ component: Component, ...rest }) => {
   let {location} = rest
-  shareOauth(location)
-  return (
-    <Route {...rest} render={props => (
-      <Component {...props}/>
-    )}/>
-  )
+  if (shareOauth(location)) {
+    return (
+      <Route {...rest} render={props => (
+        <Component {...props}/>
+      )}/>
+    )
+  }
+  return <Route render={() => <div>正在加载...</div>}/>
 }
 
 export default ShareAuthRoute
