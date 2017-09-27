@@ -60,6 +60,7 @@ class GoodsShare extends React.PureComponent {
             </a>
           ))}
         </Carousel>
+        <div>店铺商品</div>
       </div>
     )
   }
