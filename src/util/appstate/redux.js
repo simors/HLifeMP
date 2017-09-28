@@ -7,14 +7,28 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 /****  Model  ****/
 
+const LocationRecord = Record({
+  latitude: undefined,
+  longitude: undefined,
+  address: undefined,
+  country: undefined,
+  province: undefined,
+  city: undefined,
+  district: undefined,
+  street: undefined,
+  streetNumber: undefined,
+}, 'LocationRecord')
+
 const AppState = Record({
   isRehydrated: undefined,     // 是否已完成持久化数据恢复
+  location: undefined,
 }, 'AppState')
 
 /**** Constant ****/
 
 const UPDATE_REHYDRATE = 'UPDATE_REHYDRATE'
 const UPDATE_REHYDRATE_SUCCESS = 'UPDATE_REHYDRATE_SUCCESS'
+const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION'
 
 /**** Action ****/
 
@@ -51,6 +65,8 @@ export function appStateReducer(state = initialState, action) {
   switch(action.type) {
     case UPDATE_REHYDRATE_SUCCESS:
       return handleUpdateAppRehydrate(state, action)
+    case UPDATE_GEO_LOCATION:
+      return handleUpdateGeolocation(state, action)
     default:
       return state
   }
@@ -61,6 +77,23 @@ function handleUpdateAppRehydrate(state, action) {
   return state
 }
 
+function handleUpdateGeolocation(state, action) {
+  let position = action.payload.position
+  let location = new LocationRecord({
+    latitude: position.latitude,
+    longitude: position.longitude,
+    address: position.address,
+    country: position.country,
+    province: position.province,
+    city: position.city,
+    district: position.district,
+    street: position.street,
+    streetNumber: position.streetNumber,
+  })
+  state = state.set('location', location)
+  return state
+}
+
 /**** Selector ****/
 
 function selectAppState(state) {
@@ -68,6 +101,25 @@ function selectAppState(state) {
   return appState.toJS()
 }
 
+function getLocation(state) {
+  let location = state.APPSTATE.location
+  if (location) {
+    return location.toJS()
+  }
+  return {}
+}
+
+function getGeopoint(state) {
+  let location = state.APPSTATE.location
+  if (location) {
+    let locJs = location.toJS()
+    return {latitude: locJs.latitude, longitude: locJs.longitude}
+  }
+  return {latitude: 0, longitude: 0}
+}
+
 export const appStateSelector = {
   selectAppState,
+  getLocation,
+  getGeopoint,
 }
