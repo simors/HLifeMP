@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
+import {shopAction, shopSelector} from '../Shop'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -21,7 +22,7 @@ class GoodsShare extends React.PureComponent {
   componentDidMount() {
     let {match} = this.props
     let {goodsId} = match.params
-    console.log('goodsId', goodsId)
+    this.props.getShopGoodsDetail({goodsId})
     // simulate img loading
     setTimeout(() => {
       this.setState({
@@ -72,6 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  ...shopAction,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GoodsShare))

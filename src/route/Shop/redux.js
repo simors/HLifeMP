@@ -7,9 +7,9 @@ import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as shopCloud from './cloud'
-import {formatLeancloudTime} from '../../util/datetime'
 import {appStateSelector} from '../../util/appstate'
 import {store} from '../../store/persistStore'
+import {authSagaFunc} from '../../util/auth'
 
 /****  Model  ****/
 
@@ -58,7 +58,7 @@ const ShopCategoryRecord = Record({
 class ShopCategory extends ShopCategoryRecord {
   static fromJsonApi(lcObj) {
     try {
-      let shopTag = new ShopTagRecord()
+      let shopTag = new ShopCategoryRecord()
       return shopTag.withMutations((record) => {
         record.set('id', lcObj.id)
         record.set('imageSource', lcObj.imageSource)
@@ -210,7 +210,7 @@ const ShopPromotionRecord = Record({
 class ShopPromotion extends ShopPromotionRecord {
   static fromJsonApi(lcObj) {
     try {
-      let shopTag = new ShopTagRecord()
+      let shopTag = new ShopPromotionRecord()
       return shopTag.withMutations((record) => {
         record.set('id', lcObj.id)
         record.set('promotionPrice', lcObj.promotionPrice)
@@ -273,11 +273,14 @@ const Shop = Record({
   shopCategorySet: Map(),
   shopDetails: Map(),
   shopGoodsDetail: Map(),   // 店铺商品详细，键为商品id，值为店铺详细信息
+  shopPromotion: Map(),
 }, 'Shop')
 
 /**** Constant ****/
 
 const GET_SHOP_GOODS_DETAIL = 'GET_SHOP_GOODS_DETAIL'
+const UPDATE_SHOP_GOODS = 'UPDATE_SHOP_GOODS'
+const UPDATE_SHOP_DETAIL = 'UPDATE_SHOP_DETAIL'
 
 /**** Action ****/
 
@@ -285,14 +288,37 @@ export const shopAction = {
   getShopGoodsDetail: createAction(GET_SHOP_GOODS_DETAIL)
 }
 
+const updateShopGoods = createAction(UPDATE_SHOP_GOODS)
+const updateShopDetail = createAction(UPDATE_SHOP_DETAIL)
+
 /**** Saga ****/
 
-function* shopGoodsDetaiSaga(action) {
-
+function* shopGoodsDetailSaga(action) {
+  let payload = action.payload
+  try {
+    let result = yield call(shopCloud.fetchShopGoodsDetail, payload)
+    console.log('result', result)
+    if (result.errcode) {
+      if (payload.error) {
+        payload.error(result.message)
+      }
+    }
+    let goods = result.goods
+    let targetShop = goods.targetShop
+    let owner = targetShop.owner
+    let inviter = targetShop.inviter
+    yield authSagaFunc.addUserProfileSaga({user: owner})
+    yield authSagaFunc.addUserProfileSaga({user: inviter})
+    yield put(updateShopGoods({goods}))
+  } catch (error) {
+    if (payload.error) {
+      payload.error('获取店铺商品失败')
+    }
+  }
 }
 
-export const shopSaga =[
-  takeLatest(GET_SHOP_GOODS_DETAIL, shopGoodsDetaiSaga),
+export const shopSaga = [
+  takeLatest(GET_SHOP_GOODS_DETAIL, shopGoodsDetailSaga),
 ]
 
 /**** Reducer ****/
@@ -301,11 +327,72 @@ const initialState = Shop()
 
 export function shopReducer(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_SHOP_DETAIL:
+      return updateShopDetailReducer(state, action)
+    case UPDATE_SHOP_GOODS:
+      return updateGoodsReducer(state, action)
     case REHYDRATE:
       return onRehydrate(state, action)
     default:
       return state
   }
+}
+
+function saveShopTagReducer(state, tags) {
+  if (!tags) {
+    return state
+  }
+  tags.forEach((tag) => {
+    let tagRecord = ShopTag.fromJsonApi(tag)
+    state = state.setIn(['shopTagSet', tag.id], tagRecord)
+  })
+  return state
+}
+
+function saveShopCategoryReducer(state, category) {
+  if (!category) {
+    return state
+  }
+  let shopCategory = ShopCategory.fromJsonApi(category)
+  state = state.setIn(['shopCategorySet', category.id], shopCategory)
+  return state
+}
+
+function saveShopInfoReducer(state, shopInfo) {
+  if (!shopInfo) {
+    return state
+  }
+  state = saveShopTagReducer(state, shopInfo.containedTag)
+  state = saveShopCategoryReducer(state, shopInfo.targetShopCategory)
+  let shopId = shopInfo.id
+  let shopRecord = ShopInfo.fromJsonApi(shopInfo)
+  state = state.setIn(['shopDetails', shopId], shopRecord)
+  return state
+}
+
+function savePromotionReducer(state, promotion) {
+  if (!promotion) {
+    return state
+  }
+  let promotionRecord = ShopPromotion.fromJsonApi(promotion)
+  state = state.setIn(['shopPromotion', promotion.id], promotionRecord)
+  return state
+}
+
+function updateShopDetailReducer(state, action) {
+  let shopInfo = action.payload.shopInfo
+  state = saveShopInfoReducer(state, shopInfo)
+  return state
+}
+
+function updateGoodsReducer(state, action) {
+  let goods = action.payload.goods
+  let goodsId = goods.id
+  state = saveShopInfoReducer(state, goods.targetShop)
+  state = savePromotionReducer(state, goods.goodsPromotion)
+  let goodsRecord = ShopGoods.fronJsonApi(goods)
+  state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
+  return state
 }
 
 function onRehydrate(state, action) {

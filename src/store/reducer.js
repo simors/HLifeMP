@@ -3,12 +3,14 @@ import { routerReducer} from 'react-router-redux'
 import {authReducer} from '../util/auth'
 import {appStateReducer} from '../util/appstate'
 import {promoterReducer} from '../route/Promoter'
+import {shopReducer} from '../route/Shop'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     APPSTATE: appStateReducer,
     AUTH: authReducer,
     PROMOTER: promoterReducer,
+    SHOP: shopReducer,
     router: routerReducer,
     ...asyncReducers
   })

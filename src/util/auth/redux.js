@@ -336,6 +336,9 @@ function handleShopCertificationSuccess(state, action) {
 
 function handleAddUserProfile(state, action) {
   let userInfo = action.payload.userInfo
+  if (!userInfo) {
+    return state
+  }
   state = state.setIn(['profiles', userInfo.id], userInfo)
   return state
 }
@@ -343,7 +346,9 @@ function handleAddUserProfile(state, action) {
 function handleAddUserProfiles(state, action) {
   let userProfiles = action.payload.userProfiles
   userProfiles.forEach((userInfo) => {
-    state = state.setIn(['profiles', userInfo.id], userInfo)
+    if (userInfo) {
+      state = state.setIn(['profiles', userInfo.id], userInfo)
+    }
   })
   return state
 }
