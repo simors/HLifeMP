@@ -20,3 +20,36 @@
   font-size: .28rem;
   padding: 30px 0 18px 0;
 }
+
+.priceBar {
+  display: flex;
+  padding: 0 0 0 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 3.44rem;
+  background-image: linear-gradient(-154deg, #FF9D4E 0%, #FF8A33 44%, #FF7819 94%);
+
+  .price {
+    font-size: 2.5rem;
+    color: #fff;
+  }
+
+  .originalPrice {
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: line-through;
+  }
+
+  .promotionType {
+    height: 100%;
+    width: 6.8rem;
+    background-color: #F3F800;
+    font-style: 1.2rem;
+    color: #ff7819;
+    line-height: 3.44rem;
+    text-align: center;
+    padding-left: 2rem;
+    -webkit-clip-path: polygon(0 3.44rem, 6.8rem 3.44rem, 6.8rem 0, 2rem 0, 0 3.44rem);
+  }
+}

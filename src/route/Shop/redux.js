@@ -249,7 +249,7 @@ const ShopGoodsRecord = Record({
 })
 
 class ShopGoods extends ShopGoodsRecord {
-  static fronJsonApi(lcObj) {
+  static fromJsonApi(lcObj) {
     let shopGoods = new ShopGoods()
     return shopGoods.withMutations((record) => {
       record.set('id', lcObj.id)
@@ -389,7 +389,7 @@ function updateGoodsReducer(state, action) {
   let goodsId = goods.id
   state = saveShopInfoReducer(state, goods.targetShop)
   state = savePromotionReducer(state, goods.goodsPromotion)
-  let goodsRecord = ShopGoods.fronJsonApi(goods)
+  let goodsRecord = ShopGoods.fromJsonApi(goods)
   state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
   return state
 }

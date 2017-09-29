@@ -49,6 +49,34 @@ class GoodsShare extends React.PureComponent {
     )
   }
 
+  renderPriceBar() {
+    let {shopGoods, shopPromotion} = this.props
+    if (!shopGoods) {
+      return null
+    }
+    if (!shopPromotion) {
+      return (
+        <div className={styles.priceBar}>
+          <div>
+            <span className={styles.price} style={{paddingRight: 8}}>¥{shopGoods.price}</span>
+            <span className={styles.originalPrice}>¥{shopGoods.originalPrice}</span>
+          </div>
+        </div>
+      )
+    }
+    return (
+      <div className={styles.priceBar}>
+        <div>
+          <span className={styles.price} style={{paddingRight: 8}}>¥{shopGoods.price}</span>
+          <span className={styles.originalPrice}>¥{shopGoods.originalPrice}</span>
+        </div>
+        <div className={styles.promotionType}>
+          {shopPromotion.type}
+        </div>
+      </div>
+    )
+  }
+
   render() {
     let {shopGoods} = this.props
     if (!shopGoods) {
@@ -57,6 +85,7 @@ class GoodsShare extends React.PureComponent {
     return (
       <div>
         {this.renderHeaderAlbum()}
+        {this.renderPriceBar()}
         <WingBlank size="sm">
           <div>店铺商品</div>
         </WingBlank>
