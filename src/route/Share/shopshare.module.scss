@@ -53,3 +53,62 @@
     -webkit-clip-path: polygon(0 3.44rem, 6.8rem 3.44rem, 6.8rem 0, 2rem 0, 0 3.44rem);
   }
 }
+
+.goodsName {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.56rem;
+  padding: 0.3rem 0;
+}
+
+.promotionView {
+  background-image: url("../../asset/svg/activitiy_bac.svg");
+  width: 4.38rem;
+  height: 1.38rem;
+  font-size: 0.94rem;
+  color: #FFF;
+  text-align: center;
+  line-height: 1.38rem;
+  padding: 0.1rem 0.5rem;
+  margin-right: 1rem;
+}
+
+.promotionAbstract {
+  font-size: 0.94rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.shopInfoView {
+  width: 100%;
+  height: 1.75rem;
+  border: solid 1px #F5F5F5;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.5rem;
+  margin-top: 0.3rem;
+  
+  .shopName {
+    font-size: 0.75rem;
+    color: #8F8E94;
+  }
+
+  .enterShop {
+    width: 7rem;
+    height: 100%;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.94rem;
+    color: #ff7819;
+  }
+}

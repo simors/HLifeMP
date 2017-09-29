@@ -59,6 +59,7 @@ var appConfig = {
   WECHAT_MP_APPID: WECHAT_MP_APPID,
   BACKEND_DOMAIN: BACKEND_DOMAIN,
   CLIENT_DOMAIN: CLIENT_DOMAIN,
+  APP_DOWNLOAD_URL: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.hlife',
 }
 
 module.exports = appConfig

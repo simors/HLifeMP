@@ -7,6 +7,7 @@ import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
+import * as appConfig from '../../util/appConfig'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -77,9 +78,26 @@ class GoodsShare extends React.PureComponent {
     )
   }
 
+  renderPromotionAbstract() {
+    let {shopPromotion} = this.props
+    if (!shopPromotion) {
+      return null
+    }
+    return (
+      <div>
+        <span className={styles.promotionView}>
+          {shopPromotion.type}
+        </span>
+        <span className={styles.promotionAbstract}>
+          {shopPromotion.abstract}
+        </span>
+      </div>
+    )
+  }
+
   render() {
-    let {shopGoods} = this.props
-    if (!shopGoods) {
+    let {shopGoods, shopDetail} = this.props
+    if (!shopGoods || !shopDetail) {
       return <div>正在加载...</div>
     }
     return (
@@ -87,8 +105,15 @@ class GoodsShare extends React.PureComponent {
         {this.renderHeaderAlbum()}
         {this.renderPriceBar()}
         <WingBlank size="sm">
-          <div>店铺商品</div>
+          <div className={styles.goodsName}>{shopGoods.goodsName}</div>
+          {this.renderPromotionAbstract()}
         </WingBlank>
+        <div className={styles.shopInfoView}>
+          <div className={styles.shopName}>{shopDetail.shopName}</div>
+          <div className={styles.enterShop} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
+            <span>进入店铺</span>
+          </div>
+        </div>
       </div>
     )
   }
