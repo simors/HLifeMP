@@ -102,6 +102,25 @@ class GoodsShare extends React.PureComponent {
     )
   }
 
+  renderToolbar() {
+    return (
+      <div className={styles.toolbar}>
+        <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
+          <div>
+            <img src={require('../../asset/svg/service.svg')} />
+          </div>
+          <div>联系卖家</div>
+        </div>
+        <div className={styles.purchaseBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
+          <span>
+            <img src={require('../../asset/svg/purchase_24.svg')} />
+          </span>
+          <span>立即购买</span>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     let {shopGoods, shopDetail} = this.props
     if (!shopGoods || !shopDetail) {
@@ -125,6 +144,7 @@ class GoodsShare extends React.PureComponent {
           <ArticleViewer artlcleContent={JSON.parse(shopGoods.detail)} />
         </WingBlank>
         <div style={{height: 100}}/>
+        {this.renderToolbar()}
       </div>
     )
   }

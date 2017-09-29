@@ -112,3 +112,32 @@
     color: #ff7819;
   }
 }
+
+.toolbar {
+  width: 100%;
+  height: 3.06rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(250, 250, 250, 0.9);
+  position: fixed;
+  bottom: 44px;
+
+  .contactBtn {
+    margin-left: 3rem;
+    font-size: 0.625rem;
+    color: #aaaaaa;
+    text-align: center;
+  }
+
+  .purchaseBtn {
+    width: 8.44rem;
+    height: 100%;
+    background-color: #ff7819;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.94rem;
+    color: #fff;
+  }
+}
