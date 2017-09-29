@@ -14,61 +14,74 @@ class GoodsShare extends React.PureComponent {
     document.title = "店铺商品"
   }
 
-  state = {
-    data: ['', '', ''],
-    initialHeight: 200,
-  }
-
   componentDidMount() {
     let {match} = this.props
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
-    // simulate img loading
-    setTimeout(() => {
-      this.setState({
-        data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
-      });
-    }, 100);
   }
 
-  render() {
+  renderHeaderAlbum() {
+    let {shopGoods} = this.props
+    if (!shopGoods) {
+      return null
+    }
+
     return (
       <div>
         <Carousel
           className={styles.carousel}
           autoplay={true}
           infinite
-          selectedIndex={1}
+          selectedIndex={0}
           swipeSpeed={35}
-          beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-          afterChange={index => console.log('slide to', index)}
           dotStyle={{width: 8, height: 8}}
           dotActiveStyle={{width: 8, height: 8}}
         >
-          {this.state.data.map(ii => (
-            <a href="http://www.baidu.com" key={ii}>
-              <img
-                src={`https://zos.alipayobjects.com/rmsportal/${ii || 'QcWDkUhvYIVEcvtosxMF'}.png`}
-                alt="icon"
-                onLoad={() => {
-                  // fire window resize event to change height
-                  window.dispatchEvent(new Event('resize'));
-                  this.setState({
-                    initialHeight: null,
-                  });
-                }}
-              />
-            </a>
-          ))}
+          {
+            shopGoods.album.map((photo, index) => {
+              return (
+                <img key={index} src={photo} />
+              )
+            })
+          }
         </Carousel>
-        <div>店铺商品</div>
+      </div>
+    )
+  }
+
+  render() {
+    let {shopGoods} = this.props
+    if (!shopGoods) {
+      return <div>正在加载...</div>
+    }
+    return (
+      <div>
+        {this.renderHeaderAlbum()}
+        <WingBlank size="sm">
+          <div>店铺商品</div>
+        </WingBlank>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let shopDetail = undefined
+  let shopPromotion = undefined
+    let {match} = ownProps
+  let {goodsId} = match.params
+  let shopGoods = shopSelector.selectShopGoodsDetail(state, goodsId)
+  console.log('shopGoods:', shopGoods)
+  if (shopGoods) {
+    shopDetail = shopSelector.selectShopDetail(state, shopGoods.targetShopId)
+    console.log('shopDetail:', shopDetail)
+    shopPromotion = shopSelector.selectShopPromotion(state, shopGoods.goodsPromotionId)
+    console.log('shopPromotion', shopPromotion)
+  }
   return {
+    shopGoods,
+    shopDetail,
+    shopPromotion,
   }
 }
 

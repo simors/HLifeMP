@@ -9,7 +9,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as shopCloud from './cloud'
 import {appStateSelector} from '../../util/appstate'
 import {store} from '../../store/persistStore'
-import {authSagaFunc} from '../../util/auth'
+import {authSagaFunc, authSelector} from '../../util/auth'
 
 /****  Model  ****/
 
@@ -410,6 +410,60 @@ function selectShopGoodsDetail(state, goodsId) {
   return undefined
 }
 
+function selectShopCategory(state, categoryId) {
+  let categoryRec = state.SHOP.getIn(['shopCategorySet', categoryId])
+  if (!categoryRec) {
+    return undefined
+  }
+  let category = categoryRec.toJS()
+  return category
+}
+
+function selectShopTag(state, tagId) {
+  let tagRec = state.SHOP.getIn(['shopTagSet', tagId])
+  if (!tagRec) {
+    return undefined
+  }
+  return tagRec.toJS()
+}
+
+function selectShopDetail(state, shopId) {
+  let shopDetailRec = state.SHOP.getIn(['shopDetails', shopId])
+  if (!shopDetailRec) {
+    return undefined
+  }
+  let shopDetail = shopDetailRec.toJS()
+  console.log('in', shopDetail)
+  let categoryId = shopDetail.targetShopCategoryId
+  shopDetail.targetShopCategory = selectShopCategory(state, categoryId)
+  let tags = shopDetail.containedTag
+  let containedTag = []
+  tags.forEach((tagId) => {
+    let shopTag = selectShopTag(state, tagId)
+    containedTag.push(shopTag)
+  })
+  shopDetail.containedTag = containedTag
+  let owner = authSelector.userInfoById(state, shopDetail.ownerId)
+  if (owner) {
+    shopDetail.owner = owner.toJS()
+  }
+  let inviter = authSelector.userInfoById(state, shopDetail.inviterId)
+  if (inviter) {
+    shopDetail.inviter = inviter.toJS()
+  }
+  return shopDetail
+}
+
+function selectShopPromotion(state, promotionId) {
+  let promotionRec = state.SHOP.getIn(['shopPromotion', promotionId])
+  if (!promotionRec) {
+    return undefined
+  }
+  return promotionRec.toJS()
+}
+
 export const shopSelector = {
   selectShopGoodsDetail,
+  selectShopDetail,
+  selectShopPromotion,
 }
