@@ -8,6 +8,7 @@ import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
 import * as appConfig from '../../util/appConfig'
+import ArticleViewer from '../../component/article'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -27,6 +28,12 @@ class GoodsShare extends React.PureComponent {
       return null
     }
 
+    if (shopGoods.album.length == 1) {
+      return (
+        <img src={shopGoods.album[0]} width="100%" />
+      )
+    }
+
     return (
       <div>
         <Carousel
@@ -41,7 +48,7 @@ class GoodsShare extends React.PureComponent {
           {
             shopGoods.album.map((photo, index) => {
               return (
-                <img key={index} src={photo} />
+                <img key={index} src={photo} width="100%" />
               )
             })
           }
@@ -111,9 +118,13 @@ class GoodsShare extends React.PureComponent {
         <div className={styles.shopInfoView}>
           <div className={styles.shopName}>{shopDetail.shopName}</div>
           <div className={styles.enterShop} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
-            <span>进入店铺</span>
+            <span>进入店铺 >></span>
           </div>
         </div>
+        <WingBlank size="sm" style={{marginTop: 20}}>
+          <ArticleViewer artlcleContent={JSON.parse(shopGoods.detail)} />
+        </WingBlank>
+        <div style={{height: 100}}/>
       </div>
     )
   }
