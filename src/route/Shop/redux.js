@@ -297,7 +297,6 @@ function* shopGoodsDetailSaga(action) {
   let payload = action.payload
   try {
     let result = yield call(shopCloud.fetchShopGoodsDetail, payload)
-    console.log('result', result)
     if (result.errcode) {
       if (payload.error) {
         payload.error(result.message)
@@ -433,7 +432,6 @@ function selectShopDetail(state, shopId) {
     return undefined
   }
   let shopDetail = shopDetailRec.toJS()
-  console.log('in', shopDetail)
   let categoryId = shopDetail.targetShopCategoryId
   shopDetail.targetShopCategory = selectShopCategory(state, categoryId)
   let tags = shopDetail.containedTag
