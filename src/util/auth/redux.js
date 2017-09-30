@@ -243,7 +243,6 @@ function* addBatchUserProfileSaga(payload) {
 }
 
 export const authSagaFunc = {
-  autoLogin,
   addUserProfileSaga,
   addBatchUserProfileSaga,
 }
