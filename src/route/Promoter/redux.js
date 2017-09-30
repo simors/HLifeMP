@@ -6,7 +6,7 @@ import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
 import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects'
 import * as promoterCloud from './cloud'
-import {authSelector, authSagaFunc} from '../../util/auth'
+import {authSelector, authAction} from '../../util/auth'
 
 /****  Model  ****/
 
@@ -145,7 +145,7 @@ function* upPromoterSaga(action) {
     }
     let promoterId = result.promoter.objectId
     let promoter = PromoterInfo.fromLeancloudObject(result.promoter)
-    yield call(authSagaFunc.addUserProfileSaga, {user: result.user})
+    yield put(authAction.addUserProfile({userInfo: result.user}))
     yield put(updatePromoter({promoterId, promoter}))
     yield put(updateUpPromoter({upPromoterId: promoterId}))
     yield put(setUserPromoterMap({userId, promoterId}))
@@ -179,7 +179,7 @@ function* getPromoterFriendsSaga(action) {
     })
     yield put(updateBatchPromoter({promoters: friends}))
     yield put(setUserPromoterBatchMap({userIds, promoterIds}))
-    yield call(authSagaFunc.addBatchUserProfileSaga, {users})
+    yield put(authAction.addUserBatchProfile({userProfiles: users}))
     if (more) {
       yield put(addPromoterFriends({level, friends: promoterIds}))
     } else {

@@ -184,12 +184,12 @@ const UPDATE_USER_IDENTITY = 'UPDATE_USER_IDENTITY'
 export const authAction = {
   loginWithAuthData: createAction(LOGIN_WITH_AUTH_DATA),
   autoLogin: createAction(AUTO_LOGIN),
+  addUserProfile: createAction(ADD_USER_PROFILE),
+  addUserBatchProfile: createAction(ADD_USER_PROFILES),
 }
 
 const loginSuccess = createAction(LOGIN_SUCCESS)
 const logoutSuccess = createAction(LOGIN_OUT)
-const addUserProfile = createAction(ADD_USER_PROFILE)
-const addUserBatchProfile = createAction(ADD_USER_PROFILES)
 
 /**** Saga ****/
 
@@ -218,33 +218,6 @@ function* autoLogin(action) {
     console.log("自动登录失败：", error)
     yield put(logoutSuccess({}))
   }
-}
-
-function* addUserProfileSaga(payload) {
-  try {
-    let userInfo = UserInfo.fromLeancloudApi(payload.user)
-    yield put(addUserProfile({userInfo}))
-  } catch (error) {
-    console.log('add user profile error', error)
-  }
-}
-
-function* addBatchUserProfileSaga(payload) {
-  try {
-    let userProfiles = []
-    let users = payload.users
-    users.forEach((user) => {
-      userProfiles.push(UserInfo.fromLeancloudApi(user))
-    })
-    yield put(addUserBatchProfile({userProfiles}))
-  } catch (error) {
-    console.log('add batch user profiles error', error)
-  }
-}
-
-export const authSagaFunc = {
-  addUserProfileSaga,
-  addBatchUserProfileSaga,
 }
 
 export const authSaga = [
@@ -338,7 +311,8 @@ function handleAddUserProfile(state, action) {
   if (!userInfo) {
     return state
   }
-  state = state.setIn(['profiles', userInfo.id], userInfo)
+  let userInfoRec = UserInfo.fromLeancloudApi(userInfo)
+  state = state.setIn(['profiles', userInfo.id], userInfoRec)
   return state
 }
 
@@ -346,7 +320,8 @@ function handleAddUserProfiles(state, action) {
   let userProfiles = action.payload.userProfiles
   userProfiles.forEach((userInfo) => {
     if (userInfo) {
-      state = state.setIn(['profiles', userInfo.id], userInfo)
+      let userInfoRec = UserInfo.fromLeancloudApi(userInfo)
+      state = state.setIn(['profiles', userInfo.id], userInfoRec)
     }
   })
   return state

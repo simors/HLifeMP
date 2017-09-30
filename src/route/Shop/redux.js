@@ -9,7 +9,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as shopCloud from './cloud'
 import {appStateSelector} from '../../util/appstate'
 import {store} from '../../store/persistStore'
-import {authSagaFunc, authSelector} from '../../util/auth'
+import {authAction, authSelector} from '../../util/auth'
 
 /****  Model  ****/
 
@@ -306,8 +306,8 @@ function* shopGoodsDetailSaga(action) {
     let targetShop = goods.targetShop
     let owner = targetShop.owner
     let inviter = targetShop.inviter
-    yield authSagaFunc.addUserProfileSaga({user: owner})
-    yield authSagaFunc.addUserProfileSaga({user: inviter})
+    yield put(authAction.addUserProfile({userInfo: owner}))
+    yield put(authAction.addUserProfile({userInfo: inviter}))
     yield put(updateShopGoods({goods}))
   } catch (error) {
     if (payload.error) {
