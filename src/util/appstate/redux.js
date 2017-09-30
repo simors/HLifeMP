@@ -49,10 +49,6 @@ function* updateAppRehydrate(action) {
   }
 }
 
-export const appStateSagaFunc = {
-  updateAppRehydrate,
-}
-
 export const appStateSaga = [
   takeLatest(UPDATE_REHYDRATE, updateAppRehydrate),
 ]

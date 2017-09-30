@@ -5,7 +5,6 @@ import * as appStateRedux from './redux'
 
 /* export saga */
 export const appStateSaga = appStateRedux.appStateSaga
-export const appStateSagaFunc = appStateRedux.appStateSagaFunc
 
 /* export reducer */
 export const appStateReducer = appStateRedux.appStateReducer

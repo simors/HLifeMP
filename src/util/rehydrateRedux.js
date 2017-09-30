@@ -4,7 +4,7 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
 import {createAction} from 'redux-actions'
 import {authAction} from './auth'
-import {appStateSagaFunc} from './appstate'
+import {appStateAction} from './appstate'
 
 /**** Constant ****/
 
@@ -19,7 +19,7 @@ export const rehydrateDone = createAction(REHYDRATE_DONE)
 function* doneRehydrate(action) {
   let payload = action.payload
   yield put(authAction.autoLogin({token: payload.token}))
-  yield call(appStateSagaFunc.updateAppRehydrate, action)
+  yield put(appStateAction.updateRehydrate({rehydrated: payload.rehydrated}))
 }
 
 export const rehydrateSaga = [
