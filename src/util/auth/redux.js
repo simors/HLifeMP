@@ -49,12 +49,6 @@ const UserStateRecord = Record({
   activeUser: undefined,      // 已登录用户ID
   profiles: Map(),            // 用户个人信息列表，已用户id作为健值
   token: undefined,
-  followees: Map(),
-  followers: Map(),
-  followersTotalCount: Map(),
-  favoriteArticles: Map(),
-  shop: List(),
-  points: Map(),          // 用户积分
 }, 'UserStateRecord')
 
 class UserInfo extends UserInfoRecord {
@@ -121,22 +115,6 @@ class UserInfo extends UserInfoRecord {
     return info
   }
 
-  static fromShopFollowersLeancloudObject(lcObj) {
-    let attrs = lcObj.attributes
-    let info = new UserInfoRecord()
-    info = info.withMutations((record) => {
-      let fAttrs = lcObj.attributes.follower.attributes
-      record.set('id', lcObj.attributes.follower.id)
-      record.set('avatar',fAttrs.avatar)
-      record.set('phone', fAttrs.mobilePhoneNumber)
-      record.set('nickname', fAttrs.nickname)
-      record.set('gender', fAttrs.gender)
-      record.set('birthday', fAttrs.birthday)
-      record.set('identity', new List(fAttrs.identity))
-    })
-    return info
-  }
-
 }
 
 class UserState extends UserStateRecord {
@@ -153,30 +131,8 @@ const LOGIN_WITH_AUTH_DATA = 'LOGIN_WITH_AUTH_DATA'
 const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 const LOGIN_OUT = "LOGIN_OUT"
 const REGISTER_SUCCESS = "REGISTER_SUCCESS"
-const GET_SMS_CODE_SUCCESS = "GET_SMS_CODE_SUCCESS"
-const FORGOT_PASSWORD_SUCCESS = "FORGOT_PASSWORD_SUCCESS"
-
-const SHOP_CERTIFICATION_SUCCESS = "SHOP_CERTIFICATION_SUCCESS"
-const SHOP_RE_CERTIFICATION_SUCCESS = "SHOP_RE_CERTIFICATION_SUCCESS"
-const COMPLETE_SHOP_INFO_SUCCESS = "COMPLETE_SHOP_INFO_SUCCESS"
-const EDIT_SHOP_INFO_SUCCESS = "EDIT_SHOP_INFO_SUCCESS"
-const PUBLISH_ANNOUNCEMENT_SUCCESS = "PUBLISH_ANNOUNCEMENT_SUCCESS"
-const UPDATE_ANNOUNCEMENT_SUCCESS = "UPDATE_ANNOUNCEMENT_SUCCESS"
-const ADD_PERSONAL_IDENTITY = 'ADD_PERSONAL_IDENTITY'
-
 const ADD_USER_PROFILE = "ADD_USER_PROFILE"
 const ADD_USER_PROFILES = "ADD_USER_PROFILES"
-const FETCH_PERSONAL_INFO_SUCCESS = "FETCH_PERSONAL_INFO_SUCCESS"
-
-const FETCH_USER_FOLLOWERS_SUCCESS = 'FETCH_USER_FOLLOWERS_SUCCESS'
-const FETCH_USER_FOLLOWERS_PAGING_SUCCESS = 'FETCH_USER_FOLLOWERS_PAGING_SUCCESS'
-const FETCH_USER_FOLLOWERS_TOTAL_COUNT_SUCCESS = 'FETCH_USER_FOLLOWERS_TOTAL_COUNT_SUCCESS'
-const FETCH_USER_FOLLOWEES_SUCCESS = 'FETCH_USER_FOLLOWEES_SUCCESS'
-const FETCH_USER_FOLLOWEES_PAGING_SUCCESS = 'FETCH_USER_FOLLOWEES_PAGING_SUCCESS'
-const FETCH_USER_FAVORITEARTICLE_SUCCESS = 'FETCH_USER_FAVORITEARTICLE_SUCCESS'
-
-const UPDATE_USER_POINT = 'UPDATE_USER_POINT'
-
 const UPDATE_USER_IDENTITY = 'UPDATE_USER_IDENTITY'
 
 /**** Action ****/
@@ -237,28 +193,10 @@ export function authReducer(state = initialState, action) {
       return handleLoginSuccess(state, action)
     case LOGIN_OUT:
       return handleUserLogout(state, action)
-    case SHOP_CERTIFICATION_SUCCESS:
-      return handleShopCertificationSuccess(state, action)
     case ADD_USER_PROFILE:
       return handleAddUserProfile(state, action)
     case ADD_USER_PROFILES:
       return handleAddUserProfiles(state, action)
-    case FETCH_USER_FOLLOWERS_SUCCESS:
-      return handleFetchUserFollowersSuccess(state, action)
-    case FETCH_USER_FOLLOWERS_PAGING_SUCCESS:
-      return handleFetchUserFollowersPagingSuccess(state, action)
-    case FETCH_USER_FOLLOWERS_TOTAL_COUNT_SUCCESS:
-      return handleFetchUserFollowersTotalCountSuccess(state, action)
-    case FETCH_USER_FOLLOWEES_SUCCESS:
-      return handleFetchUserFolloweesSuccess(state, action)
-    case FETCH_USER_FOLLOWEES_PAGING_SUCCESS:
-      return handleFetchUserFolloweesPagingSuccess(state, action)
-    case FETCH_USER_FAVORITEARTICLE_SUCCESS:
-      return handleFetchUserFavoriteArticleSuccess(state,action)
-    case ADD_PERSONAL_IDENTITY:
-      return handleAddPersonalIdentity(state, action)
-    case UPDATE_USER_POINT:
-      return handleUserPoint(state, action)
     case UPDATE_USER_IDENTITY:
       return handleUpdateUserIdentity(state, action)
     case REHYDRATE:
@@ -299,13 +237,6 @@ function handleUserLogout(state, action) {
   return state
 }
 
-function handleShopCertificationSuccess(state, action) {
-  let payload = action.payload
-  let shop = payload.shop
-  state = state.set('shop',  shop)
-  return state
-}
-
 function handleAddUserProfile(state, action) {
   let userInfo = action.payload.userInfo
   if (!userInfo) {
@@ -324,74 +255,6 @@ function handleAddUserProfiles(state, action) {
       state = state.setIn(['profiles', userInfo.id], userInfoRec)
     }
   })
-  return state
-}
-
-function handleFetchUserFolloweesSuccess(state, action) {
-  let currentUserId = action.payload.currentUserId
-  let followees = action.payload.followees
-  state = state.setIn(['followees', currentUserId], followees)
-  return state
-}
-
-function handleFetchUserFolloweesPagingSuccess(state, action) {
-  let payload = action.payload
-  let currentUserId = payload.currentUserId
-  let followees = payload.followees
-  let _followees = state.getIn(['followees', currentUserId])
-  let newFollowees = _followees.concat(followees)
-  state = state.setIn(['followees', currentUserId], newFollowees)
-  return state
-}
-
-function handleFetchUserFollowersSuccess(state, action) {
-  let userId = action.payload.userId
-  let followers = action.payload.followers
-  state = state.setIn(['followers', userId], followers)
-  return state
-}
-
-function handleFetchUserFollowersPagingSuccess(state, action) {
-  let payload = action.payload
-  let userId = payload.userId
-  let followers = payload.followers
-  let _followers = state.getIn(['followers', userId])
-  let newFollowers = _followers.concat(followers)
-  state = state.setIn(['followers', userId], newFollowers)
-  return state
-}
-
-function handleFetchUserFollowersTotalCountSuccess(state, action) {
-  let userId = action.payload.userId
-  let followersTotalCount = action.payload.followersTotalCount
-  state = state.setIn(['followersTotalCount', userId], followersTotalCount)
-  return state
-}
-
-function handleFetchUserFavoriteArticleSuccess(state,action){
-  let currentUserId = action.payload.currentUserId
-  let favoriteArticles = action.payload.favoriteArticles
-  state = state.setIn(['favoriteArticles',currentUserId],favoriteArticles)
-  return state
-}
-
-function handleAddPersonalIdentity(state, action) {
-  let newIdentity = action.payload.identity
-  let activeUser = state.get('activeUser')
-  let identity = state.getIn(['profiles', activeUser, 'identity'])
-  if (!identity) {
-    state = state.setIn(['profiles', activeUser, 'identity'], new List([newIdentity]))
-  } else if (-1 == identity.indexOf(newIdentity)) {
-    identity = identity.push(newIdentity)
-    state = state.setIn(['profiles', activeUser, 'identity'], identity)
-  }
-  return state
-}
-
-function handleUserPoint(state, action) {
-  let point = action.payload.point
-  let userId = action.payload.userId
-  state = state.setIn(['points', userId], point)
   return state
 }
 
@@ -417,38 +280,6 @@ function onRehydrate(state, action) {
     }
   } catch (e) {
     profiles.clear()
-  }
-
-  const followees = Map(incoming.followees)
-  try {
-    for (let [userId, followee] of followees) {
-      if (userId && followee) {
-        let followeeRec = []
-        for (let fol of followee) {
-          let userInfo = new UserInfo({...fol})
-          followeeRec.push(userInfo)
-        }
-        state = state.setIn(['followees', userId], new List(followeeRec))
-      }
-    }
-  } catch (e) {
-    followees.clear()
-  }
-
-  const followers = Map(incoming.followers)
-  try {
-    for (let [userId, follower] of followers) {
-      if (userId && follower) {
-        let followerRec = []
-        for (let fol of follower) {
-          let userInfo = new UserInfo({...fol})
-          followerRec.push(userInfo)
-        }
-        state = state.setIn(['followers', userId], new List(followerRec))
-      }
-    }
-  } catch (e) {
-    followees.clear()
   }
 
   return state
