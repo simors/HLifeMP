@@ -4,12 +4,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
+import { Carousel, WhiteSpace, WingBlank, Popup } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
 import * as appConfig from '../../util/appConfig'
 import ArticleViewer from '../../component/article'
 import EndPanel from '../../component/share/EndPanel'
+import WelcomePanel from '../../component/share/WelcomePanel'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -21,6 +22,11 @@ class GoodsShare extends React.PureComponent {
     let {match} = this.props
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
+    setTimeout(() => (
+      Popup.show(<WelcomePanel/>, {
+        style: {backgroundColor: 'transparent'}
+      })
+    ), 3000)
   }
 
   renderHeaderAlbum() {
