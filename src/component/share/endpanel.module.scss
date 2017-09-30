@@ -1,0 +1,28 @@
+.endpanel {
+  font-size: 1rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  padding: 0.5rem 0.5rem;
+
+  .focusMp {
+    padding: 1rem 1rem;
+    background-color: #1e7e34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .downloadApp {
+    padding: 1rem 1rem;
+    background-color: #ff7819;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+}

@@ -60,6 +60,7 @@ var appConfig = {
   BACKEND_DOMAIN: BACKEND_DOMAIN,
   CLIENT_DOMAIN: CLIENT_DOMAIN,
   APP_DOWNLOAD_URL: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.hlife',
+  FOCUS_MP_URL: 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU0ODA1Njg5MA==&scene=110#wechat_redirect',
 }
 
 module.exports = appConfig

@@ -9,6 +9,7 @@ import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
 import * as appConfig from '../../util/appConfig'
 import ArticleViewer from '../../component/article'
+import EndPanel from '../../component/share/EndPanel'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -143,6 +144,8 @@ class GoodsShare extends React.PureComponent {
         <WingBlank size="sm" style={{marginTop: 20}}>
           <ArticleViewer artlcleContent={JSON.parse(shopGoods.detail)} />
         </WingBlank>
+        <WhiteSpace size="xl" />
+        <EndPanel/>
         <div style={{height: 100}}/>
         {this.renderToolbar()}
       </div>
