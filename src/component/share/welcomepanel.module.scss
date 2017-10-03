@@ -1,5 +1,28 @@
 .welcomePanel {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background-color: transparent;
-  margin-top: 10rem;
-  padding: 2rem;
+  margin-top: 2rem;
+
+  .closeBtn {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1.2rem;
+    width: 100%;
+  }
+
+  .welcomeImg {
+    width: 19.8rem;
+    height: 13.3rem;
+    margin-top: 3rem;
+  }
+
+  .handStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
 }

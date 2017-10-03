@@ -23,7 +23,7 @@ class GoodsShare extends React.PureComponent {
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
     setTimeout(() => (
-      Popup.show(<WelcomePanel/>, {
+      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
         style: {backgroundColor: 'transparent'}
       })
     ), 3000)
