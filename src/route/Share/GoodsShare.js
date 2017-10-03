@@ -152,7 +152,6 @@ class GoodsShare extends React.PureComponent {
         </WingBlank>
         <WhiteSpace size="xl" />
         <EndPanel/>
-        <div style={{height: 100}}/>
         {this.renderToolbar()}
       </div>
     )

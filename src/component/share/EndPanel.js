@@ -13,8 +13,8 @@ export default class EndPanel extends React.PureComponent {
   render() {
     return (
       <div className={styles.endpanel}>
-        <div className={styles.focusMp} onClick={() => document.location=appConfig.FOCUS_MP_URL}>关注公众号</div>
-        <div className={styles.downloadApp} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>下载app</div>
+        <div className={styles.downloadApp} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>下载汇邻优店app</div>
+        <div className={styles.focusMp} onClick={() => document.location=appConfig.FOCUS_MP_URL}>点击关注汇邻优店官方公众号</div>
       </div>
     )
   }
