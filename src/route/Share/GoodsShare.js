@@ -133,6 +133,12 @@ class GoodsShare extends React.PureComponent {
     if (!shopGoods || !shopDetail) {
       return <div>正在加载...</div>
     }
+    if (shopGoods.status != 1) {
+      return <div>商品已下架！</div>
+    }
+    if (shopDetail.status != 1) {
+      return <div>店铺已关闭</div>
+    }
     return (
       <div>
         {this.renderHeaderAlbum()}
@@ -164,12 +170,9 @@ const mapStateToProps = (state, ownProps) => {
     let {match} = ownProps
   let {goodsId} = match.params
   let shopGoods = shopSelector.selectShopGoodsDetail(state, goodsId)
-  console.log('shopGoods:', shopGoods)
   if (shopGoods) {
     shopDetail = shopSelector.selectShopDetail(state, shopGoods.targetShopId)
-    console.log('shopDetail:', shopDetail)
     shopPromotion = shopSelector.selectShopPromotion(state, shopGoods.goodsPromotionId)
-    console.log('shopPromotion', shopPromotion)
   }
   return {
     shopGoods,
