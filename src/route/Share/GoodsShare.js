@@ -55,7 +55,7 @@ class GoodsShare extends React.PureComponent {
           {
             shopGoods.album.map((photo, index) => {
               return (
-                <img key={index} src={photo} width="100%" />
+                <img key={index} src={photo} className={styles.imgStyle} />
               )
             })
           }
