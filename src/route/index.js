@@ -8,6 +8,7 @@ import PromoterPerformance from './Promoter'
 import PromoterFriends from './Promoter/PromoterFriends'
 import MyNearFriend from './Promoter/MyNearFriend'
 import GoodsShare from './Share/GoodsShare'
+import Wallet from './Mine/Wallet'
 import NoMatch from './NoMatch'
 import ErrorPage from './Error'
 import LoadingPage from './Loading'
@@ -15,6 +16,7 @@ import LoadingPage from './Loading'
 const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <Route path="/wallet" component={Wallet}/>
     <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/nearfriend" component={MyNearFriend}/>
     <ShareAuthRoute path="/shareGoods/:goodsId" component={GoodsShare}/>
