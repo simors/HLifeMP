@@ -23,7 +23,7 @@ export default class Avatar extends React.PureComponent {
     }
     return (
       <div className={[styles.container, {width: size, height: size, borderRadius: size/2}]}>
-        <img src={src} width={size} height={size} />
+        <img src={src} width={size} height={size} style={{borderRadius: '50%'}} />
       </div>
     )
   }
