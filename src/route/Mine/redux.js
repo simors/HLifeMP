@@ -66,7 +66,6 @@ function* paymentInfoSaga(action) {
   let payload = action.payload
   try {
     let payment = yield call(mineCloud.fetchUserPayment, {userId: payload.userId})
-    console.log('payment:', payment)
     yield put(updatePaymentAction({payment}))
   } catch (error) {
     console.log('error in get payment', error)

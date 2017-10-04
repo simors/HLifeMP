@@ -13,11 +13,17 @@ import {mineAction, mineSelector} from './redux'
 class Wallet extends React.PureComponent {
   constructor(props) {
     super(props)
+    document.title = '我的钱包'
   }
 
   componentDidMount() {
     let {activeUser} = this.props
     this.props.getPaymentInfo({userId: activeUser.id})
+  }
+
+  gotoWithdraw = () => {
+    let {history} = this.props
+    history.push('/withdraw')
   }
 
   render() {
@@ -38,7 +44,7 @@ class Wallet extends React.PureComponent {
           <div className={styles.balanceText}>{Number(payment.balance).toFixed(2)}</div>
           <div className={styles.balanceTip}>账户余额</div>
           <WingBlank size="md">
-            <Button className={styles.balanceBtn}><span style={{color: '#fff'}}>提现到微信余额</span></Button>
+            <Button className={styles.balanceBtn} onClick={this.gotoWithdraw}><span style={{color: '#fff'}}>提现到微信余额</span></Button>
           </WingBlank>
         </div>
         <div className={styles.footer}>
