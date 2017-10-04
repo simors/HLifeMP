@@ -8,15 +8,21 @@ import styles from './wallet.module.scss'
 import Avatar from '../../component/avatar'
 import { Button, WingBlank } from 'antd-mobile'
 import {authSelector} from '../../util/auth'
+import {mineAction, mineSelector} from './redux'
 
 class Wallet extends React.PureComponent {
   constructor(props) {
     super(props)
   }
 
-  render() {
+  componentDidMount() {
     let {activeUser} = this.props
-    if (!activeUser) {
+    this.props.getPaymentInfo({userId: activeUser.id})
+  }
+
+  render() {
+    let {activeUser, payment} = this.props
+    if (!activeUser || !payment) {
       return <div>正在加载数据...</div>
     }
     return (
@@ -29,7 +35,7 @@ class Wallet extends React.PureComponent {
           </div>
         </div>
         <div className={styles.balance}>
-          <div className={styles.balanceText}>¥10000.33</div>
+          <div className={styles.balanceText}>{Number(payment.balance).toFixed(2)}</div>
           <div className={styles.balanceTip}>账户余额</div>
           <WingBlank size="md">
             <Button className={styles.balanceBtn}><span style={{color: '#fff'}}>提现到微信余额</span></Button>
@@ -45,12 +51,15 @@ class Wallet extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   let activeUser = authSelector.activeUserInfo(state)
+  let payment = mineSelector.selectPayment(state)
   return {
     activeUser,
+    payment,
   }
 }
 
 const mapDispatchToProps = {
+  ...mineAction,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wallet))
