@@ -50,7 +50,7 @@ class Withdraw extends React.PureComponent{
       this.setState({tips: '提现金额只支持小数点后两位', showModel: true})
       return
     }
-
+    
     let payload = {
       amount: amount,
       openid: activeUser.openid,
@@ -111,7 +111,7 @@ class Withdraw extends React.PureComponent{
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let activeUser = authSelector.activeUserInfo(state)
+  let activeUser = authSelector.activeUserInfo(state).toJS()
   let payment = mineSelector.selectPayment(state)
   return {
     activeUser,
