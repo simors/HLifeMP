@@ -54,7 +54,7 @@ class Withdraw extends React.PureComponent{
     let payload = {
       amount: amount,
       openid: activeUser.openid,
-      userId: activeUser.userId,
+      userId: activeUser.id,
       nickname: activeUser.nickname,
       success: () => {this.setState({tips: '提现金额24小时内到账，汇邻优店账户余额将在到账后更新', showModel: true})},
       error: () => {this.setState({tips: '提现申请失败，请稍后再试', showModel: true})},
