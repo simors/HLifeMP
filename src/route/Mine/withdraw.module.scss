@@ -5,13 +5,21 @@
   height: 10rem;
   border-radius: 3px;
 
-  .moneyInput {
+  .moneyInput-item {
+    position: relative;
     display: flex;
+    min-height: 2.5rem;
+    background-color: #fff;
+    vertical-align: middle;
+    overflow: hidden;
+    transition: background-color .2s;
     align-items: center;
-    height: 2rem;
-    border-bottom: solid 1px #000000;
-    font-size: 1.5rem;
-    margin: 1rem 0.5rem 0.5rem 0.5rem;
+
+    .inputView {
+      height: 2.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
 }
 

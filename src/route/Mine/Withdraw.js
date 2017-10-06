@@ -14,7 +14,7 @@ class Withdraw extends React.PureComponent{
   constructor(props) {
     super(props)
     this.state = {
-      money: 0,
+      money: '',
     }
     document.title = '提现到微信余额'
   }
@@ -35,8 +35,10 @@ class Withdraw extends React.PureComponent{
             value={this.state.money}
             maxLength={10}
             type="money"
+            labelNumber={1}
             locale={{ confirmLabel: '提现' }}
             onChange={(value) => this.setState({money: value})}
+            style={{minHeight: '5rem', height: '5rem'}}
           >
             ¥
           </InputItem>
