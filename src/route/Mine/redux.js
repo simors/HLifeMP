@@ -81,6 +81,12 @@ function* reqWithdrawSaga(action) {
   let payload = action.payload
   try {
     let result = yield call(mineCloud.createTransfer, {...payload})
+    if (!result) {
+      if (payload.success) {
+        payload.success()
+      }
+      return
+    }
     if (result.errcode == 1) {
       if (payload.error) {
         payload.error(error)

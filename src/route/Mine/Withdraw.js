@@ -43,7 +43,7 @@ class Withdraw extends React.PureComponent{
       return
     }
     if(Number(amount) + freeAmount > balance ) {  //扣除手续费后余额不足
-      this.setState({tips: '平台将收取1.0%的手续费，最少1.0元', showModel: true})
+      this.setState({tips: '扣除手续费后余额不足', showModel: true})
       return
     }
     if(precision >2) {
@@ -99,7 +99,9 @@ class Withdraw extends React.PureComponent{
           >
             ¥
           </InputItem>
-          <div style={{paddingLeft: 8, marginTop: 5}}>当前余额：{Number(payment.balance).toFixed(2)}元</div>
+          <div style={{paddingLeft: 8, marginTop: 5}}>当前余额：{Number(payment.balance).toFixed(2)}元
+            <div style={{fontSize: '0.6rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
+          </div>
         </div>
         <WingBlank size="md">
           <Button className={styles.withdrawBtn} onClick={this.withdrawPress}><span style={{color: '#fff'}}>提现</span></Button>
