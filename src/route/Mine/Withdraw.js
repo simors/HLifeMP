@@ -4,7 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { Button, WingBlank, InputItem } from 'antd-mobile'
+import { Button, WingBlank, InputItem, Modal } from 'antd-mobile'
 import { createForm } from 'rc-form'
 import styles from './withdraw.module.scss'
 import {mineSelector} from './redux'
@@ -15,8 +15,56 @@ class Withdraw extends React.PureComponent{
     super(props)
     this.state = {
       money: '',
+      showModel: false,
+      tips: '',
     }
     document.title = '提现到微信余额'
+  }
+
+  withdrawPress = () => {
+    let amount = this.state.money
+    if (isNaN(amount)) {
+      this.setState({tips: '请输入数字', showModel: true})
+      return
+    }
+    let {payment} = this.props
+    let balance = Number(payment.balance).toFixed(2)
+    var freeAmount = Number(amount) * 0.01 < 1? 1: Number(amount) * 0.01
+    var precision = 0
+    if(amount.indexOf('.') > 0) {
+      precision = amount.split('.')[1].length
+    }
+    if(Number(amount) <= 0 ) {
+      this.setState({tips: '金额有误', showModel: true})
+      return
+    }
+    if(Number(amount) > balance) {
+      this.setState({tips: '余额不足', showModel: true})
+      return
+    }
+    if(Number(amount) + freeAmount > balance ) {  //扣除手续费后余额不足
+      this.setState({tips: '平台将收取1.0%的手续费，最少1.0元', showModel: true})
+      return
+    }
+    if(precision >2) {
+      this.setState({tips: '提现金额只支持小数点后两位', showModel: true})
+      return
+    }
+  }
+
+  renderModel(content) {
+    return (
+      <Modal
+        title="提示信息"
+        transparent
+        maskClosable={true}
+        visible={this.state.showModel}
+        footer={[{ text: '确定', onPress: () => { this.setState({showModel: false}) } }]}
+        style={{width: '100%', paddingLeft: 10, paddingRight: 10, fontSize: '1rem'}}
+      >
+        {content}
+      </Modal>
+    )
   }
 
   render() {
@@ -34,7 +82,6 @@ class Withdraw extends React.PureComponent{
             placeholder="0.00"
             value={this.state.money}
             maxLength={10}
-            type="money"
             labelNumber={1}
             locale={{ confirmLabel: '提现' }}
             onChange={(value) => this.setState({money: value})}
@@ -45,8 +92,9 @@ class Withdraw extends React.PureComponent{
           <div style={{paddingLeft: 8, marginTop: 5}}>当前余额：{Number(payment.balance).toFixed(2)}元</div>
         </div>
         <WingBlank size="md">
-          <Button className={styles.withdrawBtn}><span style={{color: '#fff'}}>提现</span></Button>
+          <Button className={styles.withdrawBtn} onClick={this.withdrawPress}><span style={{color: '#fff'}}>提现</span></Button>
         </WingBlank>
+        {this.renderModel(this.state.tips)}
       </div>
     )
   }
