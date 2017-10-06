@@ -30,7 +30,8 @@ export function createTransfer(payload) {
     channel: 'wx_pub',
     order_no: generateUUID().replace(/-/g, '').substr(0, 16),
     amount: payload.amount,
-    openid: payload.openid,
+    // openid: payload.openid,
+    openid: "oOg170xeHdU5TgOEpN1TWfGKihrg",
     metadata: {
       userId: payload.userId,
       nickname: payload.nickname
