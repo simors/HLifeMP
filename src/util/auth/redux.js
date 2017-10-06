@@ -95,6 +95,8 @@ class UserInfo extends UserInfoRecord {
       record.set('status', attrs['status'])
       record.set('type', attrs['type'])
       record.set('enable', attrs['enable'])
+      record.set('openid', attrs['openid'])
+      record.set('authData', attrs['authData'])
     })
   }
 

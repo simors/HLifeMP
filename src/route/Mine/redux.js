@@ -51,11 +51,13 @@ const MineInfo = Record({
 
 const GET_PAYMENT_INFO = 'GET_PAYMENT_INFO'
 const UPDATE_PAYMENT_INFO = 'UPDATE_PAYMENT_INFO'
+const REQUEST_WITHDRAW = 'REQUEST_WITHDRAW'
 
 /**** Action ****/
 
 export const mineAction = {
   getPaymentInfo: createAction(GET_PAYMENT_INFO),
+  withdrawRequest: createAction(REQUEST_WITHDRAW),
 }
 
 const updatePaymentAction = createAction(UPDATE_PAYMENT_INFO)
@@ -75,8 +77,30 @@ function* paymentInfoSaga(action) {
   }
 }
 
+function* reqWithdrawSaga(action) {
+  let payload = action.payload
+  try {
+    let result = yield call(mineCloud.createTransfer, {...payload})
+    if (!result.errcode) {
+      if (payload.success) {
+        payload.success()
+      }
+    } else {
+      if (payload.error) {
+        payload.error(error)
+      }
+    }
+  } catch (error) {
+    console.log('error in get payment', error)
+    if (payload.error) {
+      payload.error(error)
+    }
+  }
+}
+
 export const mineSaga = [
   takeLatest(GET_PAYMENT_INFO, paymentInfoSaga),
+  takeLatest(REQUEST_WITHDRAW, reqWithdrawSaga),
 ]
 
 /**** Reducer ****/

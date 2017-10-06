@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 import { Button, WingBlank, InputItem, Modal } from 'antd-mobile'
 import { createForm } from 'rc-form'
 import styles from './withdraw.module.scss'
-import {mineSelector} from './redux'
+import {mineSelector, mineAction} from './redux'
 import {authSelector} from '../../util/auth'
 
 class Withdraw extends React.PureComponent{
@@ -27,7 +27,7 @@ class Withdraw extends React.PureComponent{
       this.setState({tips: '请输入数字', showModel: true})
       return
     }
-    let {payment} = this.props
+    let {payment, activeUser} = this.props
     let balance = Number(payment.balance).toFixed(2)
     var freeAmount = Number(amount) * 0.01 < 1? 1: Number(amount) * 0.01
     var precision = 0
@@ -50,6 +50,16 @@ class Withdraw extends React.PureComponent{
       this.setState({tips: '提现金额只支持小数点后两位', showModel: true})
       return
     }
+
+    let payload = {
+      amount: amount,
+      openid: activeUser.openid,
+      userId: activeUser.userId,
+      nickname: activeUser.nickname,
+      success: () => {this.setState({tips: '提现金额24小时内到账，汇邻优店账户余额将在到账后更新', showModel: true})},
+      error: () => {this.setState({tips: '提现申请失败，请稍后再试', showModel: true})},
+    }
+    this.props.withdrawRequest(payload)
   }
 
   renderModel(content) {
@@ -110,6 +120,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  ...mineAction,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(createForm()(Withdraw)))
