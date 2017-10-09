@@ -4,6 +4,7 @@
 import {Map, List, Record} from 'immutable'
 import {createAction} from 'redux-actions'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import * as appStateCloud from './cloud'
 
 /****  Model  ****/
 
@@ -28,12 +29,14 @@ const AppState = Record({
 
 const UPDATE_REHYDRATE = 'UPDATE_REHYDRATE'
 const UPDATE_REHYDRATE_SUCCESS = 'UPDATE_REHYDRATE_SUCCESS'
+const GET_WECHAT_JSAPI_CONFIG = 'GET_WECHAT_JSAPI_CONFIG'
 const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION'
 
 /**** Action ****/
 
 export const appStateAction = {
   updateRehydrate: createAction(UPDATE_REHYDRATE),
+  getJsApiConfig: createAction(GET_WECHAT_JSAPI_CONFIG),
 }
 
 const updateRehydrateSuccess = createAction(UPDATE_REHYDRATE_SUCCESS)
@@ -49,8 +52,30 @@ function* updateAppRehydrate(action) {
   }
 }
 
+function* fetchJssdkConfig(action) {
+  let payload = action.payload
+
+  let jsConfigPayload = {
+    debug: payload.debug,
+    jsApiList: payload.jsApiList,
+    url: payload.url,
+  }
+
+  try {
+    let configInfo = yield call(appStateCloud.getJssdkConfig, jsConfigPayload)
+    if(configInfo && payload.success) {
+      payload.success(configInfo)
+    }
+  } catch(error) {
+    if(payload.error) {
+      payload.error(error)
+    }
+  }
+}
+
 export const appStateSaga = [
   takeLatest(UPDATE_REHYDRATE, updateAppRehydrate),
+  takeLatest(GET_WECHAT_JSAPI_CONFIG, fetchJssdkConfig),
 ]
 
 /**** Reducer ****/
