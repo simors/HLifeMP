@@ -4,6 +4,7 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
 import {shareOauth} from '../util/wechatUtil'
+import Loading from '../component/loading'
 
 const ShareAuthRoute = ({ component: Component, ...rest }) => {
   let {location} = rest
@@ -14,7 +15,7 @@ const ShareAuthRoute = ({ component: Component, ...rest }) => {
       )}/>
     )
   }
-  return <Route render={() => <div>正在加载...</div>}/>
+  return <Route render={() => <Loading/>}/>
 }
 
 export default ShareAuthRoute
