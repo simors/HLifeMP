@@ -84,6 +84,10 @@ class Withdraw extends React.PureComponent{
     if (!activeUser || !payment) {
       return <Loading/>
     }
+    let balance = 0.00
+    if (payment.balance) {
+      balance = Number(payment.balance).toFixed(2)
+    }
     const { getFieldProps } = this.props.form;
     return (
       <div style={{height: '100vh', backgroundColor: '#f5f5f9'}}>
@@ -102,7 +106,7 @@ class Withdraw extends React.PureComponent{
           >
             ¥
           </InputItem>
-          <div style={{paddingLeft: 8, marginTop: 15}}>当前余额：{Number(payment.balance).toFixed(2)}元
+          <div style={{paddingLeft: 8, marginTop: 15}}>当前余额：{balance}元
             <div style={{fontSize: '0.2rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
           </div>
         </div>

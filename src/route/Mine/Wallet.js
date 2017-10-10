@@ -40,6 +40,10 @@ class Wallet extends React.PureComponent {
     if (!activeUser || !payment) {
       return <Loading/>
     }
+    let balance = 0.00
+    if (payment.balance) {
+      balance = Number(payment.balance).toFixed(2)
+    }
     return (
       <div>
         <div className={styles.headerView}>
@@ -50,7 +54,7 @@ class Wallet extends React.PureComponent {
           </div>
         </div>
         <div className={styles.balance}>
-          <div className={styles.balanceText}>{Number(payment.balance).toFixed(2)}</div>
+          <div className={styles.balanceText}>{balance}</div>
           <div className={styles.balanceTip}>账户余额</div>
           <WingBlank size="md">
             <Button className={styles.balanceBtn} onClick={this.gotoWithdraw}><span style={{color: '#fff'}}>提现到微信余额</span></Button>
