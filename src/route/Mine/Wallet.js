@@ -19,7 +19,15 @@ class Wallet extends React.PureComponent {
 
   componentDidMount() {
     let {activeUser} = this.props
-    this.props.getPaymentInfo({userId: activeUser.id})
+    if (activeUser) {
+      this.props.getPaymentInfo({userId: activeUser.id})
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.activeUser != newProps.activeUser) {
+      this.props.getPaymentInfo({userId: newProps.activeUser.id})
+    }
   }
 
   gotoWithdraw = () => {
