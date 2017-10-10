@@ -132,7 +132,7 @@ class PromoterPerformance extends React.PureComponent {
           </Cell>
         </Cells>
 
-        <div style={{backgroundColor: '#F5F5F5', paddingTop: 8}}>
+        <div style={{backgroundColor: '#F5F5F5', paddingTop: 16}}>
           <Cells className={styles.cellStyle}>
             {upUser ? (
               <Cell access={true} onClick={() => {
