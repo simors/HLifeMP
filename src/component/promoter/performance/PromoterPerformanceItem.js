@@ -26,8 +26,8 @@ class PromoterPerformanceItem extends React.PureComponent {
     let {friend, userInfo} = this.props
     return (
       <Panel className={styles.itemPanel}>
-        <div style={{paddingRight: 8}}>
-          <Avatar src={userInfo.avatar} size={45}/>
+        <div style={{paddingRight: 16}}>
+          <Avatar src={userInfo.avatar} size={70}/>
         </div>
         <div style={{flex: 1}}>
           <div className={styles.teamView}>
@@ -36,7 +36,7 @@ class PromoterPerformanceItem extends React.PureComponent {
               <div className={styles.performText}>最新业绩：{getConversationTime(new Date(friend.updatedAt))}</div>
             </div>
             <div>
-              <img src={require('../../../asset/svg/team_18@2x.svg')} width={24} height={24} />
+              <img src={require('../../../asset/svg/team_18@2x.svg')} width={48} height={48} />
               <div className={styles.teamnum}>{math.chain(friend.teamMemNum).add(friend.level2Num).add(friend.level3Num).done()}人</div>
             </div>
           </div>

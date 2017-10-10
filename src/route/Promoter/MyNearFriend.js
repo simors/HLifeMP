@@ -28,8 +28,8 @@ class MyNearFriend extends React.PureComponent {
     let {upPromoter, upUser} = this.props
     return (
       <Panel className={styles.itemPanel}>
-        <div style={{paddingRight: 8}}>
-          <Avatar src={upUser.avatar} size={45}/>
+        <div style={{paddingRight: 16}}>
+          <Avatar src={upUser.avatar} size={70}/>
         </div>
         <div style={{flex: 1}}>
           <div className={styles.teamView}>
@@ -38,7 +38,7 @@ class MyNearFriend extends React.PureComponent {
               <div className={styles.performText}>最新业绩：{getConversationTime(new Date(upPromoter.updatedAt))}</div>
             </div>
             <div>
-              <img src={require('../../asset/svg/team_18@2x.svg')} width={24} height={24} />
+              <img src={require('../../asset/svg/team_18@2x.svg')} width={48} height={48} />
               <div className={styles.teamnum}>{math.chain(upPromoter.teamMemNum).add(upPromoter.level2Num).add(upPromoter.level3Num).done()}人</div>
             </div>
           </div>

@@ -72,7 +72,7 @@ class PromoterFriends extends React.PureComponent {
   render() {
     return (
       <InfiniteLoader onLoadMore={this.loadMoreData} triggerPercent={60}>
-        <Cells style={{marginTop: 0}}>
+        <Cells style={{marginTop: 0, fontSize: '0.32rem'}}>
           {this.renderFriendRow()}
         </Cells>
       </InfiniteLoader>

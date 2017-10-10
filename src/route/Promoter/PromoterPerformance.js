@@ -87,7 +87,7 @@ class PromoterPerformance extends React.PureComponent {
       return <div>正在加载邻友信息……</div>
     }
     return (
-      <div>
+      <div style={{backgroundColor: '#fff'}}>
         <div className={styles.performanceHeader}>
           <div className={styles.userLevel}>
             <PromoterLevelIcon level={promoter.level}/>
@@ -95,45 +95,45 @@ class PromoterPerformance extends React.PureComponent {
           <div className={styles.headerText}>推广总收益</div>
           <div className={styles.headerEarn}>¥{Number(promoter.shopEarnings + promoter.royaltyEarnings).toFixed(2)}</div>
         </div>
-        <CellsTitle>我的邻友</CellsTitle>
-        <Cells>
+        <CellsTitle style={{fontSize: '0.28rem'}}>我的邻友</CellsTitle>
+        <Cells className={styles.cellStyle}>
           <Cell access={true} onClick={() => this.friendCellClick(1)}>
             <CellHeader>
-              <img src={require('../../asset/svg/friend01@2x.svg')} alt="" style={{display: `block`, width: `20px`, marginRight: `5px`}}/>
+              <img src={require('../../asset/svg/friend01@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               好友
             </CellBody>
-            <CellFooter>
+            <CellFooter className={styles.cellFooter}>
               {/*{promoter.teamMemNum}*/}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(2)}>
             <CellHeader>
-              <img src={require('../../asset/svg/friend02@2x.svg')} alt="" style={{display: `block`, width: `20px`, marginRight: `5px`}}/>
+              <img src={require('../../asset/svg/friend02@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               熟人
             </CellBody>
-            <CellFooter>
+            <CellFooter className={styles.cellFooter}>
               {/*{promoter.level2Num}*/}
             </CellFooter>
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(3)}>
             <CellHeader>
-              <img src={require('../../asset/svg/friend03@2x.svg')} alt="" style={{display: `block`, width: `20px`, marginRight: `5px`}}/>
+              <img src={require('../../asset/svg/friend03@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               人脉
             </CellBody>
-            <CellFooter>
+            <CellFooter className={styles.cellFooter}>
               {/*{promoter.level3Num}*/}
             </CellFooter>
           </Cell>
         </Cells>
 
         <div style={{backgroundColor: '#F5F5F5', paddingTop: 8}}>
-          <Cells style={{marginTop: 0}}>
+          <Cells className={styles.cellStyle}>
             {upUser ? (
               <Cell access={true} onClick={() => {
                 let {history} = this.props
@@ -142,7 +142,7 @@ class PromoterPerformance extends React.PureComponent {
                 <CellBody>
                   亲密好友
                 </CellBody>
-                <CellFooter>
+                <CellFooter className={styles.cellFooter}>
                   {upUser.nickname}
                 </CellFooter>
               </Cell>

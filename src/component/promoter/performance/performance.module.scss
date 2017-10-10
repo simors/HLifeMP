@@ -1,7 +1,7 @@
 .itemPanel {
   display: flex;
   margin-top: 0px;
-  padding: 10px 10px;
+  padding: 20px 20px;
 
   &:after {
     border-bottom: 0px;
@@ -13,20 +13,20 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px #F5F5F5;
-    padding-bottom: 6px;
+    padding-bottom: 12px;
 
     .nameText {
-      font-size: 1.2rem;
+      font-size: 0.384rem;
       color: #4A4A4A;
     }
 
     .performText {
-      font-size: 0.8rem;
+      font-size: 0.256rem;
       color: #B5B5B5;
     }
     
     .teamnum {
-      font-size: 1rem;
+      font-size: 0.32rem;
       color: #5A5A5A;
     }
   }
@@ -35,15 +35,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6px 0px 0px 6px;
+    padding: 12px 0px 0px 0px;
     
     .titleText {
-      font-size: 0.8rem;
+      font-size: 0.256rem;
       color: #5A5A5A;
     }
     
     .earnText {
-      font-size: 0.8rem;
+      font-size: 0.256rem;
       color: #FF7819;
     }
   }

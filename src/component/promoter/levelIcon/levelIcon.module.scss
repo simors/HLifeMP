@@ -1,18 +1,18 @@
 .container {
   display: flex;
-  max-width: 8.5rem;
+  max-width: 2.72rem;
   align-items: center;
-  padding: 0.2rem 0.2rem;
-  -webkit-border-radius: 0.5rem;
-  -moz-border-radius: 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0.064rem 0.064rem;
+  -webkit-border-radius: 0.16rem;
+  -moz-border-radius: 0.16rem;
+  border-radius: 0.16rem;
   background-color: rgba(0, 0, 0, 0.25);
   overflow: hidden;
   
   .levelText {
-    font-size: 0.8rem;
+    font-size: 0.256rem;
     color: #FFF;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.16rem;
+    padding-right: 0.16rem;
   }
 }

@@ -85,7 +85,7 @@ class Withdraw extends React.PureComponent{
     }
     const { getFieldProps } = this.props.form;
     return (
-      <div>
+      <div style={{height: '100vh', backgroundColor: '#f5f5f9'}}>
         <div className={styles.withdrawInput}>
           <div style={{paddingLeft: 8, paddingTop: 10}}>提现金额</div>
           <InputItem
