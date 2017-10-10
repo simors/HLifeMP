@@ -9,6 +9,7 @@ import { createForm } from 'rc-form'
 import styles from './withdraw.module.scss'
 import {mineSelector, mineAction} from './redux'
 import {authSelector} from '../../util/auth'
+import './customInputStyle.css'
 
 class Withdraw extends React.PureComponent{
   constructor(props) {
@@ -93,14 +94,15 @@ class Withdraw extends React.PureComponent{
             value={this.state.money}
             maxLength={10}
             labelNumber={1}
+            clear
             locale={{ confirmLabel: '提现' }}
             onChange={(value) => this.setState({money: value})}
-            style={{minHeight: '5rem', height: '5rem'}}
+            style={{minHeight: '1.6rem', height: '1.6rem'}}
           >
             ¥
           </InputItem>
-          <div style={{paddingLeft: 8, marginTop: 5}}>当前余额：{Number(payment.balance).toFixed(2)}元
-            <div style={{fontSize: '0.6rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
+          <div style={{paddingLeft: 8, marginTop: 15}}>当前余额：{Number(payment.balance).toFixed(2)}元
+            <div style={{fontSize: '0.2rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
           </div>
         </div>
         <WingBlank size="md">
