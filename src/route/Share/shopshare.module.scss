@@ -4,40 +4,40 @@
   .imgStyle {
     width: 100%;
     vertical-align: top;
-    max-height: 20rem;
+    max-height: 6.4rem;
   }
 }
 
 .priceBar {
   display: flex;
-  padding: 0 0 0 0.5rem;
+  padding: 0 0 0 0.16rem;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 3.44rem;
+  height: 1.1rem;
   background-image: linear-gradient(-154deg, #FF9D4E 0%, #FF8A33 44%, #FF7819 94%);
 
   .price {
-    font-size: 2.5rem;
+    font-size: 0.8rem;
     color: #fff;
   }
 
   .originalPrice {
-    font-size: 1rem;
+    font-size: 0.32rem;
     color: #fff;
     text-decoration: line-through;
   }
 
   .promotionType {
     height: 100%;
-    width: 6.8rem;
+    width: 2.18rem;
     background-color: #F3F800;
-    font-style: 1.2rem;
+    font-size: 0.38rem;
     color: #ff7819;
-    line-height: 3.44rem;
+    line-height: 1.1rem;
     text-align: center;
-    padding-left: 2rem;
-    -webkit-clip-path: polygon(0 3.44rem, 6.8rem 3.44rem, 6.8rem 0, 2rem 0, 0 3.44rem);
+    padding-left: 0.64rem;
+    -webkit-clip-path: polygon(0 1.1rem, 2.18rem 1.1rem, 2.18rem 0, 0.64rem 0, 0 1.1rem);
   }
 }
 
@@ -47,62 +47,62 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 1.2rem;
+  font-size: 0.384rem;
   font-weight: bold;
   color: #000;
-  line-height: 1.56rem;
-  padding: 0.3rem 0;
+  line-height: 0.5rem;
+  padding: 0.1rem 0;
 }
 
 .promotionView {
   background-image: url("../../asset/svg/activitiy_bac.svg");
-  width: 4.38rem;
-  height: 1.38rem;
-  font-size: 0.94rem;
+  width: 1.4rem;
+  height: 0.44rem;
+  font-size: 0.3rem;
   color: #FFF;
   text-align: center;
-  line-height: 1.38rem;
-  padding: 0.1rem 0.5rem;
-  margin-right: 1rem;
+  line-height: 0.44rem;
+  padding: 0.032rem 0.16rem;
+  margin-right: 0.32rem;
 }
 
 .promotionAbstract {
-  font-size: 0.94rem;
+  font-size: 0.3rem;
   color: rgba(0, 0, 0, 0.5);
 }
 
 .shopInfoView {
   width: 100%;
-  height: 1.75rem;
+  height: 0.56rem;
   border: solid 1px #F5F5F5;
   border-left-width: 0px;
   border-right-width: 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 0.5rem;
-  margin-top: 0.3rem;
+  padding-left: 0.16rem;
+  margin-top: 0.096rem;
   
   .shopName {
-    font-size: 0.75rem;
+    font-size: 0.24rem;
     color: #8F8E94;
   }
 
   .enterShop {
-    width: 7rem;
+    width: 2.24rem;
     height: 100%;
     background-color: #F5F5F5;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.94rem;
+    font-size: 0.3rem;
     color: #ff7819;
   }
 }
 
 .toolbar {
   width: 100%;
-  height: 3.06rem;
+  height: 0.98rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,20 +111,20 @@
   bottom: 0px;
 
   .contactBtn {
-    margin-left: 3rem;
-    font-size: 0.625rem;
+    margin-left: 0.96rem;
+    font-size: 0.2rem;
     color: #aaaaaa;
     text-align: center;
   }
 
   .purchaseBtn {
-    width: 8.44rem;
+    width: 2.7rem;
     height: 100%;
     background-color: #ff7819;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.94rem;
+    font-size: 0.3rem;
     color: #fff;
   }
 }

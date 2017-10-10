@@ -49,8 +49,8 @@ class GoodsShare extends React.PureComponent {
           infinite
           selectedIndex={0}
           swipeSpeed={35}
-          dotStyle={{width: 8, height: 8}}
-          dotActiveStyle={{width: 8, height: 8}}
+          dotStyle={{width: 16, height: 16}}
+          dotActiveStyle={{width: 16, height: 16}}
         >
           {
             shopGoods.album.map((photo, index) => {
