@@ -55,8 +55,10 @@
 }
 
 .promotionView {
-  background-image: url("../../asset/svg/activitiy_bac.svg");
-  width: 1.4rem;
+  display: inline-block;
+  background: url("../../asset/svg/activitiy_bac.svg") no-repeat;
+  background-size: 100% 100%;
+  width: 1.5rem;
   height: 0.44rem;
   font-size: 0.3rem;
   color: #FFF;
@@ -67,6 +69,7 @@
 }
 
 .promotionAbstract {
+  display: inline-block;
   font-size: 0.3rem;
   color: rgba(0, 0, 0, 0.5);
 }

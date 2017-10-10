@@ -99,12 +99,12 @@ class GoodsShare extends React.PureComponent {
     }
     return (
       <div>
-        <span className={styles.promotionView}>
+        <div className={styles.promotionView}>
           {shopPromotion.type}
-        </span>
-        <span className={styles.promotionAbstract}>
+        </div>
+        <div className={styles.promotionAbstract}>
           {shopPromotion.abstract}
-        </span>
+        </div>
       </div>
     )
   }
@@ -113,14 +113,15 @@ class GoodsShare extends React.PureComponent {
     return (
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
-          <div>
-            <img src={require('../../asset/svg/service.svg')} />
+          <div style={{paddingTop: 8}}>
+            <img src={require('../../asset/svg/service.svg')} width={40} />
           </div>
+
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
           <span>
-            <img src={require('../../asset/svg/purchase_24.svg')} />
+            <img src={require('../../asset/svg/purchase_24.svg')} width={60} />
           </span>
           <span>立即购买</span>
         </div>
