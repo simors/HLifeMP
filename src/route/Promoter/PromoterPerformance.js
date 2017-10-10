@@ -12,6 +12,7 @@ import styles from './promoter.module.scss'
 import PromoterLevelIcon from '../../component/promoter/levelIcon/PromoterLevelIcon'
 import {promoterAction, promoterSelector} from './redux'
 import {authSelector} from '../../util/auth'
+import Loading from '../../component/loading'
 
 const {
   Page,
@@ -84,7 +85,7 @@ class PromoterPerformance extends React.PureComponent {
   render() {
     let {promoter, upUser} = this.props
     if (!promoter) {
-      return <div>正在加载邻友信息……</div>
+      return <Loading/>
     }
     return (
       <div style={{backgroundColor: '#fff'}}>

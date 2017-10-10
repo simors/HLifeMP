@@ -10,6 +10,7 @@ import styles from './withdraw.module.scss'
 import {mineSelector, mineAction} from './redux'
 import {authSelector} from '../../util/auth'
 import './customInputStyle.css'
+import Loading from '../../component/loading'
 
 class Withdraw extends React.PureComponent{
   constructor(props) {
@@ -81,7 +82,7 @@ class Withdraw extends React.PureComponent{
   render() {
     let {activeUser, payment} = this.props
     if (!activeUser || !payment) {
-      return <div>正在加载数据...</div>
+      return <Loading/>
     }
     const { getFieldProps } = this.props.form;
     return (

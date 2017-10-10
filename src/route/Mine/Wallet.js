@@ -9,6 +9,7 @@ import Avatar from '../../component/avatar'
 import { Button, WingBlank } from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from './redux'
+import Loading from '../../component/loading'
 
 class Wallet extends React.PureComponent {
   constructor(props) {
@@ -29,7 +30,7 @@ class Wallet extends React.PureComponent {
   render() {
     let {activeUser, payment} = this.props
     if (!activeUser || !payment) {
-      return <div>正在加载数据...</div>
+      return <Loading/>
     }
     return (
       <div>

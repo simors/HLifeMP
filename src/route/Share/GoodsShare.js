@@ -11,6 +11,7 @@ import * as appConfig from '../../util/appConfig'
 import ArticleViewer from '../../component/article'
 import EndPanel from '../../component/share/EndPanel'
 import WelcomePanel from '../../component/share/WelcomePanel'
+import Loading from '../../component/loading'
 
 class GoodsShare extends React.PureComponent {
   constructor(props) {
@@ -22,11 +23,6 @@ class GoodsShare extends React.PureComponent {
     let {match} = this.props
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
-    setTimeout(() => (
-      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
-        style: {backgroundColor: 'transparent'}
-      })
-    ), 3000)
   }
 
   renderHeaderAlbum() {
@@ -132,7 +128,7 @@ class GoodsShare extends React.PureComponent {
   render() {
     let {shopGoods, shopDetail} = this.props
     if (!shopGoods || !shopDetail) {
-      return <div>正在加载...</div>
+      return <Loading/>
     }
     if (shopGoods.status != 1) {
       return <div>商品已下架！</div>
@@ -140,6 +136,11 @@ class GoodsShare extends React.PureComponent {
     if (shopDetail.status != 1) {
       return <div>店铺已关闭</div>
     }
+    setTimeout(() => (
+      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
+        style: {backgroundColor: 'transparent'}
+      })
+    ), 3000)
     return (
       <div>
         {this.renderHeaderAlbum()}

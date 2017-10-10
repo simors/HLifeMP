@@ -5,6 +5,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Redirect} from 'react-router-dom'
 import {appStateSelector} from '../../util/appstate'
+import Loading from '../../component/loading'
 
 class LoadingPage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class LoadingPage extends React.Component {
     }
 
     return (
-      <div style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>正在加载</div>
+      <Loading/>
     )
   }
 }
