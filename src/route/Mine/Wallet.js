@@ -36,7 +36,7 @@ class Wallet extends React.PureComponent {
         <div className={styles.headerView}>
           <span>汇邻优店账号</span>
           <div className={styles.avatar}>
-            <Avatar size={30} src={activeUser.avatar} />
+            <Avatar size={70} src={activeUser.avatar} />
             <span className={styles.nickname}>{activeUser.nickname}</span>
           </div>
         </div>
