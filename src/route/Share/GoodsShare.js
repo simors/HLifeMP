@@ -23,6 +23,11 @@ class GoodsShare extends React.PureComponent {
     let {match} = this.props
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
+    setTimeout(() => (
+      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
+        style: {backgroundColor: 'transparent'}
+      })
+    ), 5000)
   }
 
   renderHeaderAlbum() {
@@ -136,11 +141,6 @@ class GoodsShare extends React.PureComponent {
     if (shopDetail.status != 1) {
       return <div>店铺已关闭</div>
     }
-    setTimeout(() => (
-      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
-        style: {backgroundColor: 'transparent'}
-      })
-    ), 3000)
     return (
       <div>
         {this.renderHeaderAlbum()}
