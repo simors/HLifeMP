@@ -30,7 +30,7 @@ class Withdraw extends React.PureComponent{
       return
     }
     let {payment, activeUser} = this.props
-    let balance = Number(payment.balance).toFixed(2)
+    let balance = payment.balance ? Number(payment.balance).toFixed(2) : 0
     var freeAmount = Number(amount) * 0.01 < 1? 1: Number(amount) * 0.01
     var precision = 0
     if(amount.indexOf('.') > 0) {
