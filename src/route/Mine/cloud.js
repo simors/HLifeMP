@@ -43,3 +43,107 @@ export function createTransfer(payload) {
     throw err
   })
 }
+
+
+export function getAddressList(payload) {
+  let parmas = {
+    isRefresh: payload.isRefresh,
+    lastCreatedAt: payload.lastCreatedAt
+  }
+  return AV.Cloud.run('addrGetAddrs',parmas).then((result)=>{
+    return result
+  },(err)=>{
+    throw  err
+  })
+
+}
+
+export function createAddrApi(payload){
+  let params = {
+    username: payload.username,
+    mobilePhoneNumber: payload.mobilePhoneNumber,
+    province: payload.province,
+    city: payload.city,
+    district: payload.district,
+    addr: payload.addr,
+    tag: payload.tag
+  }
+  return AV.Cloud.run('addrCreateAddr', params).then((result)=>{
+
+    return result
+  },(err)=>{
+    throw  err
+  })
+}
+
+
+export function updateAddr(payload){
+  let params = {
+    addrId: payload.addrId,
+    username: payload.username,
+    mobilePhoneNumber: payload.mobilePhoneNumber,
+    province: payload.province,
+    city: payload.city,
+    district: payload.district,
+    addr: payload.addr,
+    tag: payload.tag
+  }
+
+  return AV.Cloud.run('addrUpdateAddr', params).then((result)=>{
+    return result
+  },(err)=>{
+    throw  err
+  })
+}
+
+export function disableAddr(payload){
+  let params = {
+    addrId: payload.addrId
+  }
+  return AV.Cloud.run('addrDisableAddr', params).then((result)=>{
+    return result
+  },(err)=>{
+    throw  err
+  })
+}
+
+export function setDefaultAddr(payload){
+  let params = {
+    addrId: payload.addrId
+  }
+
+  return AV.Cloud.run('addrSetDefaultAddr', params).then((result)=>{
+    return result
+  },(err)=>{
+    throw  err
+  })
+}
+
+
+export function getUserOrders(payload) {
+  let params = {
+    buyerId: payload.buyerId,
+    orderStatus: payload.orderStatus,
+    lastTime: payload.lastTime,
+    limit: payload.limit,
+  }
+  return AV.Cloud.run('orderQueryOrders', params).then((result) => {
+    return result
+  }, (err) => {
+    err.message = ERROR[err.code] ? ERROR[err.code] : ERROR[9999]
+    throw err
+  })
+}
+
+export function setOrderStatus(payload) {
+  let params = {
+    orderId: payload.orderId,
+    orderStatus: payload.orderStatus,
+  }
+  return AV.Cloud.run('orderModifyStatus', params).then((result) => {
+    return result
+  }, (err) => {
+    err.message = ERROR[err.code] ? ERROR[err.code] : ERROR[9999]
+    throw err
+  })
+}
