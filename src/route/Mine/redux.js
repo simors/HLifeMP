@@ -43,6 +43,83 @@ class Payment extends PaymentRecord {
   }
 }
 
+
+export const AddrInfoRecord = Record({
+  id: undefined,
+  adminId: undefined,
+  username: undefined,
+  mobilePhoneNumber: undefined,
+  province: undefined,
+  city: undefined,
+  district: undefined,
+  addr: undefined,
+  tag: undefined,
+  createdAt: undefined,
+  status: undefined,
+
+}, 'AddrInfoRecord')
+
+export class AddrInfo extends AddrInfoRecord {
+  static fromApi(lcObj){
+    let addrInfo = new AddrInfoRecord()
+    addrInfo = addrInfo.withMutations((record)=>{
+      record.set('id',lcObj.id)
+      record.set('adminId',lcObj.adminId)
+      record.set('username',lcObj.username)
+      record.set('mobilePhoneNumber',lcObj.mobilePhoneNumber)
+      record.set('province',lcObj.province)
+      record.set('city',lcObj.city)
+      record.set('district',lcObj.district)
+      record.set('addr',lcObj.addr)
+      record.set('tag',lcObj.tag)
+      record.set('createdAt',lcObj.createdAt)
+      record.set('status',lcObj.status)
+
+    })
+    return addrInfo
+  }
+}
+
+
+export const ShopOrdersRecord = Record({
+  id: undefined,
+  buyerId: undefined,
+  vendorId: undefined,
+  goodsId: undefined,
+  goodsAmount: undefined,
+  paid: undefined,
+  orderStatus: undefined,
+  receiver: undefined,
+  receiverAddr: undefined,
+  receiverPhone: undefined,
+  remark: undefined,
+  createdAt: undefined,
+  updatedAt: undefined,
+}, 'ShopOrdersRecord')
+
+export class ShopOrders extends ShopOrdersRecord {
+  static fromApi(lcObj) {
+    let shopOrders = new ShopOrdersRecord()
+    return shopOrders.withMutations((record) => {
+      record.set('id', lcObj.id)
+      record.set('buyerId', lcObj.buyer.id)
+      record.set('vendorId', lcObj.vendor.id)
+      record.set('goodsId', lcObj.goods.id)
+      record.set('goodsAmount', lcObj.goodsAmount)
+      record.set('paid', lcObj.paid)
+      record.set('orderStatus', lcObj.orderStatus)
+      record.set('receiver', lcObj.receiver)
+      record.set('receiverAddr', lcObj.receiverAddr)
+      record.set('receiverPhone', lcObj.receiverPhone)
+      record.set('remark', lcObj.remark)
+      record.set('createdAt', lcObj.createdAt)
+      record.set('updatedAt', lcObj.updatedAt)
+    })
+  }
+}
+
+
+
 const MineInfo = Record({
   payment: undefined,
 }, 'MineInfo')
