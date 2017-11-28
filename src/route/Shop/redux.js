@@ -285,7 +285,9 @@ const UPDATE_SHOP_DETAIL = 'UPDATE_SHOP_DETAIL'
 /**** Action ****/
 
 export const shopAction = {
-  getShopGoodsDetail: createAction(GET_SHOP_GOODS_DETAIL)
+  getShopGoodsDetail: createAction(GET_SHOP_GOODS_DETAIL),
+  updateShopGoods: createAction(UPDATE_SHOP_GOODS),
+  updateShopDetail: createAction(UPDATE_SHOP_DETAIL)
 }
 
 const updateShopGoods = createAction(UPDATE_SHOP_GOODS)
@@ -387,8 +389,12 @@ function updateShopDetailReducer(state, action) {
 function updateGoodsReducer(state, action) {
   let goods = action.payload.goods
   let goodsId = goods.id
-  state = saveShopInfoReducer(state, goods.targetShop)
-  state = savePromotionReducer(state, goods.goodsPromotion)
+  if(goods.targetShop){
+    state = saveShopInfoReducer(state, goods.targetShop)
+  }
+  if(goods.goodsPromotion){
+    state = savePromotionReducer(state, goods.goodsPromotion)
+  }
   let goodsRecord = ShopGoods.fromJsonApi(goods)
   state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
   return state
