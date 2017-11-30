@@ -4,10 +4,11 @@
 import {Map, List, Record} from 'immutable'
 import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
-import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects'
+import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects'
 import * as mineCloud from './cloud'
-import {shopAction,shopSelector,shopReducer} from '../Shop'
-import {authAction,authReducer,authSelector} from '../../util/auth'
+import {shopAction, shopSelector, shopReducer} from '../Shop'
+import {authAction, authReducer, authSelector} from '../../util/auth'
+import {ORDER_STATUS} from '../../util/appConfig'
 
 /****  Model  ****/
 
@@ -62,20 +63,20 @@ export const AddrInfoRecord = Record({
 }, 'AddrInfoRecord')
 
 export class AddrInfo extends AddrInfoRecord {
-  static fromApi(lcObj){
+  static fromApi(lcObj) {
     let addrInfo = new AddrInfoRecord()
-    addrInfo = addrInfo.withMutations((record)=>{
-      record.set('id',lcObj.id)
-      record.set('adminId',lcObj.adminId)
-      record.set('username',lcObj.username)
-      record.set('mobilePhoneNumber',lcObj.mobilePhoneNumber)
-      record.set('province',lcObj.province)
-      record.set('city',lcObj.city)
-      record.set('district',lcObj.district)
-      record.set('addr',lcObj.addr)
-      record.set('tag',lcObj.tag)
-      record.set('createdAt',lcObj.createdAt)
-      record.set('status',lcObj.status)
+    addrInfo = addrInfo.withMutations((record)=> {
+      record.set('id', lcObj.id)
+      record.set('adminId', lcObj.adminId)
+      record.set('username', lcObj.username)
+      record.set('mobilePhoneNumber', lcObj.mobilePhoneNumber)
+      record.set('province', lcObj.province)
+      record.set('city', lcObj.city)
+      record.set('district', lcObj.district)
+      record.set('addr', lcObj.addr)
+      record.set('tag', lcObj.tag)
+      record.set('createdAt', lcObj.createdAt)
+      record.set('status', lcObj.status)
 
     })
     return addrInfo
@@ -121,7 +122,6 @@ export class ShopOrders extends ShopOrdersRecord {
 }
 
 
-
 const MineInfo = Record({
   payment: undefined,
   allAddress: Map(),         //user address
@@ -148,10 +148,15 @@ const DISABLE_MY_ADDR = 'DISABLE_MY_ADDR'
 const DISABLE_MY_ADDR_SUCCESS = 'DISABLE_MY_ADDR_SUCCESS'
 const SET_DEFAULT_ADDR = 'SET_DEFAULT_ADDR'
 const SET_DEFAULT_ADDR_SUCCESS = 'SET_DEFAULT_ADDR_SUCCESS'
-const FETCH_USER_ORDERS_LIST = 'FETCH_USER_ORDERS_LIST'
-const FETCH_USER_ORDERS_LIST_SUCCESS = 'FETCH_USER_ORDERS_LIST_SUCCESS'
+const FETCH_SET_USER_ORDERS_LIST = 'FETCH_SET_USER_ORDERS_LIST'
+const FETCH_SET_USER_ORDERS_LIST_SUCCESS = 'FETCH_SET_USER_ORDERS_LIST_SUCCESS'
+const FETCH_ADD_USER_ORDERS_LIST = 'FETCH_ADD_USER_ORDERS_LIST'
+const FETCH_ADD_USER_ORDERS_LIST_SUCCESS = 'FETCH_ADD_USER_ORDERS_LIST_SUCCESS'
+const BATCH_SAVE_USER_ORDERS = 'BATCH_SAVE_USER_ORDERS'
+const SET_USER_ORDER_STATUS = 'SET_USER_ORDER_STATUS'
+const SET_USER_ORDER_STATUS_SUCCESS = 'SET_USER_ORDER_STATUS_SUCCESS'
 const MOVE_USER_ORDER_TO_FINISH = 'MOVE_USER_ORDER_TO_FINISH'
-const MOVE_USER_ORDER_TO_FINISH_SUCCESS = 'MOVE_USER_ORDER_TO_FINISH_SUCCESS'
+const DELETE_USER_ORDER = 'DELETE_USER_ORDER'
 
 
 /**** Action ****/
@@ -165,7 +170,8 @@ export const mineAction = {
   disableMyAddr: createAction(DISABLE_MY_ADDR),
   setDefaultAddr: createAction(SET_DEFAULT_ADDR),
   fetchUserOrderList: createAction(FETCH_ADDR_LIST),
-  moveOrderToFinish: createAction(MOVE_USER_ORDER_TO_FINISH),
+  setUserOrderStatus: createAction(SET_USER_ORDER_STATUS),
+  saveUserOrders: createAction(BATCH_SAVE_USER_ORDERS)
 }
 
 const updatePaymentAction = createAction(UPDATE_PAYMENT_INFO)
@@ -174,8 +180,11 @@ const updateMyAddrSuccess = createAction(UPDATE_MY_ADDR_SUCCESS)
 const fetchMyAddrSuccess = createAction(FETCH_ADDR_LIST_SUCCESS)
 const disableMyAddrSuccess = createAction(DISABLE_MY_ADDR_SUCCESS)
 const setDefaultAddrSuccess = createAction(SET_DEFAULT_ADDR_SUCCESS)
-const fetchUserOrderListSuccess = createAction(FETCH_USER_ORDERS_LIST_SUCCESS)
-const moveOrderToFinishSuccess = createAction(MOVE_USER_ORDER_TO_FINISH_SUCCESS)
+const fetchSetUserOrderListSuccess = createAction(FETCH_SET_USER_ORDERS_LIST_SUCCESS)
+const fetchAddUserOrderListSuccess = createAction(FETCH_ADD_USER_ORDERS_LIST_SUCCESS)
+const setUserOrderStatusSuccess = createAction(SET_USER_ORDER_STATUS_SUCCESS)
+const moveOrderToFin = createAction(MOVE_USER_ORDER_TO_FINISH)
+const deleteUserOrder = createAction(DELETE_USER_ORDER)
 
 /**** Saga ****/
 
@@ -219,9 +228,167 @@ function* reqWithdrawSaga(action) {
   }
 }
 
+function* createUserAddrSaga (action) {
+  let payload = action.payload
+  try{
+    let result = yield call(mineCloud.createAddrApi, {...payload})
+    if(result){
+      yield put (createMyAddrSuccess({address:result}))
+      if(payload.success){
+        payload.success()
+      }
+    }
+  }catch (err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* updateUserAddrSaga (action) {
+  let payload = action.payload
+  try{
+    let result = yield call(mineCloud.updateAddr, {...payload})
+    if(result){
+      yield put (updateMyAddrSuccess({address:result}))
+      if(payload.success){
+        payload.success()
+      }
+    }
+  }catch (err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* getAddrListSaga(action){
+  let payload = action.payload
+  try{
+    let result = yield call(mineCloud.getAddressList, {...payload})
+    if(result && result.length>0){
+      let params = {
+        address: result,
+        isRefresh: payload.isRefresh
+      }
+      yield put(fetchMyAddrSuccess(params))
+    }
+  }catch(err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* disableAddrSaga(action){
+  let payload = action.payload
+  try{
+    let result = yield call(mineCloud.disableAddr, {...payload})
+    if(result){
+      let params = {
+        addrId: payload.addrId
+      }
+      yield put(disableMyAddrSuccess(params))
+      if(payload.success){
+        payload.success()
+      }
+    }
+  }catch(err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* setDefaultAddrSaga(action){
+  let payload = action.payload
+  try{
+    let result = yield call(mineCloud.setDefaultAddr, {...payload})
+    if(payload.success){
+      payload.success()
+    }
+  }catch(err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* getUserOrderListSaga(action){
+  let payload = action.payload
+  let queryType = payload.type
+  if (queryType == 'all') {
+    payload.orderStatus = [ORDER_STATUS.PAID_FINISHED, ORDER_STATUS.DELIVER_GOODS, ORDER_STATUS.ACCOMPLISH]
+  } else if (queryType == 'waiting') {
+    payload.orderStatus = [ORDER_STATUS.PAID_FINISHED, ORDER_STATUS.DELIVER_GOODS]
+  } else if (queryType == 'finished') {
+    payload.orderStatus = [ORDER_STATUS.ACCOMPLISH]
+  }
+  try{
+    let results = yield call(mineCloud.getUserOrders, {...payload})
+    let shopOrders = []
+    let vendors = []
+    let goods = []
+    let shopOrderIds = []
+    let orders = results.shopOrders
+    orders.forEach((order) => {
+      shopOrderIds.push(order.id)
+      shopOrders.push(order)
+      vendors.push(order.vendor)
+      goods.push(order.goods)
+    })
+    yield put(shopAction.updateBatchShop(vendors))
+    yield put(shopAction.updateBatchShopGoods(goods))
+    yield put(mineAction.saveUserOrders(orders))
+    if(payload.isRefresh){
+      yield put(fetchSetUserOrderListSuccess(shopOrderIds))
+    }else{
+      yield put(fetchAddUserOrderListSuccess(shopOrderIds))
+    }
+    if(payload.success){
+      payload.success()
+    }
+  }catch(err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
+function* updateUserOrderStatusSaga (action) {
+  let payload = action.payload
+  try{
+    let results = yield call(mineCloud.setOrderStatus, {...payload})
+    if(results.errCode != 0){
+      if(payload.error){
+        payload.error(results.error)
+      }
+    }else{
+      put(setUserOrderStatusSuccess({orderId: payload.orderId,status: payload.orderStatus}))
+      if(payload.success){
+        payload.success()
+      }
+    }
+  }catch(err){
+    if(payload.error){
+      payload.error(err)
+    }
+  }
+}
+
 export const mineSaga = [
   takeLatest(GET_PAYMENT_INFO, paymentInfoSaga),
   takeLatest(REQUEST_WITHDRAW, reqWithdrawSaga),
+  takeLatest(CREATE_MY_ADDR, createUserAddrSaga),
+  takeLatest(UPDATE_MY_ADDR, updateUserAddrSaga),
+  takeLatest(FETCH_ADDR_LIST, getAddrListSaga),
+  takeLatest(DISABLE_MY_ADDR, disableAddrSaga),
+  takeLatest(SET_DEFAULT_ADDR, setDefaultAddrSaga),
+  takeLatest(SET_USER_ORDER_STATUS, updateUserOrderStatusSaga),
+  takeLatest(FETCH_SET_USER_ORDERS_LIST, getUserOrderListSaga),
+  takeLatest(FETCH_ADD_USER_ORDERS_LIST, getUserOrderListSaga),
+
+
 ]
 
 /**** Reducer ****/
@@ -232,6 +399,22 @@ export function mineReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_PAYMENT_INFO:
       return updatePayment(state, action)
+    case FETCH_ADDR_LIST_SUCCESS:
+      return handleFetchAddressList(state, action)
+    case CREATE_MY_ADDR_SUCCESS:
+      return handleCreateAddress(state, action)
+    case UPDATE_MY_ADDR_SUCCESS:
+      return handleUpdateAddress(state, action)
+    case DISABLE_MY_ADDR_SUCCESS:
+      return handleDisableAddress(state, action)
+    case FETCH_SET_USER_ORDERS_LIST_SUCCESS:
+      return handleSetUserShopOrders(state, action)
+    case FETCH_ADD_USER_ORDERS_LIST_SUCCESS:
+      return handleAddUserShopOrders(state, action)
+    case BATCH_SAVE_USER_ORDERS:
+      return handleBatchAddOrdersDetail(state, action)
+    case SET_USER_ORDER_STATUS_SUCCESS:
+      return handleUpdateShopOrderStatus(state, action)
     case REHYDRATE:
       return onRehydrate(state, action)
     default:
@@ -259,6 +442,24 @@ function handleSetUserShopOrders(state, action) {
     state = state.setIn(['userWaitOrders', buyerId], new List(shopOrdersList))
   } else if ('finished' == type) {
     state = state.setIn(['userFinishOrders', buyerId], new List(shopOrdersList))
+  }
+  return state
+}
+
+function handleUpdateShopOrderStatus(state, action) {
+  let payload = action.payload
+  let status = payload.status
+  let orderId = payload.orderId
+  let order = state.getIn(['orderDetail', orderId])
+  if (!order) {
+    return state
+  }
+  order = order.set('orderStatus', status)
+  state = state.setIn(['orderDetail', orderId], order)
+  if (status == ORDER_STATUS.ACCOMPLISH) {
+    state = handleMoveUserOrderToFinish(state,{orderId: payload.orderId, buyerId: payload.buyerId})
+  } else if (status == ORDER_STATUS.DELETED) {
+    handleDeleteUserOrder(state,{orderId: payload.orderId, buyerId: payload.buyerId})
   }
   return state
 }
@@ -294,15 +495,14 @@ function handleAddUserShopOrders(state, action) {
 function handleBatchAddOrdersDetail(state, action) {
   let orders = action.payload.shopOrders
   orders.forEach((order) => {
-    state = state.setIn(['orderDetail', order.id], order)
+    state = state.setIn(['orderDetail', order.id], ShopOrders.fromApi(order))
   })
   return state
 }
 
-function handleMoveUserOrderToFinish(state, action) {
-  let payload = action.payload
-  let orderId = payload.orderId
-  let buyerId = payload.buyerId
+function handleMoveUserOrderToFinish(state, params) {
+  let orderId = params.orderId
+  let buyerId = params.buyerId
   let waitList = state.getIn(['userWaitOrders', buyerId])
   if (!waitList) {
     return state
@@ -318,6 +518,72 @@ function handleMoveUserOrderToFinish(state, action) {
   return state
 }
 
+function handleDeleteUserOrder(state, params) {
+  let orderId = params.orderId
+  let buyerId = params.buyerId
+  let finishOrderList = state.getIn(['userFinishOrders', buyerId])
+  if (!finishOrderList) {
+    return state
+  }
+  finishOrderList = finishOrderList.filter((item) => (item != orderId))
+  state = state.setIn(['userFinishOrders', buyerId], finishOrderList)
+
+  let allOrderList = state.getIn(['userAllOrders', buyerId])
+  if (!allOrderList) {
+    return state
+  }
+  allOrderList = allOrderList.filter((item) => (item != orderId))
+  state = state.setIn(['userAllOrders', buyerId], allOrderList)
+  return state
+}
+
+function handleFetchAddressList(state, action) {
+  let addressList = []
+  let {address, isRefresh} = action.payload
+  if (address && address.length > 0) {
+    address.forEach((item)=> {
+      addressList.push(item.id)
+      state = state.setIn(['allAddress', item.id], AddrInfo.fromApi(item))
+    })
+  }
+  if (!isRefresh) {
+    let oldAddrList = state.get('addressList')
+    let newAddrList = oldAddrList.concat(new List(addressList))
+    state = state.set('addressList', newAddrList)
+  } else {
+    state = state.set('addressList', List(addressList))
+  }
+  return state
+}
+
+function handleCreateAddress(state, action) {
+  let {address} = action.payload
+  let oldAddrList = state.get('addressList').toJS() || []
+  oldAddrList.splice(0, 0, address.id)
+  state = state.set('addressList', new List(oldAddrList))
+  state = state.setIn(['allAddress', address.id], AddrInfo.fromApi(address))
+  return state
+}
+
+function handleUpdateAddress(state, action) {
+  let {address} = action.payload
+  state = state.setIn(['allAddress', address.id], AddrInfo.fromApi(address))
+  return state
+}
+
+function handleDisableAddress(state, action) {
+  let {addrId} = action.payload
+  let oldAddrList = state.get('addressList').toArray() || []
+  if (oldAddrList && oldAddrList.length > 0) {
+    for (let i = 0; i < oldAddrList.length - 1; i++) {
+      if (oldAddrList[i] == addrId) {
+        oldAddrList.splice(i, 1)
+      }
+    }
+  }
+  state = state.set('addressList', new List(oldAddrList))
+  return state
+}
 
 function onRehydrate(state, action) {
   var incoming = action.payload.MINE
@@ -392,8 +658,32 @@ export function selectOrderDetail(state, orderId) {
   }
 }
 
+
+export function getUserAddressList(state) {
+  let addressList = state.AUTH.get('addressList')
+  let addressDetailList = []
+  if (addressList && addressList.size > 0) {
+    addressList.forEach((item)=> {
+      let address = state.AUTH.getIn(['allAddress', item])
+      if (address) {
+        addressDetailList.push(address.toJS())
+      }
+    })
+  }
+  return addressDetailList
+}
+
+export function getUserAddress(state, addrId) {
+  let address = state.AUTH.getIn(['allAddress', addrId])
+  if (address) {
+  }
+  return address.toJS() || {}
+}
+
 export const mineSelector = {
   selectPayment,
   selectUserOrders,
-  selectOrderDetail
+  selectOrderDetail,
+  getUserAddressList,
+  getUserAddress
 }
