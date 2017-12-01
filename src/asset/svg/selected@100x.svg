@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="my_order" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00-icon" transform="translate(-29.000000, -90.000000)" fill-rule="nonzero">
+            <g id="selected" transform="translate(30.000000, 91.000000)">
+                <path d="M0,11 C7.43989126e-16,17.0751322 4.92486775,22 11,22 C17.0751322,22 22,17.0751322 22,11 C22,4.92486775 17.0751322,3.71994563e-16 11,0 C4.92486775,-3.71994563e-16 7.43989126e-16,4.92486775 0,11 Z" id="Shape" fill="#FF7819"></path>
+                <path d="M10.0714286,12.25 L15.6428571,7.19444444 C15.9285714,6.93518519 16.5,6.93518519 16.7857143,7.19444444 C17.0714286,7.4537037 17.0714286,7.97222222 16.7857143,8.23148148 L10.6428571,13.8055556 C10.3571429,14.0648148 9.92857143,14.0648148 9.5,13.8055556 C9.35714286,13.8055556 9.21428571,13.6759259 9.21428571,13.6759259 L6.21428571,10.9537037 C5.92857143,10.6944444 5.92857143,10.1759259 6.21428571,9.91666667 C6.5,9.65740741 7.07142857,9.65740741 7.35714286,9.91666667 L10.0714286,12.25 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

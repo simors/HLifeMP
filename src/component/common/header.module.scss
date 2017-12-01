@@ -1,0 +1,44 @@
+.headerBox{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 0.6rem;
+  width: 100%;
+  background-color: #FF7819;
+  padding-top: 0.2rem;
+  flex-direction: row;
+
+    .leftBox{
+      flex: 1;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+        .leftIcon{
+          height: 0.2rem;
+          color: #FFFFFF;
+
+        }
+
+    }
+
+    .centerBox{
+      align-items: center;
+      flex: 2;
+      justify-content: center;
+
+        .titleText{
+          font-size: 0.2rem;
+          color: #FFFFFF;
+
+        }
+
+    }
+
+    .rightBox{
+      flex: 1;
+      align-items: center;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+}

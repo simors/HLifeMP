@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import { Button } from 'antd-mobile'
+import { Button , Icon } from 'antd-mobile'
 import * as appConfig from '../../util/appConfig'
 import styles from './header.module.scss'
 
@@ -12,30 +12,46 @@ export default class WelcomePanel extends React.PureComponent {
     super(props)
   }
 
-  close = (e) => {
-    if (this.props.onClick) {
-      this.props.onClick()
+  renderLeft (){
+    if(this.props.leftType == 'icon'){
+      return (
+        <div className={styles.leftBox}>
+          <Icon type="left" className={styles.leftIcon}/>
+        </div>
+      )
+    }else if(this.props.leftType == 'svg'){
+      return (
+        <div className={styles.leftBox}>
+          <img src={require('../../asset/svg/'+this.props.leftIcon+'.svg')} />
+        </div>
+      )
     }
-  }
 
-  renderLeft = (e) => {
 
   }
 
-  renderCenter = (e) => {
-
+  renderCenter (){
+    return (
+      <div className={styles.centerBox}>
+        <p className={styles.titleText}>{this.props.titleText}</p>
+      </div>
+    )
   }
 
-  renderRight = (e) => {
-
+  renderRight () {
+    return (
+      <div className={styles.rightBox}>
+        <img src={require('../../asset/svg/'+this.props.leftIcon+'.svg')} />
+      </div>
+    )
   }
 
   render() {
     return (
-      <div className={styles.headerWrap}>
-        {this.renderLeft}
-        {this.renderCenter}
-        {this.renderRight}
+      <div className={styles.headerBox}>
+        {this.renderLeft()}
+        {this.renderCenter()}
+        {this.renderRight()}
       </div>
     )
   }
@@ -43,8 +59,8 @@ export default class WelcomePanel extends React.PureComponent {
 
 Header.defaultProps = {
   leftType: 'icon',
-  leftIconName: 'ios-arrow-back',
-  title: '',
-  rightType: '',
+  leftIcon: 'ios-arrow-back',
+  titleText: '',
+  rightIcon: '',
   rightText: ''
 }
