@@ -19,16 +19,11 @@ class Mine extends React.PureComponent {
   }
 
   componentDidMount() {
-    let {activeUser} = this.props
-    if (activeUser) {
-      this.props.getPaymentInfo({userId: activeUser.id})
-    }
+
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.activeUser != newProps.activeUser) {
-      this.props.getPaymentInfo({userId: newProps.activeUser.id})
-    }
+
   }
 
   gotoWallet = () => {
@@ -52,23 +47,22 @@ class Mine extends React.PureComponent {
   }
 
   render() {
-    let {activeUser, payment} = this.props
-    if (!activeUser || !payment) {
-      return <Loading/>
-    }
+    // let {activeUser, payment} = this.props
+    // if (!activeUser || !payment) {
+    //   return <Loading/>
+    // }
+    let activeUser = {}
     return (
-      <div>
+      <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>
         <div className={styles.headerView}>
-          <div className={styles.avatar}>
-            <Avatar size={70} src={activeUser.avatar} />
-          </div>
+            <img className={styles.avatar} src={(activeUser&&activeUser.avatar)?activeUser.avatar:require('../../asset/svg/user.svg')} />
           <span className={styles.nickname}>{activeUser.nickname}</span>
         </div>
         <div className={styles.body}>
           <Button className={styles.ButtonWrap} onClick={this.gotoWallet}>
             <div className={styles.leftBox}>
               <img src={require('../../asset/svg/wallet_icon@100x.svg')} className={styles.image}/>
-              <p calssName={styles.text}>钱包</p>
+              <span className={styles.text}>钱包</span>
             </div>
             <div className={styles.rightBox}>
               <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
@@ -77,7 +71,7 @@ class Mine extends React.PureComponent {
           <Button className={styles.ButtonWrap} onClick={this.gotoOrder}>
             <div className={styles.leftBox}>
               <img src={require('../../asset/svg/order_icon@100x.svg')} className={styles.image}/>
-              <p calssName={styles.text}>我的订单</p>
+              <span className={styles.text}>我的订单</span>
             </div>
             <div className={styles.rightBox}>
               <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
@@ -86,7 +80,7 @@ class Mine extends React.PureComponent {
           <Button className={styles.ButtonWrap} onClick={this.gotoAddr}>
             <div className={styles.leftBox}>
               <img src={require('../../asset/svg/address_icon@100x.svg')} className={styles.image}/>
-              <p calssName={styles.text}>地址管理</p>
+              <span className={styles.text}>地址管理</span>
             </div>
             <div className={styles.rightBox}>
               <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
@@ -98,7 +92,7 @@ class Mine extends React.PureComponent {
           <Button className={styles.ButtonWrap} onClick={this.gotoAbout}>
             <div className={styles.leftBox}>
               <img src={require('../../asset/svg/about_icon@100x.svg')} className={styles.image}/>
-              <p calssName={styles.text}>关于汇邻优店</p>
+              <span className={styles.text}>关于汇邻优店</span>
             </div>
             <div className={styles.rightBox}>
               <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
@@ -112,11 +106,11 @@ class Mine extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let activeUser = authSelector.activeUserInfo(state)
-  let payment = mineSelector.selectPayment(state)
+  // let activeUser = authSelector.activeUserInfo(state)
+  // let payment = mineSelector.selectPayment(state)
   return {
-    activeUser,
-    payment,
+    // activeUser,
+    // payment,
   }
 }
 
