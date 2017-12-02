@@ -105,10 +105,10 @@ class Mine extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // let activeUser = authSelector.activeUserInfo(state)
+  let activeUser = authSelector.activeUserInfo(state)
   // let payment = mineSelector.selectPayment(state)
   return {
-    // activeUser,
+    activeUser,
     // payment,
   }
 }
