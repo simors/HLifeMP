@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="13px" viewBox="0 0 8 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Chevron</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="my_order" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00-个人中心" transform="translate(-352.000000, -279.000000)" fill="#C7C7CC">
+            <g id="钱包" transform="translate(0.000000, 261.000000)">
+                <polygon id="Chevron" points="360 24.5165904 353.660358 31 352.19364 29.4341855 357.066049 24.4507556 352 19.5989953 353.563538 18"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

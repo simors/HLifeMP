@@ -13,16 +13,22 @@ import Withdraw from './Mine/Withdraw'
 import NoMatch from './NoMatch'
 import ErrorPage from './Error'
 import LoadingPage from './Loading'
+import Mine from './Mine/Mine'
 
 const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
     <AuthRoute path="/wallet" component={Wallet}/>
+    <AuthRoute path="/mine" component={Mine}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>
-    <Route path="/friends/:level" component={PromoterFriends}/>
+      <AuthRoute path="/myOrder" component={Withdraw}/>
+      <AuthRoute path="/myAddr" component={Withdraw}/>
+      <AuthRoute path="/about" component={Withdraw}/>
+
+      <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/nearfriend" component={MyNearFriend}/>
     <ShareAuthRoute path="/shareGoods/:goodsId" component={GoodsShare}/>
-    <Route path="/error" component={ErrorPage} />
+    <Route path="/error" component={ErrorPage}/>
     <Route path="/loading" component={LoadingPage}/>
     <Route path="/" component={Home}/>
     <Route component={NoMatch}/>
