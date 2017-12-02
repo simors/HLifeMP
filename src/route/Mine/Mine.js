@@ -51,7 +51,6 @@ class Mine extends React.PureComponent {
     if (!activeUser || !payment) {
       return <Loading/>
     }
-    let activeUser = {}
     return (
       <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>
         <div className={styles.headerView}>
