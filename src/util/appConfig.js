@@ -14,7 +14,7 @@ const LC_PRO_APP_KEY = 'qhIzQiFonde2yeaBdlcXHUDz'
 
 //微信公众平台
 var WECHAT_MP_APPID = ""
-const WECHAT_MP_APPID_DEV = "wx3dfde3f7184c8c51"
+const WECHAT_MP_APPID_DEV = "wxa9d62e2780c3345b"
 const WECHAT_MP_APPID_PRE = "wxd1cc733cd20fdaea"
 const WECHAT_MP_APPID_PRO = "wxc13204ac7a37acb4"
 
@@ -26,7 +26,7 @@ const BACKEND_DOMAIN_PRO = "http://share.xiaojee.cn"
 
 // 客户端域名
 var CLIENT_DOMAIN = ''
-const CLIENT_DOMAIN_DEV = 'http://dev.mp.ngrok.lvyii.com'
+const CLIENT_DOMAIN_DEV = 'http://dev.mp.ngrok.io'
 const CLIENT_DOMAIN_STAGE = 'http://dev.xiaojee.cn:6300'
 const CLIENT_DOMAIN_PRO = 'http://admin.xiaojee.cn:6300'
 
@@ -51,7 +51,7 @@ if(__DEV__) {          //开发环境
 }
 
 // 订单状态定义
-export const ORDER_STATUS = {
+const ORDER_STATUS = {
   PAID_FINISHED: 1, // 已支付
   DELIVER_GOODS: 2, // 已发货
   ACCOMPLISH: 3,    // 已完成
@@ -61,6 +61,7 @@ export const ORDER_STATUS = {
 
 var appConfig = {
   APP_NAME: '汇邻优店',
+  ORDER_STATUS: ORDER_STATUS,
 
   LC_APP_ID: LC_APP_ID,
   LC_APP_KEY: LC_APP_KEY,
