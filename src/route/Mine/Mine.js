@@ -47,10 +47,10 @@ class Mine extends React.PureComponent {
   }
 
   render() {
-    // let {activeUser, payment} = this.props
-    // if (!activeUser || !payment) {
-    //   return <Loading/>
-    // }
+    let {activeUser, payment} = this.props
+    if (!activeUser || !payment) {
+      return <Loading/>
+    }
     let activeUser = {}
     return (
       <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>

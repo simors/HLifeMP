@@ -19,7 +19,7 @@ const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
     <AuthRoute path="/wallet" component={Wallet}/>
-    <Route path="/mine" component={Mine}/>
+    <AuthRoute path="/mine" component={Mine}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>
       <AuthRoute path="/myOrder" component={Withdraw}/>
       <AuthRoute path="/myAddr" component={Withdraw}/>
