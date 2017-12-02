@@ -7,7 +7,7 @@ import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import { Carousel, WhiteSpace, WingBlank, Popup } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
-import * as appConfig from '../../util/appConfig'
+import appConfig from '../../util/appConfig'
 import ArticleViewer from '../../component/article'
 import EndPanel from '../../component/share/EndPanel'
 import WelcomePanel from '../../component/share/WelcomePanel'

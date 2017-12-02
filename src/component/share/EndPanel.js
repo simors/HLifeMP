@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import { Card, Button, WingBlank } from 'antd-mobile'
-import * as appConfig from '../../util/appConfig'
+import appConfig from '../../util/appConfig'
 import styles from './endpanel.module.scss'
 
 export default class EndPanel extends React.PureComponent {

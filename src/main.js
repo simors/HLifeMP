@@ -4,7 +4,7 @@ import {store} from './store/persistStore'
 import {history} from './store/createStore'
 import App from './App'
 import AV from 'leancloud-storage'
-import * as appConfig from './util/appConfig'
+import appConfig from './util/appConfig'
 import './main.scss'
 
 //leancloud init

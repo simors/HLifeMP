@@ -8,7 +8,7 @@ import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects'
 import * as mineCloud from './cloud'
 import {shopAction, shopSelector, shopReducer} from '../Shop'
 import {authAction, authReducer, authSelector} from '../../util/auth'
-import {ORDER_STATUS} from '../../util/appConfig'
+import appConfig from '../../util/appConfig'
 
 /****  Model  ****/
 
@@ -318,11 +318,11 @@ function* getUserOrderListSaga(action){
   let payload = action.payload
   let queryType = payload.type
   if (queryType == 'all') {
-    payload.orderStatus = [ORDER_STATUS.PAID_FINISHED, ORDER_STATUS.DELIVER_GOODS, ORDER_STATUS.ACCOMPLISH]
+    payload.orderStatus = [appConfig.ORDER_STATUS.PAID_FINISHED, appConfig.ORDER_STATUS.DELIVER_GOODS, appConfig.ORDER_STATUS.ACCOMPLISH]
   } else if (queryType == 'waiting') {
-    payload.orderStatus = [ORDER_STATUS.PAID_FINISHED, ORDER_STATUS.DELIVER_GOODS]
+    payload.orderStatus = [appConfig.ORDER_STATUS.PAID_FINISHED, appConfig.ORDER_STATUS.DELIVER_GOODS]
   } else if (queryType == 'finished') {
-    payload.orderStatus = [ORDER_STATUS.ACCOMPLISH]
+    payload.orderStatus = [appConfig.ORDER_STATUS.ACCOMPLISH]
   }
   try{
     let results = yield call(mineCloud.getUserOrders, {...payload})
@@ -456,9 +456,9 @@ function handleUpdateShopOrderStatus(state, action) {
   }
   order = order.set('orderStatus', status)
   state = state.setIn(['orderDetail', orderId], order)
-  if (status == ORDER_STATUS.ACCOMPLISH) {
+  if (status == appConfig.ORDER_STATUS.ACCOMPLISH) {
     state = handleMoveUserOrderToFinish(state,{orderId: payload.orderId, buyerId: payload.buyerId})
-  } else if (status == ORDER_STATUS.DELETED) {
+  } else if (status == appConfig.ORDER_STATUS.DELETED) {
     handleDeleteUserOrder(state,{orderId: payload.orderId, buyerId: payload.buyerId})
   }
   return state
