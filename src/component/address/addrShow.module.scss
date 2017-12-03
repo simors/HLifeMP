@@ -1,0 +1,115 @@
+.body{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.3rem;
+
+  .userInfoBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .username{
+      font-size: 0.3rem;
+      color: rgba(0,0,0,0.8);
+
+    }
+
+    .phone{
+      font-size: 0.3rem;
+      color: rgba(0,0,0,0.8);
+      margin-left: 0.8rem;
+
+    }
+    .tagBox{
+      width: 0.6rem;
+      height: 0.3rem;
+      align-items: center;
+      justify-content: center;
+      background-color: #F5F5F5;
+      margin-left: 0.3rem;
+      display: flex;
+
+      .tag{
+        font-size: 0.22rem;
+        color: #50E3C2;
+
+      }
+    }
+
+
+
+  }
+
+  .addrInfo{
+    margin-top:0.3rem;
+    margin-bottom: 0.3rem;
+
+    .addrText{
+      color: rgba(0,0,0,0.8);
+      font-size: 0.26rem;
+
+    }
+
+  }
+
+  .buttonWrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 0.02rem solid rgba(0,0,0,0.05);
+    margin-top: 0.1rem;
+
+
+    .defaultBox{
+      display: flex;
+
+      border-width: 0;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      .defaultButton{
+        height: 0.5rem;
+        width: 0.5rem
+      }
+      .defaultText{
+        margin-left: 0.2rem;
+        font-size: 0.3rem;
+        color:rgba(0,0,0,0.8);
+
+
+      }
+
+    }
+    .editBox{
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+
+
+
+      .editButton{
+        display: flex;
+        width: 1.4rem;
+        height: 0.6rem;
+        border-width: 0.02rem;
+        border-color: #000000;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.2rem;
+        border-radius: 0;
+        font-size: 0.3rem;
+
+      }
+
+
+
+    }
+
+  }
+
+
+}
