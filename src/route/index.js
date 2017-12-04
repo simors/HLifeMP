@@ -13,10 +13,12 @@ import Withdraw from './Mine/Withdraw'
 import NoMatch from './NoMatch'
 import ErrorPage from './Error'
 import LoadingPage from './Loading'
+import NearbyPromotion from './Promotion'
 
 const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <Route path="/promotion" component={NearbyPromotion}/>
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>
     <Route path="/friends/:level" component={PromoterFriends}/>

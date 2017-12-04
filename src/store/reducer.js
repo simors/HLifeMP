@@ -5,6 +5,7 @@ import {appStateReducer} from '../util/appstate'
 import {promoterReducer} from '../route/Promoter'
 import {shopReducer} from '../route/Shop'
 import {mineReducer} from '../route/Mine'
+import {promotionReducer} from '../route/Promotion'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -13,6 +14,7 @@ export const makeRootReducer = (asyncReducers) => {
     PROMOTER: promoterReducer,
     SHOP: shopReducer,
     MINE: mineReducer,
+    PROMOTION: promotionReducer,
     router: routerReducer,
     ...asyncReducers
   })
