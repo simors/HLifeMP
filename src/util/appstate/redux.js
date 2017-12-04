@@ -166,7 +166,7 @@ function getGeopoint(state) {
 }
 
 function selectEntryURL(state) {
-  let entryURL = state.CONFIG.get('entryURL')
+  let entryURL = state.APPSTATE.get('entryURL')
   return entryURL
 }
 
