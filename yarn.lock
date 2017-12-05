@@ -3246,11 +3246,7 @@ hoek@4.x.x:
   version "4.2.0"
   resolved "http://registry.npm.taobao.org/hoek/download/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
-hoist-non-react-statics@1.x:
-  version "1.2.0"
-  resolved "http://registry.npm.taobao.org/hoist-non-react-statics/download/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
-
-hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.0:
+hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.0, hoist-non-react-statics@^2.3.1:
   version "2.3.1"
   resolved "http://registry.npm.taobao.org/hoist-non-react-statics/download/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
@@ -5560,15 +5556,15 @@ rc-drawer@~0.4.9:
     classnames "^2.2.4"
     prop-types "^15.5.10"
 
-rc-form@^1.4.8:
-  version "1.4.8"
-  resolved "http://registry.npm.taobao.org/rc-form/download/rc-form-1.4.8.tgz#e26c2cd86137d943c2e2996407d73e9fa073b1c6"
+rc-form@^2.1.4:
+  version "2.1.4"
+  resolved "http://registry.npm.taobao.org/rc-form/download/rc-form-2.1.4.tgz#44eca443e1922aed71dbc6447f0e6ed424f95bf2"
   dependencies:
     async-validator "1.x"
     babel-runtime "6.x"
     create-react-class "^15.5.3"
     dom-scroll-into-view "1.x"
-    hoist-non-react-statics "1.x"
+    hoist-non-react-statics "^2.3.1"
     lodash "^4.17.4"
     warning "^3.0.0"
 

@@ -15,6 +15,8 @@ import ErrorPage from './Error'
 import LoadingPage from './Loading'
 import Mine from './Mine/Mine'
 import MyAddr from './Mine/MyAddr'
+import CreateMyAddr from './Mine/CreateMyAddr'
+
 
 const rootRoutes = (
   <Switch>
@@ -24,7 +26,9 @@ const rootRoutes = (
     <AuthRoute path="/withdraw" component={Withdraw}/>
       <AuthRoute path="/myOrder" component={Withdraw}/>
       <Route path="/myAddr" component={MyAddr}/>
-      <AuthRoute path="/about" component={Withdraw}/>
+    <Route path="/createMyAddr" component={CreateMyAddr}/>
+
+    <AuthRoute path="/about" component={Withdraw}/>
 
       <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/nearfriend" component={MyNearFriend}/>

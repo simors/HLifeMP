@@ -15,6 +15,7 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import AddrList from '../../component/address/AddrList'
+import styles from './myAddr.module.scss'
 
 export default class MyAddr extends React.PureComponent {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class MyAddr extends React.PureComponent {
   render() {
 
     return (
-      <div >
+      <div className={styles.body}>
         <AddrList/>
       </div>
     )
