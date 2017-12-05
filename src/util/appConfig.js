@@ -27,7 +27,7 @@ const BACKEND_DOMAIN_PRO = "http://share.xiaojee.cn"
 // 客户端域名
 var CLIENT_DOMAIN = ''
 const CLIENT_DOMAIN_DEV = 'http://dev.mp.ngrok.lvyii.com'
-const CLIENT_DOMAIN_STAGE = 'http://dev.xiaojee.cn'
+const CLIENT_DOMAIN_STAGE = 'http://dev.xiaojee.cn:6300'
 const CLIENT_DOMAIN_PRO = 'http://admin.xiaojee.cn:6300'
 
 if(__DEV__) {          //开发环境
