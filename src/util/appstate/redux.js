@@ -170,10 +170,10 @@ function getGeopoint(state) {
 }
 
 export function selectProvincesAndCities(state) {
-  let config = getConfig(state)
-  if (config) {
-    let provinceListWithCityList = config.provinceListWithCityList.toJS()
-    return provinceListWithCityList || []
+  let provinceListWithCityList = state.APPSTATE.provinceListWithCityList
+  if (provinceListWithCityList) {
+    let provinceListWithCityListJS = provinceListWithCityList.toJS()
+    return provinceListWithCityListJS || []
   }
   return []
 }

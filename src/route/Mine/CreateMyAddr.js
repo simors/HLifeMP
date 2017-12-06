@@ -12,6 +12,7 @@ import {Button, WingBlank, InputItem, List} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
+import RegionPicker from '../../component/common/RegionPicker'
 
 import styles from './createMyAddr.module.scss'
 
@@ -52,6 +53,7 @@ class CreateMyAddr extends React.PureComponent {
             initialValue: ''
           })}/>
         </div>
+          <RegionPicker level={3} onOk={(value)=>{console.log('value=->',value)}} />
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>详细地址:</span>
           <input className={styles.input} {...getFieldProps('addr',{
