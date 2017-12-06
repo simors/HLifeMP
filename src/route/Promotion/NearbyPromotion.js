@@ -4,12 +4,18 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import {promotionAction} from '../Promotion'
+import {actions as promotionActions, selector as promotionSelector} from './redux'
 import {appStateAction, appStateSelector} from '../../util/appstate'
 import wx from 'tencent-wx-jssdk'
-import { Carousel, WhiteSpace, WingBlank, Popup, Button } from 'antd-mobile'
+import { WhiteSpace, Popup, Button, ListView } from 'antd-mobile'
 import {getMobileOperatingSystem} from '../../util/OSUtil'
 
+const LOCATION = {
+  latitude: 28.22142,
+  longitude: 112.8665,
+  speed: -1,
+  accuracy: 65,
+}
 
 class NearbyPromotion extends PureComponent {
   constructor(props) {
@@ -36,7 +42,12 @@ class NearbyPromotion extends PureComponent {
     })
   }
 
+  componentDidMount() {
+
+  }
+
   getWxLocation() {
+    const {fetchPromotionAction, nearbyPromList} = this.props
     wx.getLocation({
       type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
       success: function (res) {
@@ -46,6 +57,16 @@ class NearbyPromotion extends PureComponent {
         var speed = res.speed; // 速度，以米/每秒计
         var accuracy = res.accuracy; // 位置精度
       }
+    })
+    fetchPromotionAction({
+      geo: {
+        latitude: LOCATION.latitude,
+        longitude: LOCATION.longitude,
+      },
+      limit: 10,
+      lastDistance: undefined,
+      nowDate: new Date('2017-09-01'),
+      isRefresh: true,
     })
   }
 
@@ -62,13 +83,17 @@ class NearbyPromotion extends PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const nearbyPromList = promotionSelector.selectNearbyPromotion(state)
+  console.log("nearbyPromList", nearbyPromList)
+
   return {
-    entryURL: appStateSelector.selectEntryURL(state)
+    entryURL: appStateSelector.selectEntryURL(state),
+    nearbyPromList: nearbyPromList,
   }
 }
 
 const mapDispatchToProps = {
-  ...promotionAction,
+  fetchPromotionAction: promotionActions.fetchPromotionAction,
   ...appStateAction,
 }
 

@@ -281,11 +281,15 @@ const Shop = Record({
 const GET_SHOP_GOODS_DETAIL = 'GET_SHOP_GOODS_DETAIL'
 const UPDATE_SHOP_GOODS = 'UPDATE_SHOP_GOODS'
 const UPDATE_SHOP_DETAIL = 'UPDATE_SHOP_DETAIL'
+const BATCH_SAVE_SHOP_DETAIL = 'BATCH_SAVE_SHOP_DETAIL'
+const BATCH_SAVE_GOODS_DETAIL = 'BATCH_SAVE_GOODS_DETAIL'
 
 /**** Action ****/
 
 export const shopAction = {
-  getShopGoodsDetail: createAction(GET_SHOP_GOODS_DETAIL)
+  getShopGoodsDetail: createAction(GET_SHOP_GOODS_DETAIL),
+  batchSaveShopDetail: createAction(BATCH_SAVE_SHOP_DETAIL),
+  batchSaveGoodsDetail: createAction(BATCH_SAVE_GOODS_DETAIL),
 }
 
 const updateShopGoods = createAction(UPDATE_SHOP_GOODS)
@@ -330,6 +334,10 @@ export function shopReducer(state = initialState, action) {
       return updateShopDetailReducer(state, action)
     case UPDATE_SHOP_GOODS:
       return updateGoodsReducer(state, action)
+    case BATCH_SAVE_SHOP_DETAIL:
+      return handleBatchSaveShopDetail(state, action)
+    case BATCH_SAVE_GOODS_DETAIL:
+      return handleBatchSaveGoodsDetail(state, action)
     case REHYDRATE:
       return onRehydrate(state, action)
     default:
@@ -391,6 +399,23 @@ function updateGoodsReducer(state, action) {
   state = savePromotionReducer(state, goods.goodsPromotion)
   let goodsRecord = ShopGoods.fromJsonApi(goods)
   state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
+  return state
+}
+
+function handleBatchSaveShopDetail(state, action) {
+  let shopSet = action.payload.shopSet
+  shopSet.forEach((shop) => {
+    state = saveShopInfoReducer(state, shop)
+  })
+  return state
+}
+
+function handleBatchSaveGoodsDetail(state, action) {
+  let goodSet = action.payload.goodSet
+  goodSet.forEach((goods) => {
+    let goodsRecord = ShopGoods.fromJsonApi(goods)
+    state = state.setIn(['shopGoodsDetail', goods.id], goodsRecord)
+  })
   return state
 }
 

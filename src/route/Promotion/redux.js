@@ -6,41 +6,44 @@ import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as promCloud from './cloud'
+import {shopAction} from '../Shop'
 
 /****  Model  ****/
 const PromotionRecord = Record({
   id: undefined,
-  coverPhoto: undefined,
-  typeId: undefined,
-  type: undefined,
-  goodId: undefined,
-  abstract: undefined,
-  originalPrice: undefined,
-  promotionPrice: undefined,
-  price: undefined,
-  album: undefined,
-  detail: undefined,
-  goodStatus: undefined,
-  goodUpdatedAt: undefined,
-  status: undefined,
-  geo: undefined,
-  shopId: undefined,
-  shopName: undefined,
-  shopDistrict: undefined,
   createdAt: undefined,
   updatedAt: undefined,
-  distance: undefined,
-  distanceUnit: undefined,
-  goodName: undefined,
+  promotionPrice: undefined,
+  targetGoodsId: undefined,
+  targetShopId: undefined,
   startDate: undefined,
   endDate: undefined,
+  abstract: undefined,
+  status: undefined,
+  type: undefined,
+  typeId: undefined,
+  geo: undefined,
 }, 'PromotionRecord')
 
 class Promotion extends PromotionRecord {
   static fromJsonApi(lcObj) {
     try {
       let promotion = new PromotionRecord()
-
+      return promotion.withMutations((record) => {
+        record.set('id', lcObj.id)
+        record.set('createdAt', lcObj.createdAt)
+        record.set('updatedAt', lcObj.updatedAt)
+        record.set('promotionPrice', lcObj.promotionPrice)
+        record.set('targetGoodsId', lcObj.targetGoodsId)
+        record.set('targetShopId', lcObj.targetShopId)
+        record.set('startDate', lcObj.startDate)
+        record.set('endDate', lcObj.endDate)
+        record.set('abstract', lcObj.abstract)
+        record.set('status', lcObj.status)
+        record.set('type', lcObj.type)
+        record.set('typeId', lcObj.typeId)
+        record.set('geo', lcObj.geo)
+      })
     } catch (e) {
       throw e
     }
@@ -72,12 +75,37 @@ function* fetchPromotion(action) {
   let payload = action.payload
 
   let apiPayload = {
-
+    geo: payload.geo,
+    limit: payload.limit,
+    lastDistance: payload.lastDistance,
+    nowDate: payload.nowDate,
+    isRefresh: payload.isRefresh,
   }
 
   try {
-    let results = yield call(promCloud.fetchPromotionApi, apiPayload)
-
+    let promotions  = yield call(promCloud.fetchPromotionApi, apiPayload)
+    yield put(updateNearbyPromListAction({ promotions: promotions, isRefresh: apiPayload.isRefresh }))
+    let shopSet = new Set()
+    let goodSet = new Set()
+    promotions.forEach((promotion) => {
+      let shop = promotion.targetShop
+      let goods = promotion.targetGoods
+      if(shop) {
+        shopSet.add(shop)
+      }
+      if(goods) {
+        goodSet.add(goods)
+      }
+    })
+    if(shopSet.size > 0) {
+      yield put(shopAction.batchSaveShopDetail({shopSet}))
+    }
+    if(goodSet.size > 0) {
+      yield put(shopAction.batchSaveGoodsDetail({goodSet}))
+    }
+    if(payload.success) {
+      payload.success()
+    }
   } catch (error) {
     console.error(error)
     if(payload.error) {
@@ -105,7 +133,20 @@ export function reducer(state = initialState, action) {
 }
 
 function handleUpdateNearbyPromList(state, action) {
+  let promotions = action.payload.promotions
+  let isRefresh = action.payload.isRefresh
 
+  let nearbyPromList = List()
+  if(!isRefresh) {
+    nearbyPromList = state.get('nearbyPromList')
+  }
+  promotions.forEach((promotion) => {
+    let promotionRecord = Promotion.fromJsonApi(promotion)
+    state = state.setIn(['allPromotion', promotion.id], promotionRecord)
+    nearbyPromList = nearbyPromList.push(promotion.id)
+  })
+  state = state.set('nearbyPromList', nearbyPromList)
+  return state
 }
 
 function onRehydrate(state, action) {
@@ -133,6 +174,25 @@ function onRehydrate(state, action) {
 }
 
 /**** Selector ****/
-export const selector = {
+function selectPromotion(state, promotionId) {
+  if(!promotionId) {
+    return undefined
+  }
+  let promotionRecord = state.PROMOTION.getIn(['allPromotion', promotionId])
+  return promotionRecord? promotionRecord.toJS() : undefined
+}
 
+function selectNearbyPromotion(state) {
+  let nearbyPromList = state.PROMOTION.get('nearbyPromList')
+  let promotionInfoList = []
+  nearbyPromList.toArray().forEach((promotionId) => {
+    let promotionInfo = selectPromotion(state, promotionId)
+    promotionInfoList.push(promotionInfo)
+  })
+
+  return promotionInfoList
+}
+
+export const selector = {
+  selectNearbyPromotion,
 }

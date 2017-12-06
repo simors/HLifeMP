@@ -4,5 +4,8 @@
 import AV from 'leancloud-storage'
 
 export async function fetchPromotionApi(payload) {
-  return await AV.Cloud.run('fetchNearbyShopGoodPromotion', payload)
+  let result = await AV.Cloud.run('goodsFetchNearbyGoodPromotion', payload)
+  if(result.errcode === 0) {
+    return result.promotions
+  }
 }
