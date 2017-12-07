@@ -6,7 +6,7 @@ import {createAction} from 'redux-actions'
 import {REHYDRATE} from 'redux-persist/constants'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as promCloud from './cloud'
-import {shopAction} from '../Shop'
+import {shopAction, shopSelector} from '../Shop'
 
 /****  Model  ****/
 const PromotionRecord = Record({
@@ -84,7 +84,6 @@ function* fetchPromotion(action) {
 
   try {
     let promotions  = yield call(promCloud.fetchPromotionApi, apiPayload)
-    yield put(updateNearbyPromListAction({ promotions: promotions, isRefresh: apiPayload.isRefresh }))
     let shopSet = new Set()
     let goodSet = new Set()
     promotions.forEach((promotion) => {
@@ -103,8 +102,9 @@ function* fetchPromotion(action) {
     if(goodSet.size > 0) {
       yield put(shopAction.batchSaveGoodsDetail({goodSet}))
     }
+    yield put(updateNearbyPromListAction({ promotions: promotions, isRefresh: apiPayload.isRefresh }))
     if(payload.success) {
-      payload.success()
+      payload.success(promotions)
     }
   } catch (error) {
     console.error(error)
@@ -187,6 +187,8 @@ function selectNearbyPromotion(state) {
   let promotionInfoList = []
   nearbyPromList.toArray().forEach((promotionId) => {
     let promotionInfo = selectPromotion(state, promotionId)
+    promotionInfo.goods = shopSelector.selectShopGoodsDetail(state, promotionInfo.targetGoodsId)
+    promotionInfo.shop = shopSelector.selectShopDetail(state, promotionInfo.targetShopId)
     promotionInfoList.push(promotionInfo)
   })
 

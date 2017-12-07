@@ -7,8 +7,9 @@ import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import {actions as promotionActions, selector as promotionSelector} from './redux'
 import {appStateAction, appStateSelector} from '../../util/appstate'
 import wx from 'tencent-wx-jssdk'
-import { WhiteSpace, Popup, Button, ListView } from 'antd-mobile'
-import {getMobileOperatingSystem} from '../../util/OSUtil'
+import { WhiteSpace, Popup, Button, ListView, Toast, PullToRefresh } from 'antd-mobile'
+import {getMobileOperatingSystem, getDistanceFromLatLonInKm} from '../../util/OSUtil'
+import styles from './promotion.module.scss'
 
 const LOCATION = {
   latitude: 28.22142,
@@ -21,10 +22,18 @@ class NearbyPromotion extends PureComponent {
   constructor(props) {
     super(props)
     document.title = "附近活动"
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
+    this.state = {
+      dataSource,
+      isLoading: true,
+      hasMore: true,
+    };
   }
 
   componentWillMount() {
-    const {getJsApiConfig, entryURL} = this.props
+    const {getJsApiConfig, entryURL, fetchPromotionAction} = this.props
     const OS = getMobileOperatingSystem()
     let jssdkURL = window.location.href
     if(OS === 'iOS') {
@@ -32,7 +41,7 @@ class NearbyPromotion extends PureComponent {
       jssdkURL = entryURL
     }
     getJsApiConfig({
-      debug: __DEV__? true: true,
+      debug: __DEV__? false: false,
       jsApiList: ['scanQRCode', 'getLocation'],
       url: jssdkURL,
       success: (configInfo) => {
@@ -40,10 +49,41 @@ class NearbyPromotion extends PureComponent {
       },
       error: (error) => {console.log(error)}
     })
+    fetchPromotionAction({
+      geo: {
+        latitude: LOCATION.latitude,
+        longitude: LOCATION.longitude,
+      },
+      limit: 10,
+      lastDistance: undefined,
+      nowDate: new Date('2016-09-01'),
+      isRefresh: true,
+      success: this.fetchPromotionActionSuccess,
+      error: this.fetchPromotionActionError,
+    })
+  }
+
+  fetchPromotionActionSuccess = (promotions) => {
+    if(promotions.length === 0) {
+      this.setState({hasMore: false, isLoading: false})
+    }
+  }
+
+  fetchPromotionActionError = (error) => {
+    this.setState({isLoading: false})
+    Toast.fail(error)
   }
 
   componentDidMount() {
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.nearbyPromList !== this.props.nearbyPromList) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.nearbyPromList),
+      });
+    }
   }
 
   getWxLocation() {
@@ -58,25 +98,79 @@ class NearbyPromotion extends PureComponent {
         var accuracy = res.accuracy; // 位置精度
       }
     })
+
+  }
+
+  calculateDistance(geo) {
+    let distance = getDistanceFromLatLonInKm(LOCATION.latitude, LOCATION.longitude, geo[0], geo[1])
+    distance = distance.toFixed(2)
+    if(distance < 1.0) {
+      return distance * 1000 + "米"
+    }
+    return distance + "km"
+  }
+
+  onEndReached = (event) => {
+    if (this.state.isLoading && !this.state.hasMore) {
+      return;
+    }
+    this.setState({isLoading: true})
+    const {fetchPromotionAction, nearbyPromList} = this.props
+    const geo = nearbyPromList[nearbyPromList.length - 1].geo
+    const lastDistance = getDistanceFromLatLonInKm(LOCATION.latitude, LOCATION.longitude, geo[0], geo[1])
     fetchPromotionAction({
       geo: {
         latitude: LOCATION.latitude,
         longitude: LOCATION.longitude,
       },
       limit: 10,
-      lastDistance: undefined,
-      nowDate: new Date('2017-09-01'),
-      isRefresh: true,
+      lastDistance: lastDistance,
+      nowDate: new Date('2016-09-01'),
+      isRefresh: false,
+      success: this.fetchPromotionActionSuccess,
+      error: this.fetchPromotionActionError,
     })
   }
 
   render() {
+    const {dataSource} = this.state
+    const row = (rowData, sectionID, rowID) => {
+      console.log("rowData", rowData)
+      return (
+        <div key={rowID} className={styles.promContainer}>
+          <div className={styles.cover}>
+            <img src={rowData.goods.coverPhoto} alt="" style={{display: `block`, width: `2.0rem`, height: `2.0rem`}}/>
+          </div>
+          <div className={styles.details}>
+            <div className={styles.goodsName}>{rowData.goods.goodsName}</div>
+            <div className={styles.shopName}>
+              {rowData.shop.shopName}
+            </div>
+            <div className={styles.goodsTrip}>
+              <div className={styles.label}>{rowData.type}</div>
+            </div>
+            <div className={styles.goodsPrice}>
+              <p>{"¥ " + rowData.goods.price}</p>
+            </div>
+          </div>
+          <div className={styles.trips}>
+            <div>{this.calculateDistance(rowData.geo)}</div>
+          </div>
+        </div>
+      )
+    }
     return(
       <div>
-        <WhiteSpace />
-        <Button onClick={() => {this.getWxLocation()}}>
-          获取地理位置
-        </Button>
+        <ListView
+          dataSource={dataSource}
+          renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+            {this.state.isLoading ? '加载中...' : '全部加载成功'}
+          </div>)}
+          renderRow={row}
+          useBodyScroll
+          onEndReached={this.onEndReached}
+          onEndReachedThreshold={50}
+        />
       </div>
     )
   }
@@ -84,8 +178,6 @@ class NearbyPromotion extends PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   const nearbyPromList = promotionSelector.selectNearbyPromotion(state)
-  console.log("nearbyPromList", nearbyPromList)
-
   return {
     entryURL: appStateSelector.selectEntryURL(state),
     nearbyPromList: nearbyPromList,

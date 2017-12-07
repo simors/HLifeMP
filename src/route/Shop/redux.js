@@ -421,6 +421,32 @@ function handleBatchSaveGoodsDetail(state, action) {
 
 function onRehydrate(state, action) {
   let incoming = action.payload.SHOP
+  if(!incoming) return state
+
+  let shopDetailsMap = new Map(incoming.shopDetails)
+  try {
+    for(let [shopId, shopDetails] of shopDetailsMap) {
+      if(shopId && shopDetails) {
+        let shopRecord = new ShopRecord({...shopDetails})
+        state = state.setIn(['shopDetails', shopId], shopRecord)
+      }
+    }
+  } catch (error) {
+    shopDetailsMap.clear()
+  }
+
+  let shopGoodsDetailMap = new Map(incoming.shopGoodsDetail)
+  try {
+    for(let [goodsId, goodsDetail] of shopGoodsDetailMap) {
+      if(goodsId && goodsDetail) {
+        let goodsRecord = new ShopGoodsRecord({...goodsDetail})
+        state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
+      }
+    }
+  } catch (error) {
+    shopGoodsDetailMap.clear()
+  }
+
   return state
 }
 
