@@ -8,7 +8,7 @@ import URL from  'url'
 import appConfig from './appConfig'
 import {authAction, authSelector} from '../util/auth'
 import {store} from '../store/persistStore'
-import {appStateSelector} from '../util/appstate'
+import {appStateSelector, appStateAction} from '../util/appstate'
 
 function getAuthorizeURL(redirect, state, scope) {
   let url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
@@ -40,6 +40,7 @@ export function wechatOauth(nextPath) {
   }
   let activeUser = authSelector.activeUserId(state)
   if (activeUser) {
+    store.dispatch(appStateAction.updateEntryURLAction({url: document.location.href}))
     return null
   }
   let redirectUri = appConfig.BACKEND_DOMAIN + '/wxOauth/clientAuth'

@@ -15,10 +15,13 @@ import ErrorPage from './Error'
 import LoadingPage from './Loading'
 import Mine from './Mine/Mine'
 import MyAddr from './Mine/MyAddr'
+import NearbyPromotion, {PromotionDetail} from './Promotion'
 
 const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <AuthRoute path="/promotion" component={NearbyPromotion}/>
+    <AuthRoute path="/promotionDetail/:goodsId" component={PromotionDetail}/>
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/mine" component={Mine}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>

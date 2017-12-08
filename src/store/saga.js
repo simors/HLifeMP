@@ -8,6 +8,7 @@ import {rehydrateSaga} from '../util/rehydrateRedux'
 import {promoterSaga} from '../route/Promoter'
 import {shopSaga} from '../route/Shop'
 import {mineSaga} from '../route/Mine'
+import {promotionSaga} from '../route/Promotion'
 
 export default function* rootSaga() {
   yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga() {
     ...promoterSaga,
     ...shopSaga,
     ...mineSaga,
+    ...promotionSaga,
   ])
 }
