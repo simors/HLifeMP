@@ -16,6 +16,7 @@ import LoadingPage from './Loading'
 import Mine from './Mine/Mine'
 import MyAddr from './Mine/MyAddr'
 import CreateMyAddr from './Mine/CreateMyAddr'
+import UpdateMyAddr from './Mine/UpdateMyAddr'
 
 
 const rootRoutes = (
@@ -27,6 +28,7 @@ const rootRoutes = (
       <AuthRoute path="/myOrder" component={Withdraw}/>
       <Route path="/myAddr" component={MyAddr}/>
     <Route path="/createMyAddr" component={CreateMyAddr}/>
+    <Route path="/updateMyAddr" component={UpdateMyAddr}/>
 
     <AuthRoute path="/about" component={Withdraw}/>
 
