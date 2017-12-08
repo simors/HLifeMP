@@ -17,6 +17,7 @@ import Mine from './Mine/Mine'
 import MyAddr from './Mine/MyAddr'
 import CreateMyAddr from './Mine/CreateMyAddr'
 import UpdateMyAddr from './Mine/UpdateMyAddr'
+import MyOrder from './Mine/MyOrder'
 
 
 const rootRoutes = (
@@ -25,10 +26,10 @@ const rootRoutes = (
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/mine" component={Mine}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>
-      <AuthRoute path="/myOrder" component={Withdraw}/>
       <Route path="/myAddr" component={MyAddr}/>
     <Route path="/createMyAddr" component={CreateMyAddr}/>
     <Route path="/updateMyAddr" component={UpdateMyAddr}/>
+    <Route path="/myOrder" component={MyOrder}/>
 
     <AuthRoute path="/about" component={Withdraw}/>
 

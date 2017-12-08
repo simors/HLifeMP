@@ -65,7 +65,9 @@ function* updateProvinceAndCitySaga(action) {
       yield put(updateProvinceAndCitySuccess({provinceListWithCityList:result}))
     }
   }catch (err){
-    if(payload.err){
+    if(payload&&payload.err){
+      console.log('err======>',err)
+    }else{
       console.log('err======>',err)
     }
   }

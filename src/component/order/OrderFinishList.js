@@ -6,7 +6,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import styles from './orderList.module.scss'
 import Avatar from '../../component/avatar'
 import {Button, WingBlank , List} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
@@ -14,6 +13,7 @@ import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
 import AddrShow from './OrderShow'
 import appConfig from '../../util/appConfig'
+import styles from './orderList.module.scss'
 
 
 class OrderFinishList extends React.PureComponent {
@@ -89,10 +89,10 @@ class OrderFinishList extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let user = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,user.id,appConfig.ORDER_STATUS.ACCOMPLISH)
+  // let user = authSelector.activeUserId(state)
+  // let orderList = mineSelector.selectUserOrders(state,user.id,appConfig.ORDER_STATUS.ACCOMPLISH)
   return {
-    orderList,
+    // orderList,
   }
 }
 

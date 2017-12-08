@@ -1,92 +1,74 @@
 /**
- * Created by lilu on 2017/12/2.
+ * Created by lilu on 2017/12/3.
  */
+/**
+ * Created by lilu on 2017/12/3.
+ */
+
 
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import styles from './mine.module.scss'
 import Avatar from '../../component/avatar'
-import { Button, WingBlank } from 'antd-mobile'
+import {Button, WingBlank,Tabs,Badge} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
-import {mineAction, mineSelector} from './redux'
+import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
+import OrderAllList from '../../component/order/OrderAllList'
+import OrderDeliverList from '../../component/order/OrderDeliverList'
+import OrderFinishList from '../../component/order/OrderFinishList'
+import styles from './myOrder.module.scss'
 
-class Wallet extends React.PureComponent {
+let tabs = [
+  { title: '全部订单' ,tab : 1,key: 1},
+  { title: '待收货订单' ,tab : 2, key: 2},
+  { title: '已完成订单',tab : 3, key: 3 },
+];
+
+export default class MyAddr extends React.PureComponent {
   constructor(props) {
     super(props)
-    document.title = '个人主页'
+    document.title = '收货地址管理'
   }
 
   componentDidMount() {
-    let {activeUser} = this.props
-    if (activeUser) {
-      this.props.getPaymentInfo({userId: activeUser.id})
-    }
+
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.activeUser != newProps.activeUser) {
-      this.props.getPaymentInfo({userId: newProps.activeUser.id})
-    }
+
   }
 
-  gotoWallet = () => {
-    let {history} = this.props
-    history.push('/wallet')
-  }
 
-  gotoOrder = () => {
-    let {history} = this.props
-    history.push('/myOrder')
-  }
+
 
   render() {
-    let {activeUser, payment} = this.props
-    if (!activeUser || !payment) {
-      return <Loading/>
-    }
-    let balance = 0.00
-    if (payment.balance) {
-      balance = Number(payment.balance).toFixed(2)
-    }
+    let tabs = [
+      { title: '全部订单' ,tab : 1,key: 1},
+      { title: '待收货订单' ,tab : 2, key: 2},
+      { title: '已完成订单',tab : 3, key: 3 },
+    ];
     return (
       <div>
-        <div className={styles.headerView}>
-          <span>汇邻优店账号</span>
-          <div className={styles.avatar}>
-            <Avatar size={70} src={activeUser.avatar} />
-            <span className={styles.nickname}>{activeUser.nickname}</span>
+        <Tabs tabs={tabs}
+              initialPage={1}
+              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+              onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+        >
+          <div key={1} tab={1} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+            Content of first tab
           </div>
-        </div>
-        <div className={styles.body}>
-          <div className={styles.balanceText}>{balance}</div>
-          <div className={styles.balanceTip}>账户余额</div>
-          <WingBlank size="md">
-            <Button className={styles.balanceBtn} onClick={this.gotoWithdraw}><span style={{color: '#fff'}}>提现到微信余额</span></Button>
-          </WingBlank>
-        </div>
-        <div className={styles.footer}>
-          本服务有长沙小吉网络科技有限公司提供
-        </div>
+          <div key={2} tab={2} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+            Content of second tab
+          </div>
+          <div key={3} tab={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+            Content of third tab
+          </div>
+        </Tabs>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let activeUser = authSelector.activeUserInfo(state)
-  let payment = mineSelector.selectPayment(state)
-  return {
-    activeUser,
-    payment,
-  }
-}
 
-const mapDispatchToProps = {
-  ...mineAction,
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wallet))/**
- * Created by lilu on 2017/12/2.
- */

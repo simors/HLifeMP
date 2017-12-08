@@ -89,10 +89,10 @@ class OrderDeliverList extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let user = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,user.id,appConfig.ORDER_STATUS.DELIVER_GOODS)
+  // let user = authSelector.activeUserId(state)
+  // let orderList = mineSelector.selectUserOrders(state,user.id,appConfig.ORDER_STATUS.DELIVER_GOODS)
   return {
-    orderList,
+    // orderList,
   }
 }
 

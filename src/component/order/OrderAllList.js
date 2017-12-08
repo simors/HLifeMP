@@ -6,8 +6,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import styles from './orderList.module.scss'
 import Avatar from '../../component/avatar'
+import styles from './orderList.module.scss'
 import {Button, WingBlank , List} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
@@ -89,10 +89,10 @@ class OrderAllList extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let user = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,user.id,undefined)
+  // let user = authSelector.activeUserId(state)
+  // let orderList = mineSelector.selectUserOrders(state,user.id,undefined)
   return {
-    orderList,
+    // orderList,
   }
 }
 
