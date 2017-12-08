@@ -3,6 +3,7 @@
  */
 import * as promotionRedux from './redux'
 import NearbyPromotion from './NearbyPromotion'
+import PromotionDetail from './PromotionDetail'
 
 /* export saga */
 export const promotionSaga = promotionRedux.saga
@@ -17,3 +18,4 @@ export const promotionAction = promotionRedux.actions
 export const promotionSelector = promotionRedux.selector
 
 export default NearbyPromotion
+export {PromotionDetail}

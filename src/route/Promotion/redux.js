@@ -196,5 +196,6 @@ function selectNearbyPromotion(state) {
 }
 
 export const selector = {
+  selectPromotion,
   selectNearbyPromotion,
 }

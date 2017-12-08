@@ -9,7 +9,7 @@ import {appStateAction, appStateSelector} from '../../util/appstate'
 import wx from 'tencent-wx-jssdk'
 import { WhiteSpace, Popup, Button, ListView, Toast, PullToRefresh } from 'antd-mobile'
 import {getMobileOperatingSystem, getDistanceFromLatLonInKm} from '../../util/OSUtil'
-import styles from './promotion.module.scss'
+import styles from './nearbypromotion.module.scss'
 
 const LOCATION = {
   latitude: 28.22142,
@@ -29,6 +29,7 @@ class NearbyPromotion extends PureComponent {
       dataSource,
       isLoading: true,
       hasMore: true,
+      checkedRowID: undefined,
     };
   }
 
@@ -132,12 +133,23 @@ class NearbyPromotion extends PureComponent {
     })
   }
 
+  gotoPromotionDetail(rowID, goodsId) {
+    let {history} = this.props
+    this.setState({checkedRowID: rowID})
+    setTimeout(() => {
+      history.push('/promotionDetail/' + goodsId)
+    }, 300)
+  }
+
   render() {
     const {dataSource} = this.state
+
     const row = (rowData, sectionID, rowID) => {
-      console.log("rowData", rowData)
+      let itemStyle = {
+        backgroundColor: this.state.checkedRowID === rowID? '#f5f5f5' : 'transparent'
+      }
       return (
-        <div key={rowID} className={styles.promContainer}>
+        <div key={rowID} className={styles.promContainer} style={itemStyle} onClick={() => {this.gotoPromotionDetail(rowID, rowData.goods.id)}}>
           <div className={styles.cover}>
             <img src={rowData.goods.coverPhoto} alt="" style={{display: `block`, width: `2.0rem`, height: `2.0rem`}}/>
           </div>
