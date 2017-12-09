@@ -1,0 +1,66 @@
+.carousel {
+  background: #fff;
+
+  .imgStyle {
+    width: 100%;
+    vertical-align: top;
+    max-height: 6.4rem;
+  }
+}
+
+.goodsDesc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.3rem;
+  .cover {
+  }
+  .desc {
+    flex: 1;
+    padding-left: 0.2rem;
+    height: 0.2rem;
+    .name {
+      font-size: 0.34rem;
+      font-weight: bold;
+    }
+    .price {
+      font-size: 0.4rem;
+      color: #ff7819;
+    }
+  }
+}
+
+.toolbar {
+  width: 100%;
+  height: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(250, 250, 250, 0.9);
+  position: fixed;
+  bottom: 0px;
+
+  .price {
+    .title {
+      margin-left: 0.3rem;
+    }
+    .symbol {
+      color: #ff7819;
+    }
+    .number {
+      color: #ff7819;
+      font-size: 0.4rem;
+    }
+  }
+
+  .purchaseBtn {
+    width: 2.7rem;
+    height: 100%;
+    background-color: #ff7819;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.3rem;
+    color: #fff;
+  }
+}
