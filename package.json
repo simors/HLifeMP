@@ -21,7 +21,7 @@
   },
   "author": "Lvyii Network Technology. mail: hi@lvyii.com",
   "dependencies": {
-    "antd-mobile": "^1.6.11",
+    "antd-mobile": "2.1.1",
     "bootstrap": "^4.0.0-alpha",
     "compression": "^1.6.2",
     "express": "^4.14.0",

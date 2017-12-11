@@ -37,7 +37,7 @@ export default class orderShow extends React.PureComponent {
         <div className={styles.goodsView}>
           <img className={styles.cover} src={getThumbUrl(goods.coverPhoto, 80, 80)}/>
           <div className={styles.goodsInfo}>
-            <span className={styles.goodsNameText} numberOfLines={2}>{goods.goodsName}</span>
+            <span className={styles.goodsNameText} >{goods.goodsName}</span>
             <div className={styles.priceView}>
               <div className={styles.priceBox}>
                 <span className={styles.price}>¥{goods.price}</span>
@@ -120,7 +120,7 @@ export default class orderShow extends React.PureComponent {
         <div className={styles.statusBox}>
           <div className={styles.shopInfoBox}>
             <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
-            <span className={styles.shopName}>{order.username}</span>
+            <span className={styles.shopName}>{vendor.shopName}</span>
             <img src={require('../../asset/svg/PinLeft_right_12.svg')} className={styles.backIcon}/>
           </div>
           <span className={styles.shopTips} >{this.tipsText(order)}</span>

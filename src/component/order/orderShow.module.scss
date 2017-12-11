@@ -44,6 +44,9 @@
     .goodsView{
       background-color: rgba(0,0,0,0.03);
       padding: 0.2rem 0.3rem 0.2rem 0.3rem;
+      flex-direction: row;
+      display: flex;
+
       .cover{
         height:1.6rem;
         width: 1.6rem;
@@ -64,10 +67,12 @@
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
+          display: flex;
 
           .priceBox{
             flex-direction: row;
             align-items: center;
+            display: flex;
 
             .price{
               color: #000000;
@@ -92,6 +97,7 @@
       justify-content: flex-end;
       padding: 0.3rem 0.2rem;
       border-bottom: 0.02rem solid rgba(0,0,0,0.05);
+      display: flex;
 
 
       .paidLabel{

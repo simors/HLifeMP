@@ -49,20 +49,21 @@ export default class MyAddr extends React.PureComponent {
       { title: '已完成订单',tab : 3, key: 3 },
     ];
     return (
-      <div>
+      <div className={styles.body}>
         <Tabs tabs={tabs}
               initialPage={1}
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+              className={styles.tabs}
         >
-          <div key={1} tab={1} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-            Content of first tab
+          <div key={1}  style={{ width:'7.5rem',display: 'flex', alignItems: 'center', justifyContent: 'center',backgroundColor: '#fff' }}>
+            <OrderAllList/>
           </div>
-          <div key={2} tab={2} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-            Content of second tab
+          <div key={2}  style={{ width:'7.5rem' ,display: 'flex', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#fff' }}>
+            <OrderDeliverList/>
           </div>
-          <div key={3} tab={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-            Content of third tab
+          <div key={3}  style={{width:'7.5rem',display: 'flex', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#fff' }}>
+            <OrderFinishList/>
           </div>
         </Tabs>
       </div>

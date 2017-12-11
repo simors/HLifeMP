@@ -32,37 +32,73 @@ class OrderFinishList extends React.PureComponent {
   renderAddrList(){
     // let {addrList} = this.props
     let orderList = [{
-      username: 'asdasd',
-      mobilePhoneNumber: '123123123',
-      tag: '家',
-      addr: 'asdasdasdasdasdasdasd'
+      vendor:{
+        shopName:'123'
+      },
+      goods:{
+        coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
+        goodsName:'dd',
+        price: 2,
+        originalPrice: 3,
+
+      },
+      id: '12',
+      goodsAmount: 2,
+      paid: 24,
+      orderStatus: 1,
+      receiver: '3213213',
+      receiverAddr: '321321',
+      receiverPhone: '3213213',
+      remark: 33333,
+      createdAt: undefined,
+      updatedAt: undefined,
+
     },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    }]
-    console.log('')
+      vendor:{
+        shopName:'123'
+      },
+      goods:{
+        coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
+        goodsName:'dd',
+        price: 2,
+        originalPrice: 3,
+
+      },
+      id: '12',
+      goodsAmount: 2,
+      paid: 24,
+      orderStatus: 1,
+      receiver: '3213213',
+      receiverAddr: '321321',
+      receiverPhone: '3213213',
+      remark: 33333,
+      createdAt: undefined,
+      updatedAt: undefined,
+
+    },
+      {
+        vendor:{
+          shopName:'123'
+        },
+        goods:{
+          coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
+          goodsName:'dd',
+          price: 2,
+          originalPrice: 3,
+
+        },
+        id: '12',
+        goodsAmount: 2,
+        paid: 24,
+        orderStatus: 1,
+        receiver: '3213213',
+        receiverAddr: '321321',
+        receiverPhone: '3213213',
+        remark: 33333,
+        createdAt: undefined,
+        updatedAt: undefined,
+
+      },]
     if(orderList && orderList.length>0){
       let orderViewList = orderList.map((item,key)=>{
         return <div key = {key} className={styles.blankWrap} ><AddrShow order={item}  /></div>
@@ -78,11 +114,9 @@ class OrderFinishList extends React.PureComponent {
 
 
     return (
-      <div >
-        <List className={styles.list}>
-          {this.renderAddrList()}
-        </List>
-      </div>
+      <List className={styles.list}>
+        {this.renderAddrList()}
+      </List>
     )
   }
 }

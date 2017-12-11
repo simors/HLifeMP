@@ -4,7 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import { Carousel, WhiteSpace, WingBlank, Popup } from 'antd-mobile'
+import { Carousel, WhiteSpace, WingBlank, Modal } from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
 import appConfig from '../../util/appConfig'
@@ -17,6 +17,9 @@ class GoodsShare extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = "店铺商品"
+    this.state={
+      modalVisible:false
+    }
   }
 
   componentDidMount() {
@@ -24,9 +27,9 @@ class GoodsShare extends React.PureComponent {
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
     setTimeout(() => (
-      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
-        style: {backgroundColor: 'transparent'}
-      })
+     this.setState({
+       modalVisible: true
+     })
     ), 5000)
   }
 
@@ -161,6 +164,17 @@ class GoodsShare extends React.PureComponent {
         <WhiteSpace size="xl" />
         <EndPanel/>
         {this.renderToolbar()}
+        {this.state.modalVisible?
+          <Modal
+            popup
+            visible={this.state.modalVisible}
+            maskClosable={false}
+            animationType="slide-up"
+
+          >
+            <WelcomePanel onClick={() => this.setState({modalVisible:false})}/>
+
+        </Modal>:null}
       </div>
     )
   }
