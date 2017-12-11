@@ -20,6 +20,8 @@ class CreateMyAddr extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = '创建收货地址'
+    this.state={showCusInput: false}
+    this.customFocusInst='ttt'
   }
 
   componentDidMount() {
@@ -53,20 +55,33 @@ class CreateMyAddr extends React.PureComponent {
             initialValue: ''
           })}/>
         </div>
-          <RegionPicker level={3} onOk={(value)=>{console.log('value=->',value)}} />
+          <RegionPicker className = {styles.inputBox} level={3} onOk={(value)=>{console.log('value=->',value)}} />
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>详细地址:</span>
           <input className={styles.input} {...getFieldProps('addr',{
             initialValue: ''
           })}/>
         </div>
+        <div className = {styles.inputBox} onClick={()=>{this.setState({showCusInput: true})
+          this.customFocusInst.focus()
+        }}>
+          a那我一下
+          </div>
+        {this.state.showCusInput?<div className = {styles.inputBox}>
+          <InputItem
+            {...getFieldProps('tag', {})}
+            maxLength={10}
+            labelNumber={3}
+            clear
+            locale={{ confirmLabel: '提现' }}
+            style={{minHeight: '0.34rem', height: '0.34rem'}}
+            className={styles.input}
+          >
+            标签：
+          </InputItem>
+        </div>:null}
 
-        <div className = {styles.inputBox}>
-          <span className={styles.inputLabel}>标签:</span>
-          <input className={styles.input} {...getFieldProps('tag',{
-            initialValue: ''
-          })}/>
-        </div>
+
         <Button onClick={this.submit}>保存</Button>
       </div>
     )
