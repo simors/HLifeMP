@@ -4,12 +4,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Redirect} from 'react-router-dom'
-import {appStateSelector} from '../../util/appstate'
+import {appStateSelector, appStateAction} from '../../util/appstate'
 import Loading from '../../component/loading'
 
 class LoadingPage extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  componentWillMount() {
+    this.props.updateEntryURLAction({
+      url: window.location.href
+    })
   }
 
   render() {
@@ -38,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  ...appStateAction
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoadingPage));

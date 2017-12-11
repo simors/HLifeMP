@@ -67,19 +67,19 @@ class CreateMyAddr extends React.PureComponent {
         }}>
           a那我一下
           </div>
-        {this.state.showCusInput?<div className = {styles.inputBox}>
+        {this.state.showCusInput?
           <InputItem
             {...getFieldProps('tag', {})}
             maxLength={10}
             labelNumber={3}
             clear
             locale={{ confirmLabel: '提现' }}
-            style={{minHeight: '0.34rem', height: '0.34rem'}}
+            style={{minHeight: '0.9rem', height: '0.9rem'}}
             className={styles.input}
           >
             标签：
           </InputItem>
-        </div>:null}
+        :null}
 
 
         <Button onClick={this.submit}>保存</Button>

@@ -19,13 +19,19 @@ import CreateMyAddr from './Mine/CreateMyAddr'
 import UpdateMyAddr from './Mine/UpdateMyAddr'
 import MyOrder from './Mine/MyOrder'
 
+import NearbyPromotion, {PromotionDetail, BuyGoods, SelectAddress, SubmitOrder} from './Promotion'
 
 const rootRoutes = (
   <Switch>
     <AuthRoute path="/promoter" component={PromoterPerformance}/>
+    <AuthRoute path="/promotion" component={NearbyPromotion}/>
+    <AuthRoute path="/promotionDetail/:goodsId" component={PromotionDetail}/>
+    <AuthRoute path="/selectAddress" component={SelectAddress}/>
+    <AuthRoute path="/submitOrder" component={SubmitOrder}/>
+    <AuthRoute path="/buygoods/:goodsId" component={BuyGoods}/>
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/mine" component={Mine}/>
-    <AuthRoute path="/withdraw" component={Withdraw}/>
+    <Route path="/withdraw" component={Withdraw}/>
       <Route path="/myAddr" component={MyAddr}/>
     <Route path="/createMyAddr" component={CreateMyAddr}/>
     <Route path="/updateMyAddr" component={UpdateMyAddr}/>

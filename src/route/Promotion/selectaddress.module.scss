@@ -1,0 +1,77 @@
+.page {
+  background-color: rgba(0,0,0,0.05);
+  height: 100vh;
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem 0.2rem 0.3rem 0.4rem;
+    background-color: #ffffff;
+    margin-bottom: 0.2rem;
+    .item {
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      .user {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0.2rem;
+        .username {
+          font-size: 0.34rem;
+          margin-right: 0.8rem;
+        }
+
+        .phone {
+          font-size: 0.34rem;
+          margin-right: 0.2rem;
+        }
+
+        .tag {
+          font-size: 0.22rem;
+          color: #50E3C2;
+          background-color: #f5f5f5;
+          border-radius: 2.5px;
+          margin-right: 0.6rem;
+          padding: 0.05rem;
+        }
+        .edit {
+          height: 0.5rem;
+          padding-right: 0.7rem;
+          padding-left: 0.6rem;
+        }
+      }
+      .address {
+        font-size: 0.26rem;
+        margin-bottom: 0.2rem;
+      }
+    }
+    .op {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.1rem 0.1rem 0.3rem 0.1rem;
+      .default {
+        font-size: 30px;
+      }
+      .checked {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1.6rem;
+        height: 0.6rem;
+        color: #ff7819;
+        font-size: 30px;
+        border: 1px solid #ff7819;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .addAddress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff7819;
+    font-size: 34px;
+    padding-top: 0.4rem
+  }
+}

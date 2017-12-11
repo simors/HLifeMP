@@ -81,9 +81,10 @@ class Withdraw extends React.PureComponent{
 
   render() {
     let {activeUser, payment} = this.props
-    if (!activeUser || !payment) {
-      return <Loading/>
-    }
+    // if (!activeUser || !payment) {
+    //   return <Loading/>
+    // }
+    payment={}
     let balance = 0.00
     if (payment.balance) {
       balance = Number(payment.balance).toFixed(2)

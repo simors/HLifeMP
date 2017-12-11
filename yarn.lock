@@ -4997,6 +4997,10 @@ pify@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/pify/download/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
 
+pingpp-js@^2.1.15:
+  version "2.1.15"
+  resolved "https://registry.npmjs.org/pingpp-js/-/pingpp-js-2.1.15.tgz#e699c797c01297d5378b24d86a540c0e06a22440"
+
 pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
@@ -5651,8 +5655,8 @@ react-native-menu@^0.23.0:
     react-timer-mixin "^0.13.3"
 
 react-native-swipeout@^2.2.2:
-  version "2.3.1"
-  resolved "http://registry.npm.taobao.org/react-native-swipeout/download/react-native-swipeout-2.3.1.tgz#f33e852b46d2cddb878a431a1c696428e3d9d2a5"
+  version "2.3.3"
+  resolved "http://registry.npm.taobao.org/react-native-swipeout/download/react-native-swipeout-2.3.3.tgz#3b99db845ef75f0bfa467f1d8de0b7f7946326bd"
   dependencies:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"

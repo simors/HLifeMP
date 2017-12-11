@@ -283,6 +283,8 @@ const UPDATE_SHOP_GOODS = 'UPDATE_SHOP_GOODS'
 const UPDATE_SHOP_DETAIL = 'UPDATE_SHOP_DETAIL'
 const BATCH_UPDATE_SHOP_GOODS = 'BATCH_UPDATE_SHOP_GOODS'
 const BATCH_UPDATE_SHOP = 'BATCH_UPDATE_SHOP'
+const BATCH_SAVE_SHOP_DETAIL = 'BATCH_SAVE_SHOP_DETAIL'
+const BATCH_SAVE_GOODS_DETAIL = 'BATCH_SAVE_GOODS_DETAIL'
 
 /**** Action ****/
 
@@ -291,7 +293,9 @@ export const shopAction = {
   updateShopGoods: createAction(UPDATE_SHOP_GOODS),
   updateShopDetail: createAction(UPDATE_SHOP_DETAIL),
   updateBatchShopGoods: createAction(BATCH_UPDATE_SHOP_GOODS),
-  updateBatchShop: createAction(BATCH_UPDATE_SHOP)
+  updateBatchShop: createAction(BATCH_UPDATE_SHOP),
+  batchSaveShopDetail: createAction(BATCH_SAVE_SHOP_DETAIL),
+  batchSaveGoodsDetail: createAction(BATCH_SAVE_GOODS_DETAIL),
 }
 
 const updateShopGoods = createAction(UPDATE_SHOP_GOODS)
@@ -340,6 +344,10 @@ export function shopReducer(state = initialState, action) {
       return updateBatchGoodsReducer(state, action)
     case BATCH_UPDATE_SHOP_GOODS:
       return updateBatchShopReducer(state, action)
+    case BATCH_SAVE_SHOP_DETAIL:
+      return handleBatchSaveShopDetail(state, action)
+    case BATCH_SAVE_GOODS_DETAIL:
+      return handleBatchSaveGoodsDetail(state, action)
     case REHYDRATE:
       return onRehydrate(state, action)
     default:
@@ -428,8 +436,51 @@ function updateGoodsReducer(state, action) {
   return state
 }
 
+function handleBatchSaveShopDetail(state, action) {
+  let shopSet = action.payload.shopSet
+  shopSet.forEach((shop) => {
+    state = saveShopInfoReducer(state, shop)
+  })
+  return state
+}
+
+function handleBatchSaveGoodsDetail(state, action) {
+  let goodSet = action.payload.goodSet
+  goodSet.forEach((goods) => {
+    let goodsRecord = ShopGoods.fromJsonApi(goods)
+    state = state.setIn(['shopGoodsDetail', goods.id], goodsRecord)
+  })
+  return state
+}
+
 function onRehydrate(state, action) {
   let incoming = action.payload.SHOP
+  if(!incoming) return state
+
+  let shopDetailsMap = new Map(incoming.shopDetails)
+  try {
+    for(let [shopId, shopDetails] of shopDetailsMap) {
+      if(shopId && shopDetails) {
+        let shopRecord = new ShopRecord({...shopDetails})
+        state = state.setIn(['shopDetails', shopId], shopRecord)
+      }
+    }
+  } catch (error) {
+    shopDetailsMap.clear()
+  }
+
+  let shopGoodsDetailMap = new Map(incoming.shopGoodsDetail)
+  try {
+    for(let [goodsId, goodsDetail] of shopGoodsDetailMap) {
+      if(goodsId && goodsDetail) {
+        let goodsRecord = new ShopGoodsRecord({...goodsDetail})
+        state = state.setIn(['shopGoodsDetail', goodsId], goodsRecord)
+      }
+    }
+  } catch (error) {
+    shopGoodsDetailMap.clear()
+  }
+
   return state
 }
 

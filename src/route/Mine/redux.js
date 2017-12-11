@@ -658,13 +658,12 @@ export function selectOrderDetail(state, orderId) {
   }
 }
 
-
 export function getUserAddressList(state) {
-  let addressList = state.AUTH.get('addressList')
+  let addressList = state.MINE.get('addressList')
   let addressDetailList = []
   if (addressList && addressList.size > 0) {
     addressList.forEach((item)=> {
-      let address = state.AUTH.getIn(['allAddress', item])
+      let address = state.MINE.getIn(['allAddress', item])
       if (address) {
         addressDetailList.push(address.toJS())
       }
@@ -674,7 +673,7 @@ export function getUserAddressList(state) {
 }
 
 export function getUserAddress(state, addrId) {
-  let address = state.AUTH.getIn(['allAddress', addrId])
+  let address = state.MINE.getIn(['allAddress', addrId])
   if (address) {
   }
   return address.toJS() || {}
