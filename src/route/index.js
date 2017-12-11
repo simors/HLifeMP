@@ -31,11 +31,11 @@ const rootRoutes = (
     <AuthRoute path="/buygoods/:goodsId" component={BuyGoods}/>
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/mine" component={Mine}/>
-    <Route path="/withdraw" component={Withdraw}/>
-      <Route path="/myAddr" component={MyAddr}/>
-    <Route path="/createMyAddr" component={CreateMyAddr}/>
-    <Route path="/updateMyAddr" component={UpdateMyAddr}/>
-    <Route path="/myOrder" component={MyOrder}/>
+    <AuthRoute path="/withdraw" component={Withdraw}/>
+      <AuthRoute path="/myAddr" component={MyAddr}/>
+    <AuthRoute path="/createMyAddr" component={CreateMyAddr}/>
+    <AuthRoute path="/updateMyAddr" component={UpdateMyAddr}/>
+    <AuthRoute path="/myOrder" component={MyOrder}/>
 
     <AuthRoute path="/about" component={Withdraw}/>
 
