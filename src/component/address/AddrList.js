@@ -21,7 +21,7 @@ import AddrShow from './AddrShow'
   }
 
   componentDidMount() {
-
+    this.props.fetchMyAddr({isRefresh:true})
   }
 
   componentWillReceiveProps(newProps) {
@@ -29,39 +29,41 @@ import AddrShow from './AddrShow'
   }
 
   renderAddrList(){
-    // let {addrList} = this.props
-    let addrList = [{
-      username: 'asdasd',
-      mobilePhoneNumber: '123123123',
-      tag: '家',
-      addr: 'asdasdasdasdasdasdasd'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    },{
-      username: 'sdd',
-      mobilePhoneNumber: '123123123',
-      tag: '公司',
-      addr: '123123123'
-    }]
-    console.log('')
+    let {addrList} = this.props
+    if((!addrList)||(addrList.length)<1){
+       addrList = [{
+        username: 'asdasd',
+        mobilePhoneNumber: '123123123',
+        tag: '家',
+        addr: 'asdasdasdasdasdasdasd'
+      },{
+        username: 'sdd',
+        mobilePhoneNumber: '123123123',
+        tag: '公司',
+        addr: '123123123'
+      },{
+        username: 'sdd',
+        mobilePhoneNumber: '123123123',
+        tag: '公司',
+        addr: '123123123'
+      },{
+        username: 'sdd',
+        mobilePhoneNumber: '123123123',
+        tag: '公司',
+        addr: '123123123'
+      },{
+        username: 'sdd',
+        mobilePhoneNumber: '123123123',
+        tag: '公司',
+        addr: '123123123'
+      },{
+        username: 'sdd',
+        mobilePhoneNumber: '123123123',
+        tag: '公司',
+        addr: '123123123'
+      }]
+    }
+
     if(addrList && addrList.length>0){
       let addrViewList = addrList.map((item,key)=>{
         return <div key = {key} className={styles.blankWrap} ><AddrShow addr={item}  /></div>
