@@ -47,8 +47,8 @@ class Mine extends React.PureComponent {
   }
 
   render() {
-    let {activeUser, payment} = this.props
-    if (!activeUser || !payment) {
+    let {activeUser} = this.props
+    if (!activeUser ) {
       return <Loading/>
     }
     // let activeUser = {}
