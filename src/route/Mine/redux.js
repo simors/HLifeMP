@@ -169,7 +169,7 @@ export const mineAction = {
   fetchMyAddr: createAction(FETCH_ADDR_LIST),
   disableMyAddr: createAction(DISABLE_MY_ADDR),
   setDefaultAddr: createAction(SET_DEFAULT_ADDR),
-  fetchUserOrderList: createAction(FETCH_ADDR_LIST),
+  fetchUserOrderList: createAction(FETCH_SET_USER_ORDERS_LIST),
   setUserOrderStatus: createAction(SET_USER_ORDER_STATUS),
   saveUserOrders: createAction(BATCH_SAVE_USER_ORDERS)
 }
