@@ -57,13 +57,13 @@ class OrderAllList extends React.PureComponent {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.orderList !== this.props.orderList) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.orderList !== this.props.orderList) {
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
+  //     });
+  //   }
+  // }
 
   renderAddrList(){
 
@@ -167,11 +167,12 @@ class OrderAllList extends React.PureComponent {
   render() {
 
     const row=(rowData, sectionID, rowID)=>{
+      console.log('rowData=====>',rowData,sectionID,rowID)
       let {order} = rowData
-      return <div key = {rowID} className={styles.blankWrap} ><OrderShow order={order}  /></div>
+      return <div key = {rowID} ><OrderShow order={order}  /></div>
     }
 
-    let {dataSource} = this.state
+    let {dataSource} = this.props
     return (
         <ListView
           dataSource={dataSource}
@@ -191,9 +192,15 @@ class OrderAllList extends React.PureComponent {
 const mapStateToProps = (state, ownProps) => {
   let userId = authSelector.activeUserId(state)
   let orderList = mineSelector.selectUserOrders(state,userId,'all')
+  let dataSource = new ListView.DataSource({
+    rowHasChanged: (row1, row2) => row1 !== row2,
+  });
+
+  console.log('orderList=====>',orderList)
   return {
     orderList,
-    userId:userId
+    userId:userId,
+    dataSource: dataSource.cloneWithRows(orderList)
   }
 }
 
