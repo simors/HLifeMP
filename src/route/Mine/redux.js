@@ -331,15 +331,18 @@ function* getUserOrderListSaga(action){
     let goods = []
     let shopOrderList = []
     let orders = results.shopOrders
-    orders.forEach((order) => {
-      shopOrderList.push(order.id)
-      shopOrders.push(order)
-      vendors.push(order.vendor)
-      goods.push(order.goods)
-    })
-    yield put(shopAction.updateBatchShop(vendors))
-    yield put(shopAction.updateBatchShopGoods(goods))
-    yield put(mineAction.saveUserOrders(shopOrders))
+    if(orders&&orders.length>0){
+      orders.forEach((order) => {
+        shopOrderList.push(order.id)
+        shopOrders.push(order)
+        vendors.push(order.vendor)
+        goods.push(order.goods)
+      })
+    }
+    console.log('shopOrderList======>',shopOrderList)
+    yield put(shopAction.updateBatchShop({vendors:vendors}))
+    yield put(shopAction.updateBatchShopGoods({goods:goods}))
+    yield put(mineAction.saveUserOrders({shopOrders:shopOrders}))
     if(payload.isRefresh){
       yield put(fetchSetUserOrderListSuccess({shopOrderList:shopOrderList,type: payload.type,buyerId: payload.buyerId}))
     }else{
@@ -493,6 +496,7 @@ function handleAddUserShopOrders(state, action) {
 }
 
 function handleBatchAddOrdersDetail(state, action) {
+  console.log('action.payload=====>',action.payload)
   let orders = action.payload.shopOrders
   if(orders&&orders.length>0){
     orders.forEach((order) => {
