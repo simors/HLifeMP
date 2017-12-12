@@ -35,7 +35,7 @@ const rootRoutes = (
       <AuthRoute path="/myAddr" component={MyAddr}/>
     <AuthRoute path="/createMyAddr" component={CreateMyAddr}/>
     <AuthRoute path="/updateMyAddr" component={UpdateMyAddr}/>
-    <AuthRoute path="/myOrder" component={MyOrder}/>
+    <Route path="/myOrder" component={MyOrder}/>
 
     <AuthRoute path="/about" component={Withdraw}/>
 

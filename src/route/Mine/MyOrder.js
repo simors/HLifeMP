@@ -19,6 +19,8 @@ import OrderDeliverList from '../../component/order/OrderDeliverList'
 import OrderFinishList from '../../component/order/OrderFinishList'
 import styles from './myOrder.module.scss'
 
+const TabPane = Tabs.TabPane;
+
 let tabs = [
   { title: '全部订单' ,tab : 1,key: 1},
   { title: '待收货订单' ,tab : 2, key: 2},
@@ -49,22 +51,18 @@ export default class MyAddr extends React.PureComponent {
       { title: '已完成订单',tab : 3, key: 3 },
     ];
     return (
-      <div className={styles.body}>
-        <Tabs tabs={tabs}
-              initialPage={1}
-              onChange={(tab, index) => { console.log('onChange', index, tab); }}
-              onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-              className={styles.tabs}
-        >
-          <div key={1}  style={{ width:'7.5rem',display: 'flex', alignItems: 'center', justifyContent: 'center',backgroundColor: '#fff' }}>
+      <div>
+        <Tabs  >
+
+          <TabPane tab='全部订单' key="1">
             <OrderAllList/>
-          </div>
-          <div key={2}  style={{ width:'7.5rem' ,display: 'flex', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#fff' }}>
+          </TabPane>
+          <TabPane tab='待收订单' key="2">
             <OrderDeliverList/>
-          </div>
-          <div key={3}  style={{width:'7.5rem',display: 'flex', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#fff' }}>
+          </TabPane>
+          <TabPane tab='完成订单' key="3">
             <OrderFinishList/>
-          </div>
+          </TabPane>
         </Tabs>
       </div>
     )

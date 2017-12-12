@@ -2,24 +2,28 @@
   display: flex;
   flex-direction:column;
   align-items: center;
+  width:100%;
 
 
   .statusBox{
     flex-direction: row;
     display: flex;
     padding: 0.3rem 0.3rem 0.1rem 0.3rem;
+    justify-content: space-between;
+    width:100%;
 
     .shopInfoBox{
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+
       .shopIcon{
         height: 0.3rem;
         width: 0.3rem
 
       }
-      .bakcIcon{
+      .backIcon{
         width:0.1rem;
         height:0.2rem;
 
@@ -31,15 +35,17 @@
         margin-left: 0.2rem;
 
       }
-      .shopTips{
-        color: #FF7819;
-        font-size: 0.24rem;
-      }
+
+    }
+    .shopTips{
+      color: #FF7819;
+      font-size: 0.24rem;
     }
   }
 
   .goodsBox{
     flex-direction: column;
+    width:100%;
 
     .goodsView{
       background-color: rgba(0,0,0,0.03);
@@ -57,6 +63,7 @@
         flex-direction: column;
 
         .goodsNameText{
+          height: 1rem;
           color:#000000;
           font-size: 0.3rem;
           webkit-line-clamp:2;
