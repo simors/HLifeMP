@@ -170,6 +170,7 @@ class OrderFinishList extends React.PureComponent {
       let {order} = rowData
       return <div key = {rowID} className={styles.blankWrap} ><OrderShow order={order}  /></div>
     }
+    let {dataSource} = this.state
 
     return (
       <ListView

@@ -171,6 +171,7 @@ class OrderAllList extends React.PureComponent {
       return <div key = {rowID} className={styles.blankWrap} ><OrderShow order={order}  /></div>
     }
 
+    let {dataSource} = this.state
     return (
         <ListView
           dataSource={dataSource}
