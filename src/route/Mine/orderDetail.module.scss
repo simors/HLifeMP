@@ -1,0 +1,227 @@
+.body{
+  width: 100%;
+  background-color: rgba(0,0,0,0.05);
+
+  .header{
+    background-color: rgba(255,120,25,0.12);
+    width: 100%;
+    height: 1.3rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    .noRec{
+      font-size: 0.4rem;
+      color: #04D800;
+    }
+    .wait{
+      font-size: 0.4rem;
+      color: #D0021B;
+    }
+    .sendBox{
+      flex:row;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .sendImg{
+        height:0.6rem;
+        width: 0.6rem;
+        margin-right: 0.1rem;
+
+
+      }
+      .sendText{
+        font-size: 0.4rem;
+        color: #04D800;
+      }
+    }
+  }
+
+  .receiverBox{
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    padding: 0.3rem 0.2rem;
+
+    .receiverImg{
+      height: 0.5rem;
+      width:0.5rem;
+    }
+    .receiverInfo{
+      margin-left: 0.1rem;
+      flex-direction: column;
+
+      .receiverName{
+        color: rgba(0,0,0,0.80);
+        font-size: 0.3rem;
+      }
+
+      .receiverAddr{
+        color: rgba(0,0,0,0.80);
+        font-size: 0.24rem;
+      }
+    }
+  }
+
+  .orderInfoBox{
+
+    margin-top: 0.2rem;
+    width: 100%;
+    background-color: #FFFFFF;
+
+    .shopWrap{
+      padding: 0.3rem 0.2rem;
+
+      display: flex;
+      flex-direction: row;
+      height: 0.7rem;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+
+      .shopIcon{
+        height: 0.3rem;
+        width: 0.3rem;
+
+      }
+
+      .shopName{
+        font-size: 0.24rem;
+        color: rgba(0,0,0,0.80);
+        margin-left: 0.2rem;
+        margin-right: 0.1rem;
+      }
+
+      .backIcon{
+        height:0.2rem;
+        width: 0.1rem;
+      }
+
+    }
+
+    .goodsBox{
+      background-color: rgba(0,0,0,0.03);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      padding: 0.3rem 0.2rem;
+
+
+      .coverPhoto{
+        height:1.6rem;
+        width: 1.6rem;
+
+      }
+
+      .goodsInfoBox{
+        flex-direction: column;
+        margin-left: 0.2rem;
+        justify-content: space-between;
+        width: 100%;
+
+        .goodsName{
+          font-size: 0.3rem;
+          color:#000;
+        }
+
+        .priceWrap{
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          display: flex;
+
+          .priceBox{
+            flex-direction: row;
+            align-items: flex-end;
+            display: flex;
+
+            .price{
+              color: #000000;
+              font-size: 0.3rem;
+            }
+
+            .originalPrice{
+              margin-left: 0.1rem;
+              color: rgba(0,0,0,0.3);
+              font-size: 0.24rem;
+              text-decoration: line-through;
+            }
+          }
+          .amount{
+            color:rgba(0,0,0,0.3);
+            font-size: 0.24rem;
+          }
+
+        }
+
+
+      }
+
+    }
+    .orderDate{
+      padding: 0.3rem;
+      justify-content: center;
+
+      .orderDateText{
+        font-size: 0.28rem;
+        color: #4A4A4A;
+      }
+    }
+  }
+
+  .paidBox{
+    width:100%;
+    padding:0.3rem;
+    margin-top: 0.2rem;
+    background-color: #FFFFFF;
+
+    .paidWrap{
+      width: 100%;
+      flex-direction: row;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .paidText{
+        color:#4A4A4A;
+        font-size: 0.28rem;
+      }
+
+    }
+    .remarkWrap{
+      margin-top: 0.2rem;
+
+      .remarkText{
+        font-size: 0.28rem;
+        color: #4A4A4A
+      }
+    }
+  }
+  .blankButton{
+
+  }
+
+  .itemBottomView{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1rem;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    background-color: rgba(250,250,250,0.90);
+
+    .confirmButton{
+      font-size: 0.34rem;
+      color: #FF7819
+
+    }
+
+
+  }
+
+
+}

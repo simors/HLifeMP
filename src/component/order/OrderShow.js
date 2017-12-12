@@ -101,6 +101,13 @@ export default class orderShow extends React.PureComponent {
     }
   }
 
+  gotoOrderDetail(orderId) {
+    let {history} = this.props
+    setTimeout(() => {
+      history.push('/orderDetail/' + orderId)
+    }, 300)
+  }
+
   render() {
     let {order} = this.props
     let goods = order.goods
@@ -116,7 +123,7 @@ export default class orderShow extends React.PureComponent {
     //   order: 'asdasdasdasdasdasdasd'
     // }
     return (
-      <div className={styles.body}>
+      <div className={styles.body} onClick={()=>{this.gotoOrderDetail(order.id)}}>
         <div className={styles.statusBox}>
           <div className={styles.shopInfoBox}>
             <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>

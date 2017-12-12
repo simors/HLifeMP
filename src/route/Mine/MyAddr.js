@@ -17,7 +17,7 @@ import Loading from '../../component/loading'
 import AddrList from '../../component/address/AddrList'
 import styles from './myAddr.module.scss'
 
-export default class MyAddr extends React.PureComponent {
+class MyAddr extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = '收货地址管理'
@@ -44,4 +44,4 @@ export default class MyAddr extends React.PureComponent {
 }
 
 
-
+export default withRouter(MyAddr)

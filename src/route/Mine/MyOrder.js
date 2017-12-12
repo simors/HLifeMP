@@ -27,7 +27,7 @@ let tabs = [
   { title: '已完成订单',tab : 3, key: 3 },
 ];
 
-export default class MyAddr extends React.PureComponent {
+ class MyOrder extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = '收货地址管理'
@@ -69,5 +69,6 @@ export default class MyAddr extends React.PureComponent {
   }
 }
 
+export default withRouter(MyOrder)
 
 
