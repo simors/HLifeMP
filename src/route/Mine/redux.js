@@ -438,13 +438,13 @@ function handleSetUserShopOrders(state, action) {
   let payload = action.payload
   let buyerId = payload.buyerId
   let type = payload.type
-  let shopOrdersList = payload.shopOrdersList
+  let shopOrderList = payload.shopOrderList
   if ('all' == type) {
-    state = state.setIn(['userAllOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userAllOrders', buyerId], new List(shopOrderList))
   } else if ('waiting' == type) {
-    state = state.setIn(['userWaitOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userWaitOrders', buyerId], new List(shopOrderList))
   } else if ('finished' == type) {
-    state = state.setIn(['userFinishOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userFinishOrders', buyerId], new List(shopOrderList))
   }
   return state
 }

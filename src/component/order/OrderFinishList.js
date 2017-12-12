@@ -189,11 +189,11 @@ class OrderFinishList extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let user = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,user.id,'finished')
+  let userId = authSelector.activeUserId(state)
+  let orderList = mineSelector.selectUserOrders(state,userId,'finished')
   return {
     orderList,
-    userId:user.id
+    userId:userId
   }
 }
 

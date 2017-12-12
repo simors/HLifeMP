@@ -189,11 +189,11 @@ class OrderAllList extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let user = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,user.id,'all')
+  let userId = authSelector.activeUserId(state)
+  let orderList = mineSelector.selectUserOrders(state,userId,'all')
   return {
     orderList,
-    userId:user.id
+    userId:userId
   }
 }
 
