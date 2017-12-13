@@ -1,4 +1,5 @@
 .body{
+  background-color: rgba(0,0,0,0.05);
 
 
   .inputBox{
@@ -8,6 +9,7 @@
     flex-direction: row;
     align-items: center;
     padding: 0.2rem 0.3rem;
+    background-color: #FFFFFF;
 
     .inputLabel{
       font-size: 0.34rem;
@@ -23,6 +25,7 @@
 
   }
   .tagBox{
+    background-color: #FFFFFF;
     width: 100%;
     height: 0.9rem;
     display: flex;
@@ -39,6 +42,7 @@
       flex-direction:row;
 
       .tag{
+        margin-left: 0.2rem;
         width: 1.4rem;
         height: 0.6rem ;
         align-items: center;
@@ -61,6 +65,17 @@
 
     }
 
+  }
+
+  .submit{
+    margin-top: 0.8rem;
+    width: 90%;
+    height: 1rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF7819;
+    color: #FFFFFF;
+    font-size: 0.36rem;
   }
 
 }

@@ -113,7 +113,7 @@ class UpdateMyAddr extends React.PureComponent {
 
         {this.renderTagBox()}
 
-        <Button onClick={this.submit}>保存</Button>
+        <div className={styles.submit} onClick={this.submit}>保存</div>
       </div>
     )
   }

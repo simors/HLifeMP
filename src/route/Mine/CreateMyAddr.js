@@ -71,19 +71,20 @@ class CreateMyAddr extends React.PureComponent {
 
   render() {
     const {getFieldProps} = this.props.form;
+    const {user} = this.props
 
     return (
       <div className={styles.body}>
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>收货人:</span>
           <input className={styles.input} {...getFieldProps('username',{
-            initialValue: ''
+            initialValue: user.nickname
           })}/>
         </div>
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>联系电话:</span>
           <input className={styles.input} {...getFieldProps('mobilePhoneNumber',{
-            initialValue: ''
+            initialValue: user.mobilePhoneNumber
           })}/>
         </div>
           <RegionPicker className = {styles.inputBox} level={3} onOk={(value)=> {
@@ -98,7 +99,7 @@ class CreateMyAddr extends React.PureComponent {
         {this.renderTagBox()}
 
 
-        <Button onClick={this.submit}>保存</Button>
+        <div className={styles.submit} onClick={this.submit}>保存</div>
       </div>
     )
   }
@@ -106,9 +107,11 @@ class CreateMyAddr extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
+  let user = authSelector.activeUserInfo(state)
   let addrList = mineSelector.getUserAddressList(state)
   return {
     addrList,
+    user
   }
 }
 
