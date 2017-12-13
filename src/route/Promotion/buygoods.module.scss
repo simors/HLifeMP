@@ -1,66 +1,133 @@
-.carousel {
-  background: #fff;
+.page {
+  background-color: rgba(0,0,0,0.03);
+  height: 100vh;
 
-  .imgStyle {
+  .carousel {
+    background: #fff;
+
+    .imgStyle {
+      width: 100%;
+      vertical-align: top;
+      max-height: 4.8rem;
+    }
+  }
+
+  .goodsDesc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.3rem;
+    background-color: #fff;
+    margin-bottom: 0.1rem;
+    .cover {
+    }
+    .desc {
+
+      flex: 1;
+      padding-left: 0.2rem;
+      height: 2.0rem;
+      .name {
+        font-size: 0.34rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+      }
+      .price {
+        font-size: 0.4rem;
+        color: #ff7819;
+      }
+    }
+  }
+
+  .form {
+    background-color: #fff;
+    padding: 0 0.3rem 0 0.3rem;
+    .count {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+
+      .countTitle {
+        font-size: 0.34rem;
+      }
+      .stepper {
+        width: 2.4rem;
+        height: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid rgba(0,0,0,0.2);
+        margin: 0.2rem 0 0.2rem 0;
+        .minus {
+          flex: 1;
+          background-color: rgba(0,0,0,0.2);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 50px;
+          border: 1px solid rgba(0,0,0,0.2);
+        }
+        .number {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .plus {
+          flex: 1;
+          background-color: rgba(0,0,0,0.2);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 40px;
+          border: 1px solid rgba(0,0,0,0.2);
+        }
+      }
+    }
+
+    .mark {
+      .markTitle {
+        font-size: 0.34rem;
+      }
+      .textArea {
+        font-size: 0.3rem;
+      }
+    }
+
+  }
+
+  .toolbar {
     width: 100%;
-    vertical-align: top;
-    max-height: 6.4rem;
-  }
-}
-
-.goodsDesc {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0.3rem;
-  .cover {
-  }
-  .desc {
-    flex: 1;
-    padding-left: 0.2rem;
-    height: 0.2rem;
-    .name {
-      font-size: 0.34rem;
-      font-weight: bold;
-    }
-    .price {
-      font-size: 0.4rem;
-      color: #ff7819;
-    }
-  }
-}
-
-.toolbar {
-  width: 100%;
-  height: 0.98rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(250, 250, 250, 0.9);
-  position: fixed;
-  bottom: 0px;
-
-  .price {
-    .title {
-      margin-left: 0.3rem;
-    }
-    .symbol {
-      color: #ff7819;
-    }
-    .number {
-      color: #ff7819;
-      font-size: 0.4rem;
-    }
-  }
-
-  .purchaseBtn {
-    width: 2.7rem;
-    height: 100%;
-    background-color: #ff7819;
+    height: 0.98rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 0.3rem;
-    color: #fff;
+    justify-content: space-between;
+    background-color: rgba(250, 250, 250, 0.9);
+    position: fixed;
+    bottom: 0px;
+
+    .price {
+      .title {
+        margin-left: 0.3rem;
+      }
+      .symbol {
+        color: #ff7819;
+      }
+      .number {
+        color: #ff7819;
+        font-size: 0.4rem;
+      }
+    }
+
+    .purchaseBtn {
+      width: 2.7rem;
+      height: 100%;
+      background-color: #ff7819;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.3rem;
+      color: #fff;
+    }
   }
 }

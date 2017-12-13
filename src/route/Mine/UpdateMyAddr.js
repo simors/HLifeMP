@@ -54,7 +54,8 @@ class UpdateMyAddr extends React.PureComponent {
             initialValue: addr.mobilePhoneNumber
           })}/>
         </div>
-        <RegionPicker selectedAddr ={[addr.province, addr.city, addr.district]} level={3} onOk={(value)=>{console.log('value=->',value)}} />
+
+        <RegionPicker selectedAddr ={[addr.province,addr.city,addr.district]} level={3} onOk={(value)=>{console.log('value=->',value)}} />
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>详细地址:</span>
           <input className={styles.input} {...getFieldProps('addr',{
@@ -80,8 +81,10 @@ const mapStateToProps = (state, ownProps) => {
   let {addrId} = match.params
 
   let addr = mineSelector.getUserAddress(state,addrId)
+
+  console.log('addr=====>',addr)
   return {
-    addr,
+    addr: addr
   }
 }
 

@@ -33,6 +33,7 @@ import Loading from '../../component/loading'
      }, 300)
    }
 
+
   render() {
     let { addr} = this.props
 

@@ -8,9 +8,9 @@ import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects'
 import * as mineCloud from './cloud'
 import {shopAction, shopSelector, shopReducer} from '../Shop'
 import {authAction, authReducer, authSelector} from '../../util/auth'
-import appConfig from '../../util/appConfig'
 
 
+// 订单状态定义
 const ORDER_STATUS = {
   PAID_FINISHED: 1, // 已支付
   DELIVER_GOODS: 2, // 已发货
@@ -664,7 +664,7 @@ function constructOrderList(state, orderIds) {
   return userOrders
 }
 
-export function selectOrderDetail(state, orderId) {
+function selectOrderDetail(state, orderId) {
   let orderRec = state.MINE.getIn(['orderDetail', orderId])
   if (!orderRec) {
     return undefined
@@ -683,7 +683,8 @@ export function selectOrderDetail(state, orderId) {
   }
 }
 
-export function getUserAddressList(state) {
+//获取地址列表
+function getUserAddressList(state) {
   let addressList = state.MINE.get('addressList')
   let addressDetailList = []
   if (addressList && addressList.size > 0) {
@@ -697,17 +698,18 @@ export function getUserAddressList(state) {
   return addressDetailList
 }
 
-export function getUserAddress(state, addrId) {
+//获取地址
+function getUserAddress(state, addrId) {
   let address = state.MINE.getIn(['allAddress', addrId])
   if (address) {
   }
   return address.toJS() || {}
 }
 
-export function getDefaultAddress(state, addrId) {
+//获取默认地址
+function getDefaultAddress(state) {
   let addressList = state.MINE.get('addressList')
   let defaultAddr = {}
-
   if (addressList && addressList.size > 0) {
     addressList.forEach((item)=> {
       let address = state.MINE.getIn(['allAddress', item])
@@ -726,5 +728,6 @@ export const mineSelector = {
   selectUserOrders,
   selectOrderDetail,
   getUserAddressList,
-  getUserAddress
+  getUserAddress,
+  getDefaultAddress
 }
