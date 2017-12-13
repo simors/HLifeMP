@@ -22,5 +22,45 @@
 
 
   }
+  .tagBox{
+    width: 100%;
+    height: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2rem 0.3rem;
+
+    .tagLabel{
+      font-size: 0.34rem;
+      color: rgba(0,0,0,0.8)
+    }
+    .tagWrap{
+      display: flex;
+      flex-direction:row;
+
+      .tag{
+        width: 1.4rem;
+        height: 0.6rem ;
+        align-items: center;
+        justify-content: center;
+        border: 0.02rem solid #000000;
+        font-size: 0.28rem;
+        color: #000000
+
+      }
+
+      .selectedTag{
+        width: 1.4rem;
+        height: 0.6rem ;
+        align-items: center;
+        justify-content: center;
+        border: 0.02rem solid #FF7819;
+        font-size: 0.28rem;
+        color: #FF7819
+      }
+
+    }
+
+  }
 
 }
