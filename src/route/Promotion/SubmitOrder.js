@@ -4,13 +4,13 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import {mineAction} from '../Mine'
+import {mineAction, mineSelector} from '../Mine'
 import {actions} from './redux'
 import styles from './submitorder.module.scss'
 import {Button} from 'antd-mobile'
 import pingpp from 'pingpp-js'
 import {Toast} from 'antd-mobile'
-
+import {shopSelector} from '../Shop'
 
 class SubmitOrder extends PureComponent {
   constructor(props) {
@@ -29,18 +29,24 @@ class SubmitOrder extends PureComponent {
   }
 
   onSubmit = () => {
-    const {createPaymentRequest, location } = this.props
+    const {createPaymentRequest, location, selectedAddress, defaultAddress, shopGoods} = this.props
+    const address = selectedAddress || defaultAddress
     const {state} = location
     var {metadata} = state
-    console.log("metadata", metadata)
-
-    // createPaymentRequest({
-    //   amount: 10,
-    //   metadata: metadata || {},
-    //   subject: "汇邻优店",
-    //   success: this.createPaymentSuccessCallback,
-    //   error: this.createPaymentErrorCallback,
-    // })
+    if(this.state.checked === 'express') {
+      metadata = Object.assign(metadata, {
+        receiver: address.username,
+        receiverPhone: address.mobilePhoneNumber,
+        receiverAddr: address.addr,
+      })
+    }
+    createPaymentRequest({
+      amount: shopGoods.price * Number(metadata.goodsAmount),
+      metadata: metadata || {},
+      subject: "汇邻优店",
+      success: this.createPaymentSuccessCallback,
+      error: this.createPaymentErrorCallback,
+    })
   }
   createPaymentSuccessCallback = (charge) => {
     const {history} = this.props
@@ -60,7 +66,8 @@ class SubmitOrder extends PureComponent {
   }
 
   render() {
-    console.log("props", this.props)
+    const {selectedAddress, defaultAddress} = this.props
+    const address = selectedAddress || defaultAddress
     return(
       <div className={styles.page}>
         <div className={styles.address}>
@@ -86,11 +93,11 @@ class SubmitOrder extends PureComponent {
             </div>
             <div className={styles.userAddress}>
               <div className={styles.nameInfo}>
-                <div className={styles.name}>陈梅</div>
-                <div className={styles.phone}>15874925604</div>
-                <div className={styles.tag}>家</div>
+                <div className={styles.name}>{address.username}</div>
+                <div className={styles.phone}>{address.mobilePhoneNumber}</div>
+                <div className={styles.tag}>{address.tag}</div>
               </div>
-              <div className={styles.address}>湖南省长沙市岳麓区麓谷国际工业园a5栋国际工业园a5栋国际工业园a5栋</div>
+              <div className={styles.address}>{address.addr}</div>
             </div>
           </div>
         </div>
@@ -103,8 +110,29 @@ class SubmitOrder extends PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
+  const {location,} = ownProps
+  const locationState = location.state
+  const {addressId, metadata} = locationState
+  let selectedAddress = addressId? mineSelector.getUserAddress(state, addressId): undefined
+  let shopGoods = shopSelector.selectShopGoodsDetail(state, metadata.goodsId)
 
+  const defaultAddress = {
+    addr:"湘乡市东山学校",
+    adminId:"59ae0ecd1b69e6006833e0ea",
+    city:"湘潭",
+    createdAt:"2017-12-09T07:06:50.265Z",
+    district:"东山区",
+    id:"5a2b8b8aa22b9d0062621af3",
+    mobilePhoneNumber:"1877778888",
+    province:"湖南省",
+    status:2,
+    tag:"学校",
+    username:"小明",
+  }
+  return {
+    shopGoods: shopGoods,
+    selectedAddress: selectedAddress,
+    defaultAddress: defaultAddress,
   }
 }
 

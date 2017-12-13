@@ -12,7 +12,7 @@ class SelectAddress extends PureComponent {
     super(props)
     document.title = "选择收货地址"
     this.state = {
-      default: undefined
+      defaultAddressId: undefined
     }
   }
 
@@ -25,7 +25,13 @@ class SelectAddress extends PureComponent {
   }
 
   gotoAddAddress = () => {
+    const {history} = this.props
+    history.push('/createMyAddr')
+  }
 
+  gotoUpdateAddress(addressId) {
+    const {history} = this.props
+    history.push('/updateMyAddr/' + addressId)
   }
 
   goBack(addressId) {
@@ -42,7 +48,6 @@ class SelectAddress extends PureComponent {
       <div className={styles.page}>
         {
           addressList.map((record) => {
-            console.log("addr:", record)
             return(
               <div key={record.id} className={styles.container}>
                 <div className={styles.item}>
@@ -51,7 +56,8 @@ class SelectAddress extends PureComponent {
                     <div className={styles.phone}>{record.mobilePhoneNumber}</div>
                     <div className={styles.tag}>{record.tag}</div>
                     <div className={styles.edit}>
-                      <img src={require('../../asset/svg/edite@100x.svg')} alt="" style={{width: '0.5rem', height: '0.5rem'}}/>
+                      <img src={require('../../asset/svg/edite@100x.svg')} alt=""
+                           style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
                     </div>
                   </div>
                   <div className={styles.address}>{record.addr}</div>
@@ -71,8 +77,8 @@ class SelectAddress extends PureComponent {
           })
         }
         <div className={styles.addAddress} onClick={this.gotoAddAddress}>
-          <span style={{fontSize: '60px'}}>+</span>
-          <span>添加新地址</span>
+          <div style={{fontSize: '50px'}}>+</div>
+          <div>添加新地址</div>
         </div>
       </div>
     )

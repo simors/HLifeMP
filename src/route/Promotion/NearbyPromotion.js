@@ -11,13 +11,6 @@ import { WhiteSpace, Popup, Button, ListView, Toast, PullToRefresh } from 'antd-
 import {getMobileOperatingSystem, getDistanceFromLatLonInKm} from '../../util/OSUtil'
 import styles from './nearbypromotion.module.scss'
 
-const LOCATION = {
-  latitude: 28.22142,
-  longitude: 112.8665,
-  speed: -1,
-  accuracy: 65,
-}
-
 class NearbyPromotion extends PureComponent {
   constructor(props) {
     super(props)
@@ -26,6 +19,10 @@ class NearbyPromotion extends PureComponent {
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
     this.state = {
+      location: {
+        latitude: 28.22142,
+        longitude: 112.8665,
+      },
       dataSource,
       isLoading: true,
       hasMore: true,
@@ -44,23 +41,40 @@ class NearbyPromotion extends PureComponent {
     getJsApiConfig({
       debug: __DEV__? false: false,
       jsApiList: ['scanQRCode', 'getLocation'],
-      url: jssdkURL,
-      success: (configInfo) => {
-        wx.config(configInfo)
-      },
+      url: window.location.href,
+      success: this.getJsApiConfigSuccess,
       error: (error) => {console.log(error)}
     })
-    fetchPromotionAction({
-      geo: {
-        latitude: LOCATION.latitude,
-        longitude: LOCATION.longitude,
-      },
-      limit: 10,
-      lastDistance: undefined,
-      nowDate: new Date('2016-09-01'),
-      isRefresh: true,
-      success: this.fetchPromotionActionSuccess,
-      error: this.fetchPromotionActionError,
+  }
+
+  getJsApiConfigSuccess = (configInfo) => {
+    const {fetchPromotionAction} = this.props
+    var that = this
+    wx.config(configInfo)
+    wx.getLocation({
+      type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+      success: function (res) {
+        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+        fetchPromotionAction({
+          geo: {
+            latitude: latitude,
+            longitude: longitude,
+          },
+          limit: 10,
+          lastDistance: undefined,
+          nowDate: new Date('2016-09-01'),
+          isRefresh: true,
+          success: this.fetchPromotionActionSuccess,
+          error: this.fetchPromotionActionError,
+        })
+        that.setState({
+          location: {
+            latitude: latitude,
+            longitude: longitude,
+          }
+        })
+      }
     })
   }
 
@@ -75,10 +89,6 @@ class NearbyPromotion extends PureComponent {
     Toast.fail(error)
   }
 
-  componentDidMount() {
-
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.nearbyPromList !== this.props.nearbyPromList) {
       this.setState({
@@ -87,23 +97,8 @@ class NearbyPromotion extends PureComponent {
     }
   }
 
-  getWxLocation() {
-    const {fetchPromotionAction, nearbyPromList} = this.props
-    wx.getLocation({
-      type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-      success: function (res) {
-        alert(res)
-        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-        var speed = res.speed; // 速度，以米/每秒计
-        var accuracy = res.accuracy; // 位置精度
-      }
-    })
-
-  }
-
   calculateDistance(geo) {
-    let distance = getDistanceFromLatLonInKm(LOCATION.latitude, LOCATION.longitude, geo[0], geo[1])
+    let distance = getDistanceFromLatLonInKm(this.state.location.latitude, this.state.location.longitude, geo[0], geo[1])
     distance = distance.toFixed(2)
     if(distance < 1.0) {
       return distance * 1000 + "米"
@@ -118,11 +113,11 @@ class NearbyPromotion extends PureComponent {
     this.setState({isLoading: true})
     const {fetchPromotionAction, nearbyPromList} = this.props
     const geo = nearbyPromList[nearbyPromList.length - 1].geo
-    const lastDistance = getDistanceFromLatLonInKm(LOCATION.latitude, LOCATION.longitude, geo[0], geo[1])
+    const lastDistance = getDistanceFromLatLonInKm(this.state.location.latitude, this.state.location.longitude, geo[0], geo[1])
     fetchPromotionAction({
       geo: {
-        latitude: LOCATION.latitude,
-        longitude: LOCATION.longitude,
+        latitude: this.state.location.latitude,
+        longitude: this.state.location.longitude,
       },
       limit: 10,
       lastDistance: lastDistance,

@@ -152,6 +152,8 @@ class PromotionDetail extends PureComponent {
         <WingBlank size="sm" style={{marginTop: 20}}>
           <ArticleViewer artlcleContent={JSON.parse(shopGoods.detail)} />
         </WingBlank>
+        <div style={{width: '100%', height: '1.0rem'}}>
+        </div>
         {this.renderToolbar()}
       </div>
     )

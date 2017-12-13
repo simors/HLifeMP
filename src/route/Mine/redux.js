@@ -700,10 +700,11 @@ function getUserAddressList(state) {
 
 //获取地址
 function getUserAddress(state, addrId) {
-  let address = state.MINE.getIn(['allAddress', addrId])
-  if (address) {
+  if(!addrId) {
+    return undefined
   }
-  return address.toJS() || {}
+  let address = state.MINE.getIn(['allAddress', addrId])
+  return address? address.toJS(): undefined
 }
 
 //获取默认地址
