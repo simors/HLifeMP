@@ -614,11 +614,11 @@ function selectPayment(state) {
 export function selectUserOrders(state, buyerId, type) {
   let orderIds = []
   if ('all' == type) {
-    orderIds = state.SHOP.getIn(['userAllOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userAllOrders', buyerId]) || []
   } else if ('waiting' == type) {
-    orderIds = state.SHOP.getIn(['userWaitOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userWaitOrders', buyerId]) || []
   } else if ('finished' == type) {
-    orderIds = state.SHOP.getIn(['userFinishOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userFinishOrders', buyerId]) || []
   }
   let userOrders = constructOrderList(state, orderIds)
   return userOrders
@@ -627,7 +627,7 @@ export function selectUserOrders(state, buyerId, type) {
 function constructOrderList(state, orderIds) {
   let userOrders = []
   orderIds.forEach((orderId) => {
-    let orderRec = state.SHOP.getIn(['orderDetail', orderId])
+    let orderRec = state.MINE.getIn(['orderDetail', orderId])
     if (orderRec) {
       let order = orderRec.toJS()
       let vendorId = order.vendorId

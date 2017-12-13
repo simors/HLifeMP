@@ -43,7 +43,7 @@ class OrderAllList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    if(promotions.length === 0) {
+    if(promotions&&promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
     }
   }
@@ -152,7 +152,10 @@ class OrderAllList extends React.PureComponent {
     }
     this.setState({isLoading: true})
     const {fetchUserOrderList, orderList} = this.props
-    const lastTime = orderList[orderList.length - 1].createdAt
+    let lastTime = undefined
+    if(orderList&&orderList.length>0){
+      orderList[orderList.length - 1].createdAt
+    }
     fetchUserOrderList({
       lastTime: lastTime,
       type:'all',
@@ -191,6 +194,7 @@ class OrderAllList extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   let userId = authSelector.activeUserId(state)
+  console.log('userId------>',userId)
   let orderList = mineSelector.selectUserOrders(state,userId,'all')
   let dataSource = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2,
