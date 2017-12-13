@@ -13,7 +13,9 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
 import OrderShow from './OrderShow'
-import appConfig from '../../util/appConfig'
+import {mineConfig} from '../../route/mine'
+
+const ORDER_STATUS = mineConfig.ORDER_STATUS
 
 let {Item} = List
 class OrderDeliverList extends React.PureComponent {

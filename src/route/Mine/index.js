@@ -14,3 +14,6 @@ export const mineAction = mineRedux.mineAction
 
 /* export selector */
 export const mineSelector = mineRedux.mineSelector
+
+/* export config */
+export const mineConfig = mineRedux.mineConfig

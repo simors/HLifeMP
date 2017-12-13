@@ -27,6 +27,7 @@ export default class AddrShow extends React.PureComponent {
   }
 
 
+
   render() {
     let { addr} = this.props
 
@@ -59,7 +60,7 @@ export default class AddrShow extends React.PureComponent {
 
           </Button>
           <div className={styles.editBox}>
-            <Button className={styles.editButton}>编辑</Button>
+            <Button className={styles.editButton} onClick={()=>{this.props.updateAddr(addr.id)}}>编辑</Button>
             <Button className={styles.editButton}>删除</Button>
           </div>
 
@@ -69,6 +70,5 @@ export default class AddrShow extends React.PureComponent {
     )
   }
 }
-
 
 

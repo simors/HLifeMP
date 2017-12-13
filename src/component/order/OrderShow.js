@@ -13,9 +13,9 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
-import appConfig from '../../util/appConfig'
+import {mineConfig} from '../../route/mine'
 
-const ORDER_STATUS = appConfig.ORDER_STATUS
+const ORDER_STATUS = mineConfig.ORDER_STATUS
 export default class orderShow extends React.PureComponent {
   constructor(props) {
     super(props)
