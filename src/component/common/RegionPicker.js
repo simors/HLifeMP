@@ -124,7 +124,7 @@ class RegionPicker extends React.PureComponent {
 
     return (
         <Picker
-          className={styles.body}
+          className={[styles.body,this.props.className]}
           data={this.pickerData}
           {...getFieldProps('district', {
             initialValue: this.props.selectedAddr?this.props.selectedAddr:[],
