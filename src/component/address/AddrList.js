@@ -28,6 +28,20 @@ import AddrShow from './AddrShow'
 
   }
 
+   deleteAddr(addrId){
+     let payload={
+       addrId: addrId
+     }
+     this.props.disableMyAddr(payload)
+   }
+
+   defaultAddr(addrId){
+     let payload={
+       addrId: addrId
+     }
+     this.props.setDefaultAddr(payload)
+   }
+
   renderAddrList(){
     let {addrList} = this.props
     if((!addrList)||(addrList.length)<1){
@@ -66,7 +80,11 @@ import AddrShow from './AddrShow'
 
     if(addrList && addrList.length>0){
       let addrViewList = addrList.map((item,key)=>{
-        return <div key = {key} className={styles.blankWrap} ><AddrShow addr={item} updateAddr={(addrId)=>{this.props.updateAddr(addrId)}} /></div>
+        return <div key = {key} className={styles.blankWrap} ><AddrShow
+          deleteAddr={()=>{this.deleteAddr(item.id)}}
+          addr={item}
+          defaultAddr={()=>{this.defaultAddr(item.id)}}
+        /></div>
         })
       return addrViewList
     }else{
