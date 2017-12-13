@@ -231,6 +231,7 @@ const mapStateToProps = (state, ownProps) => {
   let {orderId} = match.params
 
   let order = mineSelector.selectOrderDetail(state,orderId)
+  console.log('order=====>',order)
   return {
     order
   }

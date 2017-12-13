@@ -647,7 +647,7 @@ function constructOrderList(state, orderIds) {
 }
 
 export function selectOrderDetail(state, orderId) {
-  let orderRec = state.SHOP.getIn(['orderDetail', orderId])
+  let orderRec = state.MINE.getIn(['orderDetail', orderId])
   if (!orderRec) {
     return undefined
   }

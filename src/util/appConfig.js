@@ -58,10 +58,16 @@ const ORDER_STATUS = {
   DELETED: 4,       // 已删除
 }
 
+const ADDR_STATUS = {
+  DEFAUT_ADDR: 1, // 默认地址
+  ENABLE_ADDR: 2, // 可选地址
+  DISABLE_ADDR: 0,    // 被删除地址
+}
 
 var appConfig = {
   APP_NAME: '汇邻优店',
   ORDER_STATUS: ORDER_STATUS,
+  ADDR_STATUS: ADDR_STATUS,
 
   LC_APP_ID: LC_APP_ID,
   LC_APP_KEY: LC_APP_KEY,
