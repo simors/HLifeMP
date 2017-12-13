@@ -29,6 +29,11 @@ class SelectAddress extends PureComponent {
     history.push('/createMyAddr')
   }
 
+  gotoUpdateAddress(addressId) {
+    const {history} = this.props
+    history.push('/updateMyAddr/' + addressId)
+  }
+
   goBack(addressId) {
     const {history, location} = this.props
     const {state} = location
@@ -43,7 +48,6 @@ class SelectAddress extends PureComponent {
       <div className={styles.page}>
         {
           addressList.map((record) => {
-            console.log("addr:", record)
             return(
               <div key={record.id} className={styles.container}>
                 <div className={styles.item}>
@@ -52,7 +56,8 @@ class SelectAddress extends PureComponent {
                     <div className={styles.phone}>{record.mobilePhoneNumber}</div>
                     <div className={styles.tag}>{record.tag}</div>
                     <div className={styles.edit}>
-                      <img src={require('../../asset/svg/edite@100x.svg')} alt="" style={{width: '0.5rem', height: '0.5rem'}}/>
+                      <img src={require('../../asset/svg/edite@100x.svg')} alt=""
+                           style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
                     </div>
                   </div>
                   <div className={styles.address}>{record.addr}</div>
