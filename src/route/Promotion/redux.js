@@ -62,6 +62,14 @@ const BATCH_SAVE_PROMOTION = "BATCH_SAVE_PROMOTION"
 const UPDATE_NEARBY_PROM_LIST = "UPDATE_NEARBY_PROM_LIST"
 const CREATE_PAYMENT_REQUEST = "CREATE_PAYMENT_REQUEST"
 
+export const PAYMENT_TYPE = {
+  INVITE_PROMOTER: 1,       // 邀请推广员获得的收益
+  INVITE_SHOP: 2,           // 邀请店铺获得的收益
+  BUY_GOODS: 3,             // 购买商品
+  REWARD: 4,                // 打赏
+  WITHDRAW: 5,              // 取现
+  PUBLISH_PROMOTION: 6,     //发布活动
+}
 /**** Action ****/
 export const actions = {
   fetchPromotionAction: createAction(FETCH_PROMOTION),

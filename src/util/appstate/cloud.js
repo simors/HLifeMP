@@ -11,3 +11,13 @@ export function getJssdkConfig(payload) {
     throw error
   })
 }
+
+export function fetchAllProvincesAndCities(payload) {
+  let params = {
+    level: 3,
+    areaCode: 1,
+  }
+  return AV.Cloud.run('hLifeGetSubAreaList2', params).then((results) => {
+    return results
+  })
+}

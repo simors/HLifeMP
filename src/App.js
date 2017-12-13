@@ -3,6 +3,8 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import rootRoutes from './route'
+import {updateProvincesAndCities} from './util/configUtils'
+import {connect} from 'react-redux'
 
 class App extends React.Component {
   static propTypes = {
@@ -12,6 +14,10 @@ class App extends React.Component {
 
   shouldComponentUpdate () {
     return false
+  }
+
+  componentDidMount() {
+    updateProvincesAndCities()
   }
 
   render () {

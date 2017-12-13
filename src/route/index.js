@@ -15,6 +15,11 @@ import ErrorPage from './Error'
 import LoadingPage from './Loading'
 import Mine from './Mine/Mine'
 import MyAddr from './Mine/MyAddr'
+import CreateMyAddr from './Mine/CreateMyAddr'
+import UpdateMyAddr from './Mine/UpdateMyAddr'
+import MyOrder from './Mine/MyOrder'
+import OrderDetail from './Mine/OrderDetail'
+
 import NearbyPromotion, {PromotionDetail, BuyGoods, SelectAddress, SubmitOrder} from './Promotion'
 
 const rootRoutes = (
@@ -28,9 +33,13 @@ const rootRoutes = (
     <AuthRoute path="/wallet" component={Wallet}/>
     <AuthRoute path="/mine" component={Mine}/>
     <AuthRoute path="/withdraw" component={Withdraw}/>
-      <AuthRoute path="/myOrder" component={Withdraw}/>
-      <Route path="/myAddr" component={MyAddr}/>
-      <AuthRoute path="/about" component={Withdraw}/>
+      <AuthRoute path="/myAddr" component={MyAddr}/>
+    <AuthRoute path="/createMyAddr" component={CreateMyAddr}/>
+    <AuthRoute path="/updateMyAddr" component={UpdateMyAddr}/>
+    <AuthRoute path="/myOrder" component={MyOrder}/>
+      <AuthRoute path="/orderDetail/:orderId" component={OrderDetail}/>
+
+    <AuthRoute path="/about" component={Withdraw}/>
 
       <Route path="/friends/:level" component={PromoterFriends}/>
     <Route path="/nearfriend" component={MyNearFriend}/>

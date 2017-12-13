@@ -51,10 +51,13 @@ class Mine extends React.PureComponent {
     if (!activeUser ) {
       return <Loading/>
     }
+    // let activeUser = {}
     return (
       <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>
         <div className={styles.headerView}>
+          <div className={styles.avatar}>
             <img className={styles.avatar} src={(activeUser&&activeUser.avatar)?activeUser.avatar:require('../../asset/svg/user.svg')} />
+          </div>
           <span className={styles.nickname}>{activeUser.nickname}</span>
         </div>
         <div className={styles.body}>

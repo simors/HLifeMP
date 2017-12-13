@@ -169,7 +169,7 @@ export const mineAction = {
   fetchMyAddr: createAction(FETCH_ADDR_LIST),
   disableMyAddr: createAction(DISABLE_MY_ADDR),
   setDefaultAddr: createAction(SET_DEFAULT_ADDR),
-  fetchUserOrderList: createAction(FETCH_ADDR_LIST),
+  fetchUserOrderList: createAction(FETCH_SET_USER_ORDERS_LIST),
   setUserOrderStatus: createAction(SET_USER_ORDER_STATUS),
   saveUserOrders: createAction(BATCH_SAVE_USER_ORDERS)
 }
@@ -329,21 +329,24 @@ function* getUserOrderListSaga(action){
     let shopOrders = []
     let vendors = []
     let goods = []
-    let shopOrderIds = []
+    let shopOrderList = []
     let orders = results.shopOrders
-    orders.forEach((order) => {
-      shopOrderIds.push(order.id)
-      shopOrders.push(order)
-      vendors.push(order.vendor)
-      goods.push(order.goods)
-    })
-    yield put(shopAction.updateBatchShop(vendors))
-    yield put(shopAction.updateBatchShopGoods(goods))
-    yield put(mineAction.saveUserOrders(orders))
+    if(orders&&orders.length>0){
+      orders.forEach((order) => {
+        shopOrderList.push(order.id)
+        shopOrders.push(order)
+        vendors.push(order.vendor)
+        goods.push(order.goods)
+      })
+    }
+    console.log('shopOrderList======>',shopOrderList)
+    yield put(shopAction.updateBatchShop({vendors:vendors}))
+    yield put(shopAction.updateBatchShopGoods({goods:goods}))
+    yield put(mineAction.saveUserOrders({shopOrders:shopOrders}))
     if(payload.isRefresh){
-      yield put(fetchSetUserOrderListSuccess(shopOrderIds))
+      yield put(fetchSetUserOrderListSuccess({shopOrderList:shopOrderList,type: payload.type,buyerId: payload.buyerId}))
     }else{
-      yield put(fetchAddUserOrderListSuccess(shopOrderIds))
+      yield put(fetchAddUserOrderListSuccess({shopOrderList:shopOrderList,type: payload.type,buyerId: payload.buyerId}))
     }
     if(payload.success){
       payload.success()
@@ -435,13 +438,13 @@ function handleSetUserShopOrders(state, action) {
   let payload = action.payload
   let buyerId = payload.buyerId
   let type = payload.type
-  let shopOrdersList = payload.shopOrdersList
+  let shopOrderList = payload.shopOrderList
   if ('all' == type) {
-    state = state.setIn(['userAllOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userAllOrders', buyerId], new List(shopOrderList))
   } else if ('waiting' == type) {
-    state = state.setIn(['userWaitOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userWaitOrders', buyerId], new List(shopOrderList))
   } else if ('finished' == type) {
-    state = state.setIn(['userFinishOrders', buyerId], new List(shopOrdersList))
+    state = state.setIn(['userFinishOrders', buyerId], new List(shopOrderList))
   }
   return state
 }
@@ -493,10 +496,14 @@ function handleAddUserShopOrders(state, action) {
 }
 
 function handleBatchAddOrdersDetail(state, action) {
+  console.log('action.payload=====>',action.payload)
   let orders = action.payload.shopOrders
-  orders.forEach((order) => {
-    state = state.setIn(['orderDetail', order.id], ShopOrders.fromApi(order))
-  })
+  if(orders&&orders.length>0){
+    orders.forEach((order) => {
+      state = state.setIn(['orderDetail', order.id], ShopOrders.fromApi(order))
+    })
+  }
+
   return state
 }
 
@@ -607,11 +614,11 @@ function selectPayment(state) {
 export function selectUserOrders(state, buyerId, type) {
   let orderIds = []
   if ('all' == type) {
-    orderIds = state.SHOP.getIn(['userAllOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userAllOrders', buyerId]) || []
   } else if ('waiting' == type) {
-    orderIds = state.SHOP.getIn(['userWaitOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userWaitOrders', buyerId]) || []
   } else if ('finished' == type) {
-    orderIds = state.SHOP.getIn(['userFinishOrders', buyerId]) || []
+    orderIds = state.MINE.getIn(['userFinishOrders', buyerId]) || []
   }
   let userOrders = constructOrderList(state, orderIds)
   return userOrders
@@ -620,7 +627,7 @@ export function selectUserOrders(state, buyerId, type) {
 function constructOrderList(state, orderIds) {
   let userOrders = []
   orderIds.forEach((orderId) => {
-    let orderRec = state.SHOP.getIn(['orderDetail', orderId])
+    let orderRec = state.MINE.getIn(['orderDetail', orderId])
     if (orderRec) {
       let order = orderRec.toJS()
       let vendorId = order.vendorId
@@ -640,7 +647,7 @@ function constructOrderList(state, orderIds) {
 }
 
 export function selectOrderDetail(state, orderId) {
-  let orderRec = state.SHOP.getIn(['orderDetail', orderId])
+  let orderRec = state.MINE.getIn(['orderDetail', orderId])
   if (!orderRec) {
     return undefined
   }

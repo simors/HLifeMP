@@ -16,7 +16,6 @@ import Loading from '../../component/loading'
 export default class AddrShow extends React.PureComponent {
   constructor(props) {
     super(props)
-    document.title = '收货地址管理'
   }
 
   componentDidMount() {
@@ -29,17 +28,15 @@ export default class AddrShow extends React.PureComponent {
 
 
   render() {
-    // let {activeUser, addr} = this.props
-    // if (!activeUser) {
-    //   return <Loading/>
-    // }
+    let { addr} = this.props
 
-    let addr = {
-      username: 'asdasd',
-      mobilePhoneNumber: '123123123',
-      tag: '家',
-      addr: 'asdasdasdasdasdasdasd'
-    }
+    //
+    // let addr = {
+    //   username: 'asdasd',
+    //   mobilePhoneNumber: '123123123',
+    //   tag: '家',
+    //   addr: 'asdasdasdasdasdasdasd'
+    // }
 
 
     return (

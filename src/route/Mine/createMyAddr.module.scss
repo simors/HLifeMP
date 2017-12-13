@@ -1,0 +1,26 @@
+.body{
+
+
+  .inputBox{
+    width: 100%;
+    height: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.2rem 0.3rem;
+
+    .inputLabel{
+      font-size: 0.34rem;
+      color: rgba(0,0,0,0.8)
+    }
+
+    .input{
+      font-size: 0.34rem;
+      color: rgba(0,0,0,0.8)
+    }
+
+
+
+  }
+
+}

@@ -23,6 +23,7 @@ const LocationRecord = Record({
 const AppState = Record({
   isRehydrated: undefined,     // 是否已完成持久化数据恢复
   location: undefined,
+  provinceListWithCityList: undefined,
   entryURL: undefined,         // 应用的入口URL
 }, 'AppState')
 
@@ -32,6 +33,8 @@ const UPDATE_REHYDRATE = 'UPDATE_REHYDRATE'
 const UPDATE_REHYDRATE_SUCCESS = 'UPDATE_REHYDRATE_SUCCESS'
 const GET_WECHAT_JSAPI_CONFIG = 'GET_WECHAT_JSAPI_CONFIG'
 const UPDATE_GEO_LOCATION = 'UPDATE_GEO_LOCATION'
+const UPDATE_PROVINCE_AND_CITY = 'UPDATE_PROVINCE_AND_CITY'
+const UPDATE_PROVINCE_AND_CITY_SUCCESS = 'UPDATE_PROVINCE_AND_CITY_SUCCESS'
 const UPDATE_ENTRY_URL = "UPDATE_ENTRY_URL"
 const SAVE_ENTRY_URL = "SAVE_ENTRY_URL"
 
@@ -40,9 +43,12 @@ const SAVE_ENTRY_URL = "SAVE_ENTRY_URL"
 export const appStateAction = {
   updateRehydrate: createAction(UPDATE_REHYDRATE),
   getJsApiConfig: createAction(GET_WECHAT_JSAPI_CONFIG),
-  updateEntryURLAction: createAction(UPDATE_ENTRY_URL),
-}
+  updateProvinceAndCities: createAction(UPDATE_PROVINCE_AND_CITY),
+    updateEntryURLAction: createAction(UPDATE_ENTRY_URL),
 
+  }
+
+const updateProvinceAndCitySuccess = createAction(UPDATE_PROVINCE_AND_CITY_SUCCESS)
 const updateRehydrateSuccess = createAction(UPDATE_REHYDRATE_SUCCESS)
 const saveEntryURL = createAction(SAVE_ENTRY_URL)
 
@@ -54,6 +60,22 @@ function* updateAppRehydrate(action) {
     yield put(updateRehydrateSuccess(payload))
   } catch (error) {
     console.log('update App State error:', error)
+  }
+}
+
+function* updateProvinceAndCitySaga(action) {
+  let payload = action.payload
+  try{
+    let result = yield call(appStateCloud.fetchAllProvincesAndCities,payload)
+    if(result && result.length>0){
+      yield put(updateProvinceAndCitySuccess({provinceListWithCityList:result}))
+    }
+  }catch (err){
+    if(payload&&payload.err){
+      console.log('err======>',err)
+    }else{
+      console.log('err======>',err)
+    }
   }
 }
 
@@ -90,7 +112,8 @@ function* updateEntryURL(action) {
 export const appStateSaga = [
   takeLatest(UPDATE_REHYDRATE, updateAppRehydrate),
   takeLatest(GET_WECHAT_JSAPI_CONFIG, fetchJssdkConfig),
-  takeLatest(UPDATE_ENTRY_URL, updateEntryURL),
+  takeLatest(UPDATE_PROVINCE_AND_CITY, updateProvinceAndCitySaga),
+ takeLatest(UPDATE_ENTRY_URL, updateEntryURL),
 ]
 
 /**** Reducer ****/
@@ -103,11 +126,20 @@ export function appStateReducer(state = initialState, action) {
       return handleUpdateAppRehydrate(state, action)
     case UPDATE_GEO_LOCATION:
       return handleUpdateGeolocation(state, action)
+    case UPDATE_PROVINCE_AND_CITY_SUCCESS:
+      return handleUpdateProvincesAndCities(state, action)
     case SAVE_ENTRY_URL:
       return handleSaveEntryURL(state, action)
     default:
       return state
   }
+}
+
+function handleUpdateProvincesAndCities(state, action) {
+  let payload = action.payload
+  let provinceListWithCityList = payload.provinceListWithCityList
+  state = state.set('provinceListWithCityList', new List(provinceListWithCityList))
+  return state
 }
 
 function handleUpdateAppRehydrate(state, action) {
@@ -165,6 +197,15 @@ function getGeopoint(state) {
   return {latitude: 0, longitude: 0}
 }
 
+function selectProvincesAndCities(state) {
+  let provinceListWithCityList = state.APPSTATE.provinceListWithCityList
+  if (provinceListWithCityList) {
+    let provinceListWithCityListJS = provinceListWithCityList.toJS()
+    return provinceListWithCityListJS || []
+  }
+  return []
+}
+
 function selectEntryURL(state) {
   let entryURL = state.APPSTATE.get('entryURL')
   return entryURL
@@ -174,5 +215,6 @@ export const appStateSelector = {
   selectAppState,
   getLocation,
   getGeopoint,
+  selectProvincesAndCities,
   selectEntryURL,
 }

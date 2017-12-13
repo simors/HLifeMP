@@ -7,8 +7,8 @@ import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import {shopSelector} from '../Shop'
 import styles from './buygoods.module.scss'
 import { Carousel, WhiteSpace, WingBlank, TextareaItem} from 'antd-mobile'
-import appConfig from '../../util/appConfig'
 import {authSelector} from '../../util/auth'
+import {PAYMENT_TYPE} from './redux'
 
 
 class BuyGoods extends PureComponent {
@@ -62,7 +62,7 @@ class BuyGoods extends PureComponent {
     let metadata = {
       'fromUser': activeUser,
       'toUser': shopDetail.ownerId,
-      'dealType': appConfig.PAYMENT_TYPE.BUY_GOODS,
+      'dealType': PAYMENT_TYPE.BUY_GOODS,
       'vendorId': shopGoods.targetShopId,
       'goodsId': shopGoods.id,
       'goodsAmount': this.state.count,
