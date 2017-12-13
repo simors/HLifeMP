@@ -43,7 +43,7 @@ class OrderDeliverList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    if(promotions.length === 0) {
+    if(promotions&&promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
     }
   }
@@ -152,7 +152,10 @@ class OrderDeliverList extends React.PureComponent {
     }
     this.setState({isLoading: true})
     const {fetchUserOrderList, orderList} = this.props
-    const lastTime = orderList[orderList.length - 1].createdAt
+    let lastTime = undefined
+    if(orderList&&orderList.length>0){
+      orderList[orderList.length - 1].createdAt
+    }
     fetchUserOrderList({
       lastTime: lastTime,
       type:'waiting',
@@ -168,7 +171,7 @@ class OrderDeliverList extends React.PureComponent {
 
     const row=(rowData, sectionID, rowID)=>{
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData}  /></div>
+      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}}  /></div>
     }
     let {dataSource} = this.state
 

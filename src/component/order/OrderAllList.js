@@ -172,7 +172,7 @@ class OrderAllList extends React.PureComponent {
     const row=(rowData, sectionID, rowID)=>{
       console.log('rowData=====>',rowData,sectionID,rowID)
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData}  /></div>
+      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}} /></div>
     }
 
     let {dataSource} = this.props

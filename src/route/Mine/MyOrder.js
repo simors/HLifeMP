@@ -41,7 +41,12 @@ let tabs = [
 
   }
 
-
+   gotoOrderDetail(orderId) {
+     let {history} = this.props
+     setTimeout(() => {
+       history.push('/promotionDetail/' + orderId)
+     }, 300)
+   }
 
 
   render() {
@@ -55,13 +60,13 @@ let tabs = [
         <Tabs  >
 
           <TabPane tab='全部订单' key="1">
-            <OrderAllList/>
+            <OrderAllList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
           </TabPane>
           <TabPane tab='待收订单' key="2">
-            <OrderDeliverList/>
+            <OrderDeliverList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
           </TabPane>
           <TabPane tab='完成订单' key="3">
-            <OrderFinishList/>
+            <OrderFinishList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
           </TabPane>
         </Tabs>
       </div>
