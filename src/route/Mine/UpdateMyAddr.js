@@ -38,33 +38,34 @@ class UpdateMyAddr extends React.PureComponent {
 
   render() {
     const {getFieldProps} = this.props.form;
+    let {addr} = this.props
 
     return (
       <div className={styles.body}>
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>收货人:</span>
           <input className={styles.input} {...getFieldProps('username',{
-            initialValue: '大家'
+            initialValue: addr.username
           })}/>
         </div>
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>联系电话:</span>
           <input className={styles.input} {...getFieldProps('mobilePhoneNumber',{
-            initialValue: '13411111111'
+            initialValue: addr.mobilePhoneNumber
           })}/>
         </div>
-        <RegionPicker selectedAddr ={['黑龙江','大兴安岭','塔河县']} level={3} onOk={(value)=>{console.log('value=->',value)}} />
+        <RegionPicker selectedAddr ={[addr.province, addr.city, addr.district]} level={3} onOk={(value)=>{console.log('value=->',value)}} />
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>详细地址:</span>
           <input className={styles.input} {...getFieldProps('addr',{
-            initialValue: 'dasdasdasd'
+            initialValue: addr.addr
           })}/>
         </div>
 
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>标签:</span>
           <input className={styles.input} {...getFieldProps('tag',{
-            initialValue: 'H'
+            initialValue: addr.tag
           })}/>
         </div>
         <Button onClick={this.submit}>保存</Button>
@@ -75,9 +76,12 @@ class UpdateMyAddr extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let addrList = mineSelector.getUserAddressList(state)
+  let {match} = ownProps
+  let {addrId} = match.params
+
+  let addr = mineSelector.getUserAddress(state,addrId)
   return {
-    addrList,
+    addr,
   }
 }
 
