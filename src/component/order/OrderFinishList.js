@@ -167,8 +167,8 @@ class OrderFinishList extends React.PureComponent {
   render() {
 
     const row=(rowData, sectionID, rowID)=>{
-      let {order} = rowData
-      return <div key = {rowID} className={styles.blankWrap} ><OrderShow order={order}  /></div>
+      // let {order} = rowData
+      return <div key = {rowID} ><OrderShow order={rowData}  /></div>
     }
     let {dataSource} = this.state
 

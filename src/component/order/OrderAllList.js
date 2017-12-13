@@ -171,8 +171,8 @@ class OrderAllList extends React.PureComponent {
 
     const row=(rowData, sectionID, rowID)=>{
       console.log('rowData=====>',rowData,sectionID,rowID)
-      let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={order}  /></div>
+      // let {order} = rowData
+      return <div key = {rowID} ><OrderShow order={rowData}  /></div>
     }
 
     let {dataSource} = this.props
