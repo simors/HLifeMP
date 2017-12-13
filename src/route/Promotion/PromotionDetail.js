@@ -98,7 +98,7 @@ class PromotionDetail extends PureComponent {
     )
   }
 
-  gotoBuyGoods = () => {
+  gotoBuyGoods() {
     const {history, match} = this.props
     let {goodsId} = match.params
     history.push('/buygoods/' + goodsId)
@@ -114,7 +114,7 @@ class PromotionDetail extends PureComponent {
 
           <div>联系卖家</div>
         </div>
-        <div className={styles.purchaseBtn} onClick={this.gotoBuyGoods}>
+        <div className={styles.purchaseBtn} onClick={() => this.gotoBuyGoods()}>
           <span>
             <img src={require('../../asset/svg/purchase_24.svg')} width={60} />
           </span>

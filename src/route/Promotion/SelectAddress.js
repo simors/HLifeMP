@@ -11,6 +11,9 @@ class SelectAddress extends PureComponent {
   constructor(props) {
     super(props)
     document.title = "选择收货地址"
+    this.state = {
+      default: undefined
+    }
   }
 
   componentWillMount() {
@@ -25,8 +28,16 @@ class SelectAddress extends PureComponent {
 
   }
 
+  goBack(addressId) {
+    const {history, location} = this.props
+    const {state} = location
+    var {metadata} = state
+    history.push('/submitOrder', {metadata: metadata, addressId: addressId})
+  }
+
   render() {
     const {addressList} = this.props
+    console.log("this.props", this.props)
     return(
       <div className={styles.page}>
         {
@@ -47,10 +58,13 @@ class SelectAddress extends PureComponent {
                 </div>
                 <div className={styles.op}>
                   <div className={styles.default}>
-                    <img src={require('../../asset/svg/select@100x.svg')} alt="" style={{width: '0.5rem', height: '0.5rem'}}/>
-                    <span>设为默认</span>
+                    <img src={require('../../asset/svg/select@100x.svg')} alt=""
+                         style={{width: '0.5rem', height: '0.5rem'}} onClick={() => {}}/>
+                    <span className={styles.title}>设为默认</span>
                   </div>
-                  <div className={styles.checked}><span>选择</span></div>
+                  <div className={styles.checked} onClick={() => {this.goBack(record.id)}}>
+                    <span>选择</span>
+                  </div>
                 </div>
               </div>
             )
