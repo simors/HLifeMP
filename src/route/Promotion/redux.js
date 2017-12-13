@@ -132,6 +132,7 @@ function* createPayment(action) {
     metadata: payload.metadata,
     subject: payload.subject,
   }
+  console.log("createPayment payload", apiPayload)
   try {
     let charge = yield call(promCloud.createPaymentRequest, apiPayload)
     if(charge && payload.success){
