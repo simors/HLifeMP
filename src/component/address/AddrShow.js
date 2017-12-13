@@ -61,11 +61,11 @@ import Loading from '../../component/loading'
 
         </div>
         <div className={styles.buttonWrap}>
-          <Button className={styles.defaultBox} onClick={(addrId)=>{this.props.defaultAddr(addrId)}}>
+          <div className={styles.defaultBox} onClick={(addrId)=>{this.props.defaultAddr(addrId)}}>
             <img className={styles.defaultButton} src={addr.status==mineConfig.ADDR_STATUS.DEFAUT_ADDR?require('../../asset/svg/selected@100x.svg'):require('../../asset/svg/select@100x.svg')}/>
             <span className={styles.defaultText}>设为默认</span>
 
-          </Button>
+          </div>
           <div className={styles.editBox}>
             <Button className={styles.editButton} onClick={()=>{this.updateAddr(addr.id)}} >编辑</Button>
             <Button className={styles.editButton} onClick={()=>{this.props.deleteAddr(addr.id)}}>删除</Button>

@@ -10,10 +10,9 @@ import styles from './orderDetail.module.scss'
 import Avatar from '../../component/avatar'
 import {Button, WingBlank} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
-import {mineAction, mineSelector} from '../../route/Mine/redux'
+import {mineAction, mineSelector,mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
-import {mineConfig} from './redux'
 
 const ORDER_STATUS = mineConfig.ORDER_STATUS
 
@@ -30,6 +29,15 @@ class OrderDetail extends React.PureComponent {
 
   componentWillReceiveProps(newProps) {
 
+  }
+
+  setOrderStatus(buyerId, orderId, status) {
+    let payload = {
+      orderStatus:status,
+      buyerId: buyerId,
+      orderId: orderId,
+    }
+    this.props.setUserOrderStatus(payload)
   }
 
   BottomView(order) {

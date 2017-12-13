@@ -10,12 +10,12 @@ import styles from './orderShow.module.scss'
 import Avatar from '../../component/avatar'
 import {Button, WingBlank} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
-import {mineAction, mineSelector} from '../../route/Mine/redux'
+import {mineAction, mineSelector ,mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
 import appConfig from '../../util/appConfig'
 
-const ORDER_STATUS =appConfig.ORDER_STATUS
+const ORDER_STATUS =mineConfig.ORDER_STATUS
 export default class orderShow extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -66,8 +66,8 @@ export default class orderShow extends React.PureComponent {
       return (
         <div className={styles.itemBottomView}>
           <Button className={styles.confirmButton}
-                  onPress={() => {
-                    this.setOrderStatus(order.buyerId, order.id, ORDER_STATUS.ACCOMPLISH)
+                  onClick={() => {
+                    this.props.setOrderStatus(order.buyerId, order.id, ORDER_STATUS.ACCOMPLISH)
                   }}>
             确认收货
           </Button>
@@ -77,8 +77,8 @@ export default class orderShow extends React.PureComponent {
       return (
         <div className={styles.itemBottomView}>
           <Button className={styles.deleteButton}
-                  onPress={() => {
-                    this.setOrderStatus(order.buyerId, order.id, ORDER_STATUS.DELETED)
+                  onClick={() => {
+                    this.props.setOrderStatus(order.buyerId, order.id, ORDER_STATUS.DELETED)
                   }}>
             删除订单
           </Button>
