@@ -31,9 +31,9 @@ class UpdateMyAddr extends React.PureComponent {
     this.customFocusInst = 'ttt'
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let {addr} = this.props
-    this.setState({province: addr.province, city: addr.city, district: addr.district})
+    this.setState({tag: addr.tag})
 
   }
 
@@ -101,7 +101,7 @@ class UpdateMyAddr extends React.PureComponent {
           })}/>
         </div>
 
-        <RegionPicker selectedAddr={[addr.province, addr.city, addr.district]} level={3} onOk={(value)=> {
+        <RegionPicker className = {styles.inputBox} selectedAddr={[addr.province, addr.city, addr.district]} level={3} onOk={(value)=> {
           this.setState({province: value[0], city: value[1], district: value[2]})
         }}/>
         <div className={styles.inputBox}>
