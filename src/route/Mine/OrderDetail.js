@@ -13,9 +13,9 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
-import appConfig from '../../util/appConfig'
+import {mineConfig} from './redux'
 
-const ORDER_STATUS = appConfig.ORDER_STATUS
+const ORDER_STATUS = mineConfig.ORDER_STATUS
 
 class OrderDetail extends React.PureComponent {
   constructor(props) {
@@ -29,33 +29,6 @@ class OrderDetail extends React.PureComponent {
   }
 
   componentWillReceiveProps(newProps) {
-
-  }
-
-
-  goodsDetail(order) {
-    let goods = order.goods
-    return (
-      <div className={styles.goodsBox}>
-        <div className={styles.goodsView}>
-          <img className={styles.cover} src={getThumbUrl(goods.coverPhoto, 80, 80)}/>
-          <div className={styles.goodsInfo}>
-            <span className={styles.goodsNameText} >{goods.goodsName}</span>
-            <div className={styles.priceView}>
-              <div className={styles.priceBox}>
-                <span className={styles.price}>¥{goods.price}</span>
-                <span className={styles.originalPrice}>¥{goods.originalPrice}</span>
-              </div>
-              <span className={styles.amount}>x {order.goodsAmount}</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.paidView}>
-          <span className={styles.paidLabel}>共{order.goodsAmount}件商品  实付款：</span>
-          <span className={styles.paidText}>¥{order.paid}</span>
-        </div>
-      </div>
-    )
 
   }
 
@@ -175,6 +148,7 @@ class OrderDetail extends React.PureComponent {
       return null
     }
   }
+
   render() {
     let {order} = this.props
     // let goods = order.goods

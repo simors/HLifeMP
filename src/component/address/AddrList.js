@@ -66,7 +66,7 @@ import AddrShow from './AddrShow'
 
     if(addrList && addrList.length>0){
       let addrViewList = addrList.map((item,key)=>{
-        return <div key = {key} className={styles.blankWrap} ><AddrShow addr={item}  /></div>
+        return <div key = {key} className={styles.blankWrap} ><AddrShow addr={item} updateAddr={(addrId)=>{this.props.updateAddr(addrId)}} /></div>
         })
       return addrViewList
     }else{

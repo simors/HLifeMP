@@ -8,8 +8,26 @@ import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects'
 import * as mineCloud from './cloud'
 import {shopAction, shopSelector, shopReducer} from '../Shop'
 import {authAction, authReducer, authSelector} from '../../util/auth'
-import appConfig from '../../util/appConfig'
 
+
+// 订单状态定义
+const ORDER_STATUS = {
+  PAID_FINISHED: 1, // 已支付
+  DELIVER_GOODS: 2, // 已发货
+  ACCOMPLISH: 3,    // 已完成
+  DELETED: 4,       // 已删除
+}
+
+const ADDR_STATUS = {
+  DEFAUT_ADDR: 1, // 默认地址
+  ENABLE_ADDR: 2, // 可选地址
+  DISABLE_ADDR: 0,    // 被删除地址
+}
+
+export const mineConfig = {
+  ORDER_STATUS: ORDER_STATUS,
+  ADDR_STATUS: ADDR_STATUS
+}
 /****  Model  ****/
 
 const PaymentRecord = Record({
@@ -318,11 +336,11 @@ function* getUserOrderListSaga(action){
   let payload = action.payload
   let queryType = payload.type
   if (queryType == 'all') {
-    payload.orderStatus = [appConfig.ORDER_STATUS.PAID_FINISHED, appConfig.ORDER_STATUS.DELIVER_GOODS, appConfig.ORDER_STATUS.ACCOMPLISH]
+    payload.orderStatus = [mineConfig.ORDER_STATUS.PAID_FINISHED, mineConfig.ORDER_STATUS.DELIVER_GOODS, mineConfig.ORDER_STATUS.ACCOMPLISH]
   } else if (queryType == 'waiting') {
-    payload.orderStatus = [appConfig.ORDER_STATUS.PAID_FINISHED, appConfig.ORDER_STATUS.DELIVER_GOODS]
+    payload.orderStatus = [mineConfig.ORDER_STATUS.PAID_FINISHED, mineConfig.ORDER_STATUS.DELIVER_GOODS]
   } else if (queryType == 'finished') {
-    payload.orderStatus = [appConfig.ORDER_STATUS.ACCOMPLISH]
+    payload.orderStatus = [mineConfig.ORDER_STATUS.ACCOMPLISH]
   }
   try{
     let results = yield call(mineCloud.getUserOrders, {...payload})
@@ -459,9 +477,9 @@ function handleUpdateShopOrderStatus(state, action) {
   }
   order = order.set('orderStatus', status)
   state = state.setIn(['orderDetail', orderId], order)
-  if (status == appConfig.ORDER_STATUS.ACCOMPLISH) {
+  if (status == mineConfig.ORDER_STATUS.ACCOMPLISH) {
     state = handleMoveUserOrderToFinish(state,{orderId: payload.orderId, buyerId: payload.buyerId})
-  } else if (status == appConfig.ORDER_STATUS.DELETED) {
+  } else if (status == mineConfig.ORDER_STATUS.DELETED) {
     handleDeleteUserOrder(state,{orderId: payload.orderId, buyerId: payload.buyerId})
   }
   return state
@@ -646,7 +664,7 @@ function constructOrderList(state, orderIds) {
   return userOrders
 }
 
-export function selectOrderDetail(state, orderId) {
+function selectOrderDetail(state, orderId) {
   let orderRec = state.MINE.getIn(['orderDetail', orderId])
   if (!orderRec) {
     return undefined
@@ -665,7 +683,8 @@ export function selectOrderDetail(state, orderId) {
   }
 }
 
-export function getUserAddressList(state) {
+//获取地址列表
+function getUserAddressList(state) {
   let addressList = state.MINE.get('addressList')
   let addressDetailList = []
   if (addressList && addressList.size > 0) {
@@ -679,11 +698,29 @@ export function getUserAddressList(state) {
   return addressDetailList
 }
 
-export function getUserAddress(state, addrId) {
+//获取地址
+function getUserAddress(state, addrId) {
   let address = state.MINE.getIn(['allAddress', addrId])
   if (address) {
   }
   return address.toJS() || {}
+}
+
+//获取默认地址
+function getDefaultAddress(state) {
+  let addressList = state.MINE.get('addressList')
+  let defaultAddr = {}
+  if (addressList && addressList.size > 0) {
+    addressList.forEach((item)=> {
+      let address = state.MINE.getIn(['allAddress', item])
+      if (address) {
+        if(address.status==mineConfig.ADDR_STATUS.DEFAUT_ADDR){
+          defaultAddr=address.toJS()
+        }
+      }
+    })
+  }
+  return defaultAddr
 }
 
 export const mineSelector = {
@@ -691,5 +728,6 @@ export const mineSelector = {
   selectUserOrders,
   selectOrderDetail,
   getUserAddressList,
-  getUserAddress
+  getUserAddress,
+  getDefaultAddress
 }

@@ -13,7 +13,7 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 
-export default class AddrShow extends React.PureComponent {
+ class AddrShow extends React.PureComponent {
   constructor(props) {
     super(props)
   }
@@ -26,6 +26,13 @@ export default class AddrShow extends React.PureComponent {
 
   }
 
+   updateAddr(addrId) {
+     let {history} = this.props
+     setTimeout(() => {
+       history.push('/updateMyAddr/' + addrId)
+     }, 300)
+   }
+
 
   render() {
     let { addr} = this.props
@@ -37,6 +44,7 @@ export default class AddrShow extends React.PureComponent {
     //   tag: '家',
     //   addr: 'asdasdasdasdasdasdasd'
     // }
+
 
 
     return (
@@ -59,7 +67,7 @@ export default class AddrShow extends React.PureComponent {
 
           </Button>
           <div className={styles.editBox}>
-            <Button className={styles.editButton}>编辑</Button>
+            <Button className={styles.editButton} onClick={()=>{this.updateAddr(addr.id)}} >编辑</Button>
             <Button className={styles.editButton}>删除</Button>
           </div>
 
@@ -71,4 +79,4 @@ export default class AddrShow extends React.PureComponent {
 }
 
 
-
+export default withRouter(AddrShow)

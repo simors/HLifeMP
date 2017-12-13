@@ -31,12 +31,18 @@ class MyAddr extends React.PureComponent {
 
   }
 
+  updateAddr(addrId) {
+    let {history} = this.props
+    setTimeout(() => {
+      history.push('/updateMyAddr/' + addrId)
+    }, 300)
+  }
 
   render() {
 
     return (
       <div className={styles.body}>
-        <AddrList/>
+        <AddrList updateAdd={(addrId)=>{this.updateAddr(addrId)}}/>
         <Button onClick={()=>{this.props.history.push('/createMyAddr')}}>新增收货地址</Button>
       </div>
     )

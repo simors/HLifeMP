@@ -19,10 +19,21 @@ import styles from './createMyAddr.module.scss'
 class UpdateMyAddr extends React.PureComponent {
   constructor(props) {
     super(props)
-    document.title = '创建收货地址'
+    document.title = '更新收货地址'
+
+    this.state = {
+      showCusInput: false,
+      province: undefined,
+      city: undefined,
+      district: undefined,
+      tag: undefined
+    }
+    this.customFocusInst = 'ttt'
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    let {addr} = this.props
+    this.setState({tag: addr.tag})
 
   }
 
@@ -32,42 +43,77 @@ class UpdateMyAddr extends React.PureComponent {
 
   submit = ()=> {
     this.props.form.validateFields((error, value) => {
+      let payload = {
+        addrId:this.props.addr.id,
+        username: value.username,
+        mobilePhoneNumber: value.mobilePhoneNumber,
+        addr: value.addr,
+        province: this.state.province,
+        city: this.state.city,
+        district: this.state.district,
+        tag: this.state.tag
+      }
+
+      this.props.updateMyAddr(payload)
+
       console.log(error, value);
     });
   }
 
+  renderTagBox() {
+    return (
+      <div className={styles.tagBox}>
+        <span className={styles.tagLabel}>标签</span>
+        <div className={styles.tagWrap}>
+          <div className={this.state.tag == '家' ? styles.selectedTag : styles.tag} onClick={()=> {
+            this.setState({tag: '家'})
+          }}>家
+          </div>
+          <div className={this.state.tag == '公司' ? styles.selectedTag : styles.tag} onClick={()=> {
+            this.setState({tag: '公司'})
+          }}>公司
+          </div>
+          <div className={this.state.tag == '学校' ? styles.selectedTag : styles.tag} onClick={()=> {
+            this.setState({tag: '学校'})
+          }}>学校
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const {getFieldProps} = this.props.form;
+    let {addr} = this.props
 
     return (
       <div className={styles.body}>
-        <div className = {styles.inputBox}>
+        <div className={styles.inputBox}>
           <span className={styles.inputLabel}>收货人:</span>
-          <input className={styles.input} {...getFieldProps('username',{
-            initialValue: '大家'
+          <input className={styles.input} {...getFieldProps('username', {
+            initialValue: addr.username
           })}/>
         </div>
-        <div className = {styles.inputBox}>
+        <div className={styles.inputBox}>
           <span className={styles.inputLabel}>联系电话:</span>
-          <input className={styles.input} {...getFieldProps('mobilePhoneNumber',{
-            initialValue: '13411111111'
-          })}/>
-        </div>
-        <RegionPicker selectedAddr ={['黑龙江','大兴安岭','塔河县']} level={3} onOk={(value)=>{console.log('value=->',value)}} />
-        <div className = {styles.inputBox}>
-          <span className={styles.inputLabel}>详细地址:</span>
-          <input className={styles.input} {...getFieldProps('addr',{
-            initialValue: 'dasdasdasd'
+          <input className={styles.input} {...getFieldProps('mobilePhoneNumber', {
+            initialValue: addr.mobilePhoneNumber
           })}/>
         </div>
 
-        <div className = {styles.inputBox}>
-          <span className={styles.inputLabel}>标签:</span>
-          <input className={styles.input} {...getFieldProps('tag',{
-            initialValue: 'H'
+        <RegionPicker className = {styles.inputBox} selectedAddr={[addr.province, addr.city, addr.district]} level={3} onOk={(value)=> {
+          this.setState({province: value[0], city: value[1], district: value[2]})
+        }}/>
+        <div className={styles.inputBox}>
+          <span className={styles.inputLabel}>详细地址:</span>
+          <input className={styles.input} {...getFieldProps('addr', {
+            initialValue: addr.addr
           })}/>
         </div>
-        <Button onClick={this.submit}>保存</Button>
+
+        {this.renderTagBox()}
+
+        <div className={styles.submit} onClick={this.submit}>保存</div>
       </div>
     )
   }
@@ -75,9 +121,14 @@ class UpdateMyAddr extends React.PureComponent {
 
 
 const mapStateToProps = (state, ownProps) => {
-  let addrList = mineSelector.getUserAddressList(state)
+  let {match} = ownProps
+  let {addrId} = match.params
+
+  let addr = mineSelector.getUserAddress(state, addrId)
+
+  console.log('addr=====>', addr)
   return {
-    addrList,
+    addr: addr
   }
 }
 

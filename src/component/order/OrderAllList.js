@@ -13,7 +13,7 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
 import OrderShow from './OrderShow'
-import appConfig from '../../util/appConfig'
+
 
 let {Item} = List
 class OrderAllList extends React.PureComponent {

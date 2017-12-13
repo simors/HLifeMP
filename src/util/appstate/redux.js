@@ -23,7 +23,7 @@ const LocationRecord = Record({
 const AppState = Record({
   isRehydrated: undefined,     // 是否已完成持久化数据恢复
   location: undefined,
-  provinceListWithCityList: undefined,
+  provinceListWithCityList: List(),
   entryURL: undefined,         // 应用的入口URL
 }, 'AppState')
 

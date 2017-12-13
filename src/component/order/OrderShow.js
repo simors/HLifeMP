@@ -15,7 +15,7 @@ import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
 import appConfig from '../../util/appConfig'
 
-const ORDER_STATUS = appConfig.ORDER_STATUS
+const ORDER_STATUS =appConfig.ORDER_STATUS
 export default class orderShow extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -123,7 +123,7 @@ export default class orderShow extends React.PureComponent {
     //   order: 'asdasdasdasdasdasdasd'
     // }
     return (
-      <div className={styles.body} onClick={()=>{this.props.gotoOrderDetail(order.id)}}>
+      <div className={styles.body} onClick={()=>{this.gotoOrderDetail(order.id)}}>
         <div className={styles.statusBox}>
           <div className={styles.shopInfoBox}>
             <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
