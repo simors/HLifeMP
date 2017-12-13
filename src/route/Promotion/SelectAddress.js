@@ -12,7 +12,7 @@ class SelectAddress extends PureComponent {
     super(props)
     document.title = "选择收货地址"
     this.state = {
-      default: undefined
+      defaultAddressId: undefined
     }
   }
 
@@ -25,7 +25,8 @@ class SelectAddress extends PureComponent {
   }
 
   gotoAddAddress = () => {
-
+    const {history} = this.props
+    history.push('/createMyAddr')
   }
 
   goBack(addressId) {
@@ -71,8 +72,8 @@ class SelectAddress extends PureComponent {
           })
         }
         <div className={styles.addAddress} onClick={this.gotoAddAddress}>
-          <span style={{fontSize: '60px'}}>+</span>
-          <span>添加新地址</span>
+          <div style={{fontSize: '50px'}}>+</div>
+          <div>添加新地址</div>
         </div>
       </div>
     )
