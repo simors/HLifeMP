@@ -30,7 +30,7 @@ let tabs = [
  class MyOrder extends React.PureComponent {
   constructor(props) {
     super(props)
-    document.title = '收货地址管理'
+    document.title = '我的订单'
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ let tabs = [
    gotoOrderDetail(orderId) {
      let {history} = this.props
      setTimeout(() => {
-       history.push('/promotionDetail/' + orderId)
+       history.push('/orderDetail/' + orderId)
      }, 300)
    }
 

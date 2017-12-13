@@ -20,6 +20,8 @@ const ORDER_STATUS = appConfig.ORDER_STATUS
 class OrderDetail extends React.PureComponent {
   constructor(props) {
     super(props)
+    document.title = "订单详情"
+
   }
 
   componentDidMount() {
