@@ -9,3 +9,10 @@ export async function fetchPromotionApi(payload) {
     return result.promotions
   }
 }
+
+export async function createPaymentRequest(payload) {
+  let result = await AV.Cloud.run('hLifeCreatePaymentV2', payload)
+  if(result.errCode === 0) {
+    return result.charge
+  }
+}

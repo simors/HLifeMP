@@ -58,10 +58,20 @@ const ORDER_STATUS = {
   DELETED: 4,       // 已删除
 }
 
+const PAYMENT_TYPE = {
+  INVITE_PROMOTER: 1,       // 邀请推广员获得的收益
+  INVITE_SHOP: 2,           // 邀请店铺获得的收益
+  BUY_GOODS: 3,             // 购买商品
+  REWARD: 4,                // 打赏
+  WITHDRAW: 5,              // 取现
+  PUBLISH_PROMOTION: 6,     //发布活动
+}
+
 
 var appConfig = {
   APP_NAME: '汇邻优店',
   ORDER_STATUS: ORDER_STATUS,
+  PAYMENT_TYPE: PAYMENT_TYPE,
 
   LC_APP_ID: LC_APP_ID,
   LC_APP_KEY: LC_APP_KEY,

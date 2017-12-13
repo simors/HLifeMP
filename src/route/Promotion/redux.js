@@ -60,12 +60,14 @@ const FETCH_PROMOTION = "FETCH_PROMOTION"
 const SAVE_PROMOTION = "SAVE_PROMOTION"
 const BATCH_SAVE_PROMOTION = "BATCH_SAVE_PROMOTION"
 const UPDATE_NEARBY_PROM_LIST = "UPDATE_NEARBY_PROM_LIST"
+const CREATE_PAYMENT_REQUEST = "CREATE_PAYMENT_REQUEST"
 
 /**** Action ****/
 export const actions = {
   fetchPromotionAction: createAction(FETCH_PROMOTION),
   savePromotion: createAction(SAVE_PROMOTION),
   batchSavePromotion: createAction(BATCH_SAVE_PROMOTION),
+  createPaymentRequest: createAction(CREATE_PAYMENT_REQUEST),
 }
 
 const updateNearbyPromListAction = createAction(UPDATE_NEARBY_PROM_LIST)
@@ -114,9 +116,30 @@ function* fetchPromotion(action) {
   }
 }
 
+function* createPayment(action) {
+  let payload = action.payload
+
+  let apiPayload = {
+    amount: payload.amount,
+    metadata: payload.metadata,
+    subject: payload.subject,
+  }
+  try {
+    let charge = yield call(promCloud.createPaymentRequest, apiPayload)
+    if(charge && payload.success){
+      payload.success(charge)
+    }
+  } catch (error) {
+    console.error(error)
+    if(payload.error) {
+      payload.error(error)
+    }
+  }
+}
+
 export const saga = [
   takeLatest(FETCH_PROMOTION, fetchPromotion),
-
+  takeLatest(CREATE_PAYMENT_REQUEST, createPayment),
 ]
 /**** Reducer ****/
 const initialState = PromotionState()
