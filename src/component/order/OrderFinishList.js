@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Avatar from '../../component/avatar'
 import styles from './orderList.module.scss'
-import {Button, WingBlank , List,ListView,Toast} from 'antd-mobile'
+import {Button, WingBlank, List, ListView, Toast} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
@@ -31,7 +31,7 @@ class OrderFinishList extends React.PureComponent {
 
   componentWillMount() {
     this.props.fetchUserOrderList({
-      type:'finished',
+      type: 'finished',
       limit: 10,
       buyerId: this.props.userId,
       isRefresh: true,
@@ -42,7 +42,7 @@ class OrderFinishList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    if(promotions&&promotions.length === 0) {
+    if (promotions && promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
     }
   }
@@ -58,7 +58,7 @@ class OrderFinishList extends React.PureComponent {
 
   setOrderStatus(buyerId, orderId, status) {
     let payload = {
-      orderStatus:status,
+      orderStatus: status,
       buyerId: buyerId,
       orderId: orderId,
     }
@@ -81,12 +81,12 @@ class OrderFinishList extends React.PureComponent {
     this.setState({isLoading: true})
     const {fetchUserOrderList, orderList} = this.props
     let lastTime = undefined
-    if(orderList&&orderList.length>0){
+    if (orderList && orderList.length > 0) {
       orderList[orderList.length - 1].createdAt
     }
     fetchUserOrderList({
       lastTime: lastTime,
-      type:'finished',
+      type: 'finished',
       limit: 10,
       buyerId: this.props.userId,
       isRefresh: false,
@@ -97,16 +97,20 @@ class OrderFinishList extends React.PureComponent {
 
   render() {
 
-    const row=(rowData, sectionID, rowID)=>{
+    const row = (rowData, sectionID, rowID)=> {
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}} setOrderStatus={(buyerId,orderId,status)=>{this.setOrderStatus(buyerId,orderId,status)}} /></div>
+      return <div key={rowID}><OrderShow order={rowData} gotoOrderDetail={(orderId)=> {
+        this.props.gotoOrderDetail(orderId)
+      }} setOrderStatus={(buyerId, orderId, status)=> {
+        this.setOrderStatus(buyerId, orderId, status)
+      }}/></div>
     }
     let {dataSource} = this.state
 
     return (
       <ListView
         dataSource={dataSource}
-        renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+        renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? '加载中...' : '全部加载成功'}
         </div>)}
         renderRow={row}
@@ -121,10 +125,10 @@ class OrderFinishList extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   let userId = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,userId,'finished')
+  let orderList = mineSelector.selectUserOrders(state, userId, 'finished')
   return {
     orderList,
-    userId:userId
+    userId: userId
   }
 }
 

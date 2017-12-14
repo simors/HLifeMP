@@ -382,6 +382,8 @@ function* updateUserOrderStatusSaga (action) {
   let payload = action.payload
   try{
     let results = yield call(mineCloud.setOrderStatus, {...payload})
+    console.log('results====>',results)
+
     if(results.errCode != 0){
       if(payload.error){
         payload.error(results.error)

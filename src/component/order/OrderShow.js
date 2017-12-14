@@ -10,14 +10,14 @@ import styles from './orderShow.module.scss'
 import Avatar from '../../component/avatar'
 import {Button, WingBlank} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
-import {mineAction, mineSelector ,mineConfig} from '../../route/Mine/redux'
+import {mineAction, mineSelector, mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
 import appConfig from '../../util/appConfig'
 
-const ORDER_STATUS =mineConfig.ORDER_STATUS
+const ORDER_STATUS = mineConfig.ORDER_STATUS
 
- class OrderShow extends React.PureComponent {
+class OrderShow extends React.PureComponent {
   constructor(props) {
     super(props)
   }
@@ -34,11 +34,15 @@ const ORDER_STATUS =mineConfig.ORDER_STATUS
   goodsDetail(order) {
     let goods = order.goods
     return (
-      <div className={styles.goodsBox}>
+      <div
+        onClick={()=> {
+          this.gotoOrderDetail(order.id)
+        }}
+        className={styles.goodsBox}>
         <div className={styles.goodsView}>
           <img className={styles.cover} src={getThumbUrl(goods.coverPhoto, 80, 80)}/>
           <div className={styles.goodsInfo}>
-            <span className={styles.goodsNameText} >{goods.goodsName}</span>
+            <span className={styles.goodsNameText}>{goods.goodsName}</span>
             <div className={styles.priceView}>
               <div className={styles.priceBox}>
                 <span className={styles.price}>¥{goods.price}</span>
@@ -111,38 +115,34 @@ const ORDER_STATUS =mineConfig.ORDER_STATUS
 
   render() {
     let {order} = this.props
-    console.log('order=====>',order)
+    console.log('order=====>', order)
     let goods = order.goods
     let vendor = order.vendor
     if (!goods || !vendor) {
       return <div/>
     }
-    console.log('order=====>',order)
-    //
-    // let order = {
-    //   username: 'asdasd',
-    //   mobilePhoneNumber: '123123123',
-    //   tag: '家',
-    //   order: 'asdasdasdasdasdasdasd'
-    // }
+    console.log('order=====>', order)
     return (
-      <div className={styles.body} onClick={()=>{this.gotoOrderDetail(order.id)}}>
-        <div className={styles.statusBox}>
+      <div className={styles.body}>
+        <div
+          onClick={()=> {
+            this.gotoOrderDetail(order.id)
+          }}
+          className={styles.statusBox}>
           <div className={styles.shopInfoBox}>
             <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
             <span className={styles.shopName}>{vendor.shopName}</span>
             <img src={require('../../asset/svg/PinLeft_right_12.svg')} className={styles.backIcon}/>
           </div>
-          <span className={styles.shopTips} >{this.tipsText(order)}</span>
+          <span className={styles.shopTips}>{this.tipsText(order)}</span>
         </div>
         {this.goodsDetail(order)}
-        {this.renderButton(order)}
+           {this.renderButton(order)}
 
       </div>
     )
   }
 }
-
 
 
 export default withRouter(OrderShow)
