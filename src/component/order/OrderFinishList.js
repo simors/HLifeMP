@@ -56,6 +56,15 @@ class OrderFinishList extends React.PureComponent {
 
   }
 
+  setOrderStatus(buyerId, orderId, status) {
+    let payload = {
+      orderStatus:status,
+      buyerId: buyerId,
+      orderId: orderId,
+    }
+    this.props.setUserOrderStatus(payload)
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.orderList !== this.props.orderList) {
       this.setState({
@@ -64,86 +73,6 @@ class OrderFinishList extends React.PureComponent {
     }
   }
 
-  renderAddrList(){
-
-    let {orderList} = this.props
-    // let orderList = [{
-    //   vendor:{
-    //     shopName:'123'
-    //   },
-    //   goods:{
-    //     coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
-    //     goodsName:'dd',
-    //     price: 2,
-    //     originalPrice: 3,
-    //
-    //   },
-    //   id: '12',
-    //   goodsAmount: 2,
-    //   paid: 24,
-    //   orderStatus: 1,
-    //   receiver: '3213213',
-    //   receiverAddr: '321321',
-    //   receiverPhone: '3213213',
-    //   remark: 33333,
-    //   createdAt: undefined,
-    //   updatedAt: undefined,
-    //
-    // },{
-    //   vendor:{
-    //     shopName:'123'
-    //   },
-    //   goods:{
-    //     coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
-    //     goodsName:'dd',
-    //     price: 2,
-    //     originalPrice: 3,
-    //
-    //   },
-    //   id: '12',
-    //   goodsAmount: 2,
-    //   paid: 24,
-    //   orderStatus: 1,
-    //   receiver: '3213213',
-    //   receiverAddr: '321321',
-    //   receiverPhone: '3213213',
-    //   remark: 33333,
-    //   createdAt: undefined,
-    //   updatedAt: undefined,
-    //
-    // },
-    //   {
-    //     vendor:{
-    //       shopName:'123'
-    //     },
-    //     goods:{
-    //       coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
-    //       goodsName:'dd',
-    //       price: 2,
-    //       originalPrice: 3,
-    //
-    //     },
-    //     id: '12',
-    //     goodsAmount: 2,
-    //     paid: 24,
-    //     orderStatus: 1,
-    //     receiver: '3213213',
-    //     receiverAddr: '321321',
-    //     receiverPhone: '3213213',
-    //     remark: 33333,
-    //     createdAt: undefined,
-    //     updatedAt: undefined,
-    //
-    //   },]
-    if(orderList && orderList.length>0){
-      let orderViewList = orderList.map((item,key)=>{
-        return <div key = {key} className={styles.blankWrap} ><AddrShow order={item}  /></div>
-      })
-      return orderViewList
-    }else{
-      return <div></div>
-    }
-  }
 
   onEndReached = (event) => {
     if (this.state.isLoading && !this.state.hasMore) {
@@ -170,7 +99,7 @@ class OrderFinishList extends React.PureComponent {
 
     const row=(rowData, sectionID, rowID)=>{
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}}  /></div>
+      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}} setOrderStatus={(buyerId,orderId,status)=>{this.setOrderStatus(buyerId,orderId,status)}} /></div>
     }
     let {dataSource} = this.state
 

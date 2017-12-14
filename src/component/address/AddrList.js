@@ -8,55 +8,83 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import styles from './addrList.module.scss'
 import Avatar from '../../component/avatar'
-import {Button, WingBlank , List} from 'antd-mobile'
+import {Button, WingBlank, List, Toast} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
 import AddrShow from './AddrShow'
 
- class AddrList extends React.PureComponent {
+class AddrList extends React.PureComponent {
   constructor(props) {
     super(props)
     document.title = '收货地址管理'
   }
 
   componentDidMount() {
-    this.props.fetchMyAddr({isRefresh:true})
+    this.props.fetchMyAddr({isRefresh: true})
   }
 
   componentWillReceiveProps(newProps) {
 
   }
 
-  renderAddrList(){
+  deleteAddr(addrId) {
+    let payload = {
+      addrId: addrId,
+      success: ()=> {
+        this.props.fetchMyAddr({isRefresh: true})
+      },
+      error: (err)=> {
+        Toast.fail(err.message)
+      }
+
+    }
+    this.props.disableMyAddr(payload)
+  }
+
+  defaultAddr(addrId) {
+    let payload = {
+      addrId: addrId,
+      success: ()=> {
+        this.props.fetchMyAddr({isRefresh: true})
+      },
+      error: (err)=> {
+        Toast.fail(err.message)
+      }
+
+    }
+    this.props.setDefaultAddr(payload)
+  }
+
+  renderAddrList() {
     let {addrList} = this.props
-    if((!addrList)||(addrList.length)<1){
-       addrList = [{
+    if ((!addrList) || (addrList.length) < 1) {
+      addrList = [{
         username: 'asdasd',
         mobilePhoneNumber: '123123123',
         tag: '家',
         addr: 'asdasdasdasdasdasdasd'
-      },{
+      }, {
         username: 'sdd',
         mobilePhoneNumber: '123123123',
         tag: '公司',
         addr: '123123123'
-      },{
+      }, {
         username: 'sdd',
         mobilePhoneNumber: '123123123',
         tag: '公司',
         addr: '123123123'
-      },{
+      }, {
         username: 'sdd',
         mobilePhoneNumber: '123123123',
         tag: '公司',
         addr: '123123123'
-      },{
+      }, {
         username: 'sdd',
         mobilePhoneNumber: '123123123',
         tag: '公司',
         addr: '123123123'
-      },{
+      }, {
         username: 'sdd',
         mobilePhoneNumber: '123123123',
         tag: '公司',
@@ -64,12 +92,20 @@ import AddrShow from './AddrShow'
       }]
     }
 
-    if(addrList && addrList.length>0){
-      let addrViewList = addrList.map((item,key)=>{
-        return <div key = {key} className={styles.blankWrap} ><AddrShow addr={item} updateAddr={(addrId)=>{this.props.updateAddr(addrId)}} /></div>
-        })
+    if (addrList && addrList.length > 0) {
+      let addrViewList = addrList.map((item, key)=> {
+        return <div key={key} className={styles.blankWrap}><AddrShow
+          deleteAddr={()=> {
+            this.deleteAddr(item.id)
+          }}
+          addr={item}
+          defaultAddr={()=> {
+            this.defaultAddr(item.id)
+          }}
+        /></div>
+      })
       return addrViewList
-    }else{
+    } else {
       return <div></div>
     }
   }
@@ -82,7 +118,7 @@ import AddrShow from './AddrShow'
       <div >
         <List className={styles.list}>
           {this.renderAddrList()}
-          </List>
+        </List>
       </div>
     )
   }
