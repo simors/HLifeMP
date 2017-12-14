@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import styles from './orderShow.module.scss'
 import Avatar from '../../component/avatar'
-import {Button, WingBlank} from 'antd-mobile'
+import {Button, WingBlank, Icon} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector ,mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
@@ -126,9 +126,9 @@ export default class orderShow extends React.PureComponent {
       <div className={styles.body} onClick={()=>{this.gotoOrderDetail(order.id)}}>
         <div className={styles.statusBox}>
           <div className={styles.shopInfoBox}>
-            <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
+            <Icon type={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
             <span className={styles.shopName}>{vendor.shopName}</span>
-            <img src={require('../../asset/svg/PinLeft_right_12.svg')} className={styles.backIcon}/>
+            <Icon type={require('../../asset/svg/PinLeft_right_12.svg')} className={styles.backIcon}/>
           </div>
           <span className={styles.shopTips} >{this.tipsText(order)}</span>
         </div>

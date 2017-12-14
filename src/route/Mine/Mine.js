@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import styles from './mine.module.scss'
 import Avatar from '../../component/avatar'
-import { Button, WingBlank } from 'antd-mobile'
+import { Button, WingBlank, Icon } from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from './redux'
 import Loading from '../../component/loading'
@@ -46,6 +46,19 @@ class Mine extends React.PureComponent {
     history.push('/about')
   }
 
+  renderAvatar() {
+    let {activeUser} = this.props
+    if(activeUser && activeUser.avatar) {
+      return(
+        <img className={styles.avatar} src={activeUser.avatar} alt=""/>
+      )
+    } else {
+      return(
+        <Icon className={styles.avatar} type={require('../../asset/svg/user.svg')}/>
+      )
+    }
+  }
+
   render() {
     let {activeUser} = this.props
     if (!activeUser ) {
@@ -56,36 +69,36 @@ class Mine extends React.PureComponent {
       <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>
         <div className={styles.headerView}>
           <div className={styles.avatar}>
-            <img className={styles.avatar} src={(activeUser&&activeUser.avatar)?activeUser.avatar:require('../../asset/svg/user.svg')} />
+            {this.renderAvatar()}
           </div>
           <span className={styles.nickname}>{activeUser.nickname}</span>
         </div>
         <div className={styles.body}>
           <Button className={styles.ButtonWrap} onClick={this.gotoWallet}>
             <div className={styles.leftBox}>
-              <img src={require('../../asset/svg/wallet_icon@100x.svg')} className={styles.image}/>
+              <Icon type={require('../../asset/svg/wallet_icon@100x.svg')} className={styles.image}/>
               <span className={styles.text}>钱包</span>
             </div>
             <div className={styles.rightBox}>
-              <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
             </div>
           </Button>
           <Button className={styles.ButtonWrap} onClick={this.gotoOrder}>
             <div className={styles.leftBox}>
-              <img src={require('../../asset/svg/order_icon@100x.svg')} className={styles.image}/>
+              <Icon type={require('../../asset/svg/order_icon@100x.svg')} className={styles.image}/>
               <span className={styles.text}>我的订单</span>
             </div>
             <div className={styles.rightBox}>
-              <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
             </div>
           </Button>
           <Button className={styles.ButtonWrap} onClick={this.gotoAddr}>
             <div className={styles.leftBox}>
-              <img src={require('../../asset/svg/address_icon@100x.svg')} className={styles.image}/>
+              <Icon type={require('../../asset/svg/address_icon@100x.svg')} className={styles.image}/>
               <span className={styles.text}>地址管理</span>
             </div>
             <div className={styles.rightBox}>
-              <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
             </div>
           </Button>
 
@@ -93,11 +106,11 @@ class Mine extends React.PureComponent {
         <div className={styles.body}>
           <Button className={styles.ButtonWrap} onClick={this.gotoAbout}>
             <div className={styles.leftBox}>
-              <img src={require('../../asset/svg/about_icon@100x.svg')} className={styles.image}/>
+              <Icon type={require('../../asset/svg/about_icon@100x.svg')} className={styles.image}/>
               <span className={styles.text}>关于汇邻优店</span>
             </div>
             <div className={styles.rightBox}>
-              <img src={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
             </div>
           </Button>
         </div>

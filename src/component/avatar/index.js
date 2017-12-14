@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import styles from './avatar.module.scss'
+import {Icon} from 'antd-mobile'
 
 export default class Avatar extends React.PureComponent {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class Avatar extends React.PureComponent {
     if (!src || src == "") {
       return (
         <div className={[styles.container, {width: size, height: size, borderRadius: size/2}]}>
-          <img src={require('../../asset/svg/user.svg')} width={size} height={size} />
+          <Icon type={require('../../asset/svg/user.svg')} width={size} height={size} />
         </div>
       )
     }

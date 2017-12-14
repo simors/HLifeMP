@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import {shopSelector} from '../Shop'
 import styles from './buygoods.module.scss'
-import { Carousel, WhiteSpace, WingBlank, TextareaItem} from 'antd-mobile'
+import { Carousel, WhiteSpace, WingBlank, TextareaItem, Icon} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {PAYMENT_TYPE} from './redux'
 

@@ -12,6 +12,7 @@ import Avatar from '../../../component/avatar'
 import {authSelector} from '../../../util/auth'
 import math from 'mathjs'
 import {getConversationTime} from '../../../util/datetime'
+import {Icon} from 'antd-mobile'
 
 const {
   Panel
@@ -36,7 +37,7 @@ class PromoterPerformanceItem extends React.PureComponent {
               <div className={styles.performText}>最新业绩：{getConversationTime(new Date(friend.updatedAt))}</div>
             </div>
             <div>
-              <img src={require('../../../asset/svg/team_18@2x.svg')} width={48} height={48} />
+              <Icon type={require('../../../asset/svg/team_18@2x.svg')} width={48} height={48} />
               <div className={styles.teamnum}>{math.chain(friend.teamMemNum).add(friend.level2Num).add(friend.level3Num).done()}人</div>
             </div>
           </div>

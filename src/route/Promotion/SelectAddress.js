@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import {mineAction, mineSelector} from '../Mine'
 import styles from './selectaddress.module.scss'
+import {Icon} from 'antd-mobile'
 
 class SelectAddress extends PureComponent {
   constructor(props) {
@@ -70,7 +71,7 @@ class SelectAddress extends PureComponent {
                     <div className={styles.phone}>{record.mobilePhoneNumber}</div>
                     <div className={styles.tag}>{record.tag}</div>
                     <div className={styles.edit}>
-                      <img src={require('../../asset/svg/edite@100x.svg')} alt=""
+                      <Icon type={require('../../asset/svg/edite@100x.svg')} alt=""
                            style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
                     </div>
                   </div>
@@ -78,7 +79,7 @@ class SelectAddress extends PureComponent {
                 </div>
                 <div className={styles.op}>
                   <div className={styles.default}>
-                    <img src={this.state.defaultAddressId === record.id? require('../../asset/svg/selected@100x.svg'): require('../../asset/svg/select@100x.svg')} alt=""
+                    <Icon type={this.state.defaultAddressId === record.id? require('../../asset/svg/selected@100x.svg'): require('../../asset/svg/select@100x.svg')} alt=""
                          style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.setDefaultAddress(record.id)}/>
                     <span className={styles.title}>设为默认</span>
                   </div>
