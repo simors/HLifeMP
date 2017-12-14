@@ -301,8 +301,7 @@ function* getAddrListSaga(action){
 function* disableAddrSaga(action){
   let payload = action.payload
   try{
-    let result = yield call(mineCloud.disableAddr, {...payload})
-    if(result){
+      yield call(mineCloud.disableAddr, {...payload})
       let params = {
         addrId: payload.addrId
       }
@@ -310,7 +309,6 @@ function* disableAddrSaga(action){
       if(payload.success){
         payload.success()
       }
-    }
   }catch(err){
     if(payload.error){
       payload.error(err)

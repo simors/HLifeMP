@@ -43,6 +43,7 @@ class OrderAllList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
+    console.log('promotions======>',promotions)
     if(promotions&&promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
     }
@@ -98,9 +99,9 @@ class OrderAllList extends React.PureComponent {
   render() {
 
     const row=(rowData, sectionID, rowID)=>{
-      console.log('rowData=====>',rowData,sectionID,rowID)
+      // console.log('rowData=====>',rowData,sectionID,rowID)
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}} setOrderStatus={(buyerId,orderId,status)=>{this.setOrderStatus(buyerId,orderId,status)}}/></div>
+      return <div key = {rowID} ><OrderShow order={rowData} setOrderStatus={(buyerId,orderId,status)=>{this.setOrderStatus(buyerId,orderId,status)}}/></div>
     }
 
     let {dataSource} = this.props

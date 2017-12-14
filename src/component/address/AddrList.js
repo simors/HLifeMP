@@ -32,7 +32,7 @@ class AddrList extends React.PureComponent {
     let payload = {
       addrId: addrId,
       success: ()=> {
-        this.props.fetchMyAddr({isRefresh: true})
+        // this.props.fetchMyAddr({isRefresh: true})
       },
       error: (err)=> {
         Toast.fail(err.message)
@@ -58,40 +58,6 @@ class AddrList extends React.PureComponent {
 
   renderAddrList() {
     let {addrList} = this.props
-    if ((!addrList) || (addrList.length) < 1) {
-      addrList = [{
-        username: 'asdasd',
-        mobilePhoneNumber: '123123123',
-        tag: '家',
-        addr: 'asdasdasdasdasdasdasd'
-      }, {
-        username: 'sdd',
-        mobilePhoneNumber: '123123123',
-        tag: '公司',
-        addr: '123123123'
-      }, {
-        username: 'sdd',
-        mobilePhoneNumber: '123123123',
-        tag: '公司',
-        addr: '123123123'
-      }, {
-        username: 'sdd',
-        mobilePhoneNumber: '123123123',
-        tag: '公司',
-        addr: '123123123'
-      }, {
-        username: 'sdd',
-        mobilePhoneNumber: '123123123',
-        tag: '公司',
-        addr: '123123123'
-      }, {
-        username: 'sdd',
-        mobilePhoneNumber: '123123123',
-        tag: '公司',
-        addr: '123123123'
-      }]
-    }
-
     if (addrList && addrList.length > 0) {
       let addrViewList = addrList.map((item, key)=> {
         return <div key={key} className={styles.blankWrap}><AddrShow

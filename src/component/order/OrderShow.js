@@ -16,7 +16,8 @@ import {getThumbUrl} from '../../util/imageUtils'
 import appConfig from '../../util/appConfig'
 
 const ORDER_STATUS =mineConfig.ORDER_STATUS
-export default class orderShow extends React.PureComponent {
+
+ class OrderShow extends React.PureComponent {
   constructor(props) {
     super(props)
   }
@@ -110,11 +111,13 @@ export default class orderShow extends React.PureComponent {
 
   render() {
     let {order} = this.props
+    console.log('order=====>',order)
     let goods = order.goods
     let vendor = order.vendor
     if (!goods || !vendor) {
       return <div/>
     }
+    console.log('order=====>',order)
     //
     // let order = {
     //   username: 'asdasd',
@@ -142,3 +145,4 @@ export default class orderShow extends React.PureComponent {
 
 
 
+export default withRouter(OrderShow)

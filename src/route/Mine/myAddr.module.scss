@@ -1,3 +1,18 @@
 .body{
   background-color: rgba(0,0,0,0.05);
+  padding-bottom: 1rem;
+
+  .button{
+    position: fixed;
+    height:1rem;
+    bottom: 0;
+    background-color: #FF7819;
+    border: 1px solid #ff7819;
+    width:100%;
+    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+  }
 }
