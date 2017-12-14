@@ -356,8 +356,12 @@ function* getUserOrderListSaga(action){
       })
     }
     console.log('shopOrderList======>',shopOrderList)
-    yield put(shopAction.updateBatchShop({vendors:vendors}))
-    yield put(shopAction.updateBatchShopGoods({goods:goods}))
+    console.log('shopOrders======>',shopOrders)
+    console.log('vendors======>',vendors)
+    console.log('goods======>',goods)
+
+    yield put(shopAction.updateBatchShop({shopList:vendors}))
+    yield put(shopAction.updateBatchShopGoods({goodsList:goods}))
     yield put(mineAction.saveUserOrders({shopOrders:shopOrders}))
     if(payload.isRefresh){
       yield put(fetchSetUserOrderListSuccess({shopOrderList:shopOrderList,type: payload.type,buyerId: payload.buyerId}))

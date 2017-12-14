@@ -57,16 +57,19 @@ let tabs = [
     ];
     return (
       <div>
-        <Tabs  >
+        <Tabs
+          swipeable = {false}
+
+        >
 
           <TabPane tab='全部订单' key="1">
-            <OrderAllList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
+            <OrderAllList />
           </TabPane>
           <TabPane tab='待收订单' key="2">
-            <OrderDeliverList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
+            <OrderDeliverList />
           </TabPane>
           <TabPane tab='完成订单' key="3">
-            <OrderFinishList gotoOrderDetail={(orderId)=>{this.gotoOrderDetail(orderId)}}/>
+            <OrderFinishList />
           </TabPane>
         </Tabs>
       </div>
