@@ -57,7 +57,7 @@ import Loading from '../../component/loading'
           </div>
         </div>
         <div className={styles.addrInfo}>
-          <p className={styles.addrText}>{addr.addr}</p>
+          <p className={styles.addrText}>{addr.province+addr.city+addr.district+addr.addr}</p>
 
         </div>
         <div className={styles.buttonWrap}>

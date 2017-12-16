@@ -340,9 +340,9 @@ export function shopReducer(state = initialState, action) {
       return updateShopDetailReducer(state, action)
     case UPDATE_SHOP_GOODS:
       return updateGoodsReducer(state, action)
-    case BATCH_UPDATE_SHOP:
-      return updateBatchGoodsReducer(state, action)
     case BATCH_UPDATE_SHOP_GOODS:
+      return updateBatchGoodsReducer(state, action)
+    case BATCH_UPDATE_SHOP:
       return updateBatchShopReducer(state, action)
     case BATCH_SAVE_SHOP_DETAIL:
       return handleBatchSaveShopDetail(state, action)
@@ -388,6 +388,7 @@ function saveShopInfoReducer(state, shopInfo) {
 }
 
 function updateBatchGoodsReducer(state, action) {
+  console.log('action.payload.goodsList=======>',action.payload)
   let goodsList = action.payload.goodsList
   if(goodsList && goodsList.length>0){
     goodsList.forEach((item)=>{
@@ -398,6 +399,7 @@ function updateBatchGoodsReducer(state, action) {
 }
 
 function updateBatchShopReducer(state, action) {
+  console.log('action.payload.shopList=======>',action.payload)
   let shopList = action.payload.shopList
   if(shopList && shopList.length>0){
     shopList.forEach((item)=>{

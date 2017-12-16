@@ -2,6 +2,7 @@
  * Created by yangyang on 2017/10/4.
  */
 import AV from 'leancloud-storage'
+import {ERRORCODE as ERROR} from '../../util/errorCode'
 
 function generateUUID(){
   var d = new Date().getTime();
@@ -127,7 +128,6 @@ export function getUserOrders(payload) {
     lastTime: payload.lastTime,
     limit: payload.limit,
   }
-  console.log('params=============>',params)
   return AV.Cloud.run('orderQueryOrdersV2', params).then((result) => {
     console.log('result=============>',result)
 
@@ -146,7 +146,9 @@ export function setOrderStatus(payload) {
   return AV.Cloud.run('orderModifyStatus', params).then((result) => {
     return result
   }, (err) => {
+    console.log('err===>',err)
     err.message = ERROR[err.code] ? ERROR[err.code] : ERROR[9999]
+    console.log('err===>',err)
     throw err
   })
 }

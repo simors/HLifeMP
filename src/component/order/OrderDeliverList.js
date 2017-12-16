@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Avatar from '../../component/avatar'
 import styles from './orderList.module.scss'
-import {Button, WingBlank , List,ListView,Toast} from 'antd-mobile'
+import {Button, WingBlank, List, ListView, Toast} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine'
 import Loading from '../../component/loading'
@@ -18,11 +18,10 @@ let {Item} = List
 class OrderDeliverList extends React.PureComponent {
   constructor(props) {
     super(props)
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
+    // const dataSource = new ListView.DataSource({
+    //   rowHasChanged: (row1, row2) => row1 !== row2,
+    // });
     this.state = {
-      dataSource,
       isLoading: true,
       hasMore: true,
       checkedRowID: undefined,
@@ -31,7 +30,7 @@ class OrderDeliverList extends React.PureComponent {
 
   componentWillMount() {
     this.props.fetchUserOrderList({
-      type:'waiting',
+      type: 'waiting',
       limit: 10,
       buyerId: this.props.userId,
       isRefresh: true,
@@ -42,31 +41,33 @@ class OrderDeliverList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    if(promotions&&promotions.length === 0) {
+    console.log('promotions======>', promotions)
+    if (promotions && promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
+    }else{
+      this.setState({isLoading: false})
     }
   }
 
   fetchOrderActionError = (error) => {
-    this.setState({isLoading: false})
-    Toast.fail(error)
+    this.setState({isLoading: false},()=>{Toast.fail(error)})
   }
 
   componentDidMount() {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.orderList !== this.props.orderList) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.orderList !== this.props.orderList) {
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
+  //     });
+  //   }
+  // }
 
   setOrderStatus(buyerId, orderId, status) {
     let payload = {
-      orderStatus:status,
+      orderStatus: status,
       buyerId: buyerId,
       orderId: orderId,
     }
@@ -81,12 +82,12 @@ class OrderDeliverList extends React.PureComponent {
     this.setState({isLoading: true})
     const {fetchUserOrderList, orderList} = this.props
     let lastTime = undefined
-    if(orderList&&orderList.length>0){
+    if (orderList && orderList.length > 0) {
       orderList[orderList.length - 1].createdAt
     }
     fetchUserOrderList({
       lastTime: lastTime,
-      type:'waiting',
+      type: 'waiting',
       limit: 10,
       buyerId: this.props.userId,
       isRefresh: false,
@@ -97,16 +98,20 @@ class OrderDeliverList extends React.PureComponent {
 
   render() {
 
-    const row=(rowData, sectionID, rowID)=>{
+    const row = (rowData, sectionID, rowID)=> {
       // let {order} = rowData
-      return <div key = {rowID} ><OrderShow order={rowData} gotoOrderDetail={(orderId)=>{this.props.gotoOrderDetail(orderId)}} setOrderStatus={(buyerId,orderId,status)=>{this.setOrderStatus(buyerId,orderId,status)}} /></div>
+      return <div key={rowID}><OrderShow order={rowData} gotoOrderDetail={(orderId)=> {
+        this.props.gotoOrderDetail(orderId)
+      }} setOrderStatus={(buyerId, orderId, status)=> {
+        this.setOrderStatus(buyerId, orderId, status)
+      }}/></div>
     }
-    let {dataSource} = this.state
+    let {dataSource} = this.props
 
     return (
       <ListView
         dataSource={dataSource}
-        renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+        renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? '加载中...' : '全部加载成功'}
         </div>)}
         renderRow={row}
@@ -121,10 +126,14 @@ class OrderDeliverList extends React.PureComponent {
 
 const mapStateToProps = (state, ownProps) => {
   let userId = authSelector.activeUserId(state)
-  let orderList = mineSelector.selectUserOrders(state,userId,'waiting')
+  let orderList = mineSelector.selectUserOrders(state, userId, 'waiting')
+  let dataSource = new ListView.DataSource({
+    rowHasChanged: (row1, row2) => row1 !== row2,
+  });
   return {
     orderList,
-    userId:userId
+    userId: userId,
+    dataSource: dataSource.cloneWithRows(orderList)
   }
 }
 

@@ -43,7 +43,7 @@ class MyAddr extends React.PureComponent {
     return (
       <div className={styles.body}>
         <AddrList updateAdd={(addrId)=>{this.updateAddr(addrId)}}/>
-        <Button onClick={()=>{this.props.history.push('/createMyAddr')}}>新增收货地址</Button>
+        <Button className={styles.button }onClick={()=>{this.props.history.push('/createMyAddr')}}>新增收货地址</Button>
       </div>
     )
   }

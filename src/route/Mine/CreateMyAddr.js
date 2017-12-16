@@ -8,7 +8,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import Avatar from '../../component/avatar'
-import {Button, WingBlank, InputItem, List} from 'antd-mobile'
+import {Button, WingBlank, InputItem, List,Toast} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
@@ -47,7 +47,9 @@ class CreateMyAddr extends React.PureComponent {
         province: this.state.province,
         city: this.state.city,
         district: this.state.district,
-        tag: this.state.tag
+        tag: this.state.tag,
+        success:()=>{this.props.history.goBack()},
+        error: (err)=>{Toast.fail(err.message)}
       }
 
       this.props.createMyAddr(payload)
@@ -87,9 +89,10 @@ class CreateMyAddr extends React.PureComponent {
             initialValue: user.mobilePhoneNumber
           })}/>
         </div>
-          <RegionPicker className = {styles.inputBox} level={3} onOk={(value)=> {
-            this.setState({province: value[0], city: value[1], district: value[2]})
-          }} />
+        <RegionPicker  className={styles.picker} level={3} onOk={(value)=> {
+          this.setState({province: value[0], city: value[1], district: value[2]})
+        }} />
+
         <div className = {styles.inputBox}>
           <span className={styles.inputLabel}>详细地址:</span>
           <input className={styles.input} {...getFieldProps('addr',{

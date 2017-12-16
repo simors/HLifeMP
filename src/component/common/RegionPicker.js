@@ -19,11 +19,11 @@ class RegionPicker extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.generateArea()
+    // this.generateArea()
   }
 
   componentWillReceiveProps(newProps) {
-    this.generateArea()
+    // this.generateArea()
   }
 
   updateInput(text) {
@@ -124,7 +124,7 @@ class RegionPicker extends React.PureComponent {
 
     return (
         <Picker
-          className={styles.body}
+          className={this.props.className?this.props.className:styles.body}
           data={this.pickerData}
           {...getFieldProps('district', {
             initialValue: this.props.selectedAddr?this.props.selectedAddr:[],

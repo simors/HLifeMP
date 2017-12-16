@@ -14,7 +14,7 @@ const LC_PRO_APP_KEY = 'qhIzQiFonde2yeaBdlcXHUDz'
 
 //微信公众平台
 var WECHAT_MP_APPID = ""
-const WECHAT_MP_APPID_DEV = "wx1acbae7446bf8307"
+const WECHAT_MP_APPID_DEV = "wxa9d62e2780c3345b"
 const WECHAT_MP_APPID_PRE = "wxd1cc733cd20fdaea"
 const WECHAT_MP_APPID_PRO = "wxc13204ac7a37acb4"
 
@@ -26,7 +26,7 @@ const BACKEND_DOMAIN_PRO = "http://share.xiaojee.cn"
 
 // 客户端域名
 var CLIENT_DOMAIN = ''
-const CLIENT_DOMAIN_DEV = 'http://www.hlifempwan.frp.lvyii.com'
+const CLIENT_DOMAIN_DEV = 'http://www.hlifempli.frp.lvyii.com'
 const CLIENT_DOMAIN_STAGE = 'http://dev.xiaojee.cn:6300'
 const CLIENT_DOMAIN_PRO = 'http://admin.xiaojee.cn:6300'
 

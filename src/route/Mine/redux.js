@@ -301,8 +301,7 @@ function* getAddrListSaga(action){
 function* disableAddrSaga(action){
   let payload = action.payload
   try{
-    let result = yield call(mineCloud.disableAddr, {...payload})
-    if(result){
+      yield call(mineCloud.disableAddr, {...payload})
       let params = {
         addrId: payload.addrId
       }
@@ -310,7 +309,6 @@ function* disableAddrSaga(action){
       if(payload.success){
         payload.success()
       }
-    }
   }catch(err){
     if(payload.error){
       payload.error(err)
@@ -357,9 +355,9 @@ function* getUserOrderListSaga(action){
         goods.push(order.goods)
       })
     }
-    console.log('shopOrderList======>',shopOrderList)
-    yield put(shopAction.updateBatchShop({vendors:vendors}))
-    yield put(shopAction.updateBatchShopGoods({goods:goods}))
+
+    yield put(shopAction.updateBatchShop({shopList:vendors}))
+    yield put(shopAction.updateBatchShopGoods({goodsList:goods}))
     yield put(mineAction.saveUserOrders({shopOrders:shopOrders}))
     if(payload.isRefresh){
       yield put(fetchSetUserOrderListSuccess({shopOrderList:shopOrderList,type: payload.type,buyerId: payload.buyerId}))
@@ -380,17 +378,25 @@ function* updateUserOrderStatusSaga (action) {
   let payload = action.payload
   try{
     let results = yield call(mineCloud.setOrderStatus, {...payload})
-    if(results.errCode != 0){
+    console.log('results====>',results)
+
+    if(results.errcode != 0){
+      console.log('here is run error====>')
+
       if(payload.error){
-        payload.error(results.error)
+        payload.error(results)
       }
     }else{
-      put(setUserOrderStatusSuccess({orderId: payload.orderId,status: payload.orderStatus}))
+      console.log('here is run win====>')
+
+      yield put(setUserOrderStatusSuccess({orderId: payload.orderId,status: payload.orderStatus, buyerId: payload.buyerId}))
+      console.log('here is run win====>')
       if(payload.success){
         payload.success()
       }
     }
   }catch(err){
+    console.log('here is run error weeoe oeoeoeq oqoeoqeo====>')
     if(payload.error){
       payload.error(err)
     }
@@ -469,6 +475,7 @@ function handleSetUserShopOrders(state, action) {
 
 function handleUpdateShopOrderStatus(state, action) {
   let payload = action.payload
+  console.log('payload======>',payload)
   let status = payload.status
   let orderId = payload.orderId
   let order = state.getIn(['orderDetail', orderId])
