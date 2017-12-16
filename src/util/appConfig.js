@@ -14,7 +14,7 @@ const LC_PRO_APP_KEY = 'qhIzQiFonde2yeaBdlcXHUDz'
 
 //微信公众平台
 var WECHAT_MP_APPID = ""
-const WECHAT_MP_APPID_DEV = "wx3dfde3f7184c8c51"
+const WECHAT_MP_APPID_DEV = "wx1acbae7446bf8307"
 const WECHAT_MP_APPID_PRE = "wxd1cc733cd20fdaea"
 const WECHAT_MP_APPID_PRO = "wxc13204ac7a37acb4"
 
