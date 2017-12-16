@@ -22,6 +22,10 @@ class SubmitOrder extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchMyAddr({isRefresh: true})
+  }
+  
   gotoSelectAddress = () => {
     const {history, location} = this.props
     const {state} = location
@@ -117,19 +121,6 @@ const mapStateToProps = (state, ownProps) => {
   let selectedAddress = addressId? mineSelector.getUserAddress(state, addressId): undefined
   let shopGoods = shopSelector.selectShopGoodsDetail(state, metadata.goodsId)
   let defaultAddress = mineSelector.getDefaultAddress(state)
-  // const defaultAddress = {
-  //   addr:"湘乡市东山学校",
-  //   adminId:"59ae0ecd1b69e6006833e0ea",
-  //   city:"湘潭",
-  //   createdAt:"2017-12-09T07:06:50.265Z",
-  //   district:"东山区",
-  //   id:"5a2b8b8aa22b9d0062621af3",
-  //   mobilePhoneNumber:"1877778888",
-  //   province:"湖南省",
-  //   status:2,
-  //   tag:"学校",
-  //   username:"小明",
-  // }
   return {
     shopGoods: shopGoods,
     selectedAddress: selectedAddress,
