@@ -169,41 +169,6 @@ class OrderDetail extends React.PureComponent {
 
   render() {
     let {order} = this.props
-    // let goods = order.goods
-    // let vendor = order.vendor
-    // if (!goods || !vendor) {
-    //   return <div/>
-    // }
-    //
-    // let order = {
-    //   username: 'asdasd',
-    //   mobilePhoneNumber: '123123123',
-    //   tag: '家',
-    //   order: 'asdasdasdasdasdasdasd'
-    // }
-    // let order = {
-    //   vendor:{
-    //     shopName:'123'
-    //   },
-    //   goods:{
-    //     coverPhoto:'https://dn-TUVjJ5HH.qbox.me/5609d21e7198affd1cfc.jpeg',
-    //       goodsName:'dd',
-    //       price: 2,
-    //       originalPrice: 3,
-    //
-    //   },
-    //   id: '12',
-    //     goodsAmount: 2,
-    //   paid: 24,
-    //   orderStatus: 2,
-    //   receiver: '3213213',
-    //   receiverAddr: '321321',
-    //   receiverPhone: '3213213',
-    //   remark: 33333,
-    //   createdAt: undefined,
-    //   updatedAt: undefined,
-    // }
-
 
     return (
       <div className={styles.body}>
