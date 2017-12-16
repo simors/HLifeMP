@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="68px" height="28px" viewBox="0 0 68 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>add_tag</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="68" height="28"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="68" height="28" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="my_order" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="07_新建收货地址" transform="translate(-68.000000, -318.000000)">
+            <g id="add_tag" transform="translate(68.000000, 318.000000)">
+                <use id="Rectangle-10-Copy-6" stroke="#000000" mask="url(#mask-2)" stroke-width="2" opacity="0.1" stroke-dasharray="4" xlink:href="#path-1"></use>
+                <path d="M34.6666667,13.3333333 L34.6666667,6 L33.3333333,6 L33.3333333,13.3333333 L26,13.3333333 L26,14.6666667 L33.3333333,14.6666667 L33.3333333,22 L34.6666667,22 L34.6666667,14.6666667 L42,14.6666667 L42,13.3333333 L34.6666667,13.3333333 Z" id="Combined-Shape" fill-opacity="0.1" fill="#000000"></path>
+            </g>
+        </g>
+    </g>
+</svg>
