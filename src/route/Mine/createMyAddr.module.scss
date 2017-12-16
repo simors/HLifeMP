@@ -1,9 +1,9 @@
 .body{
   background-color: rgba(0,0,0,0.05);
-  //display: flex;
-  //align-items: center;
-  //flex-direction: column;
-  //height: 100%;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
 
   .inputBox{
     width: 100%;
@@ -13,6 +13,8 @@
     align-items: center;
     padding: 0.2rem 0.3rem;
     background-color: #FFFFFF;
+    border-top: 0.01rem solid rgba(0,0,0,0.05);
+    border-bottom: 0.01rem solid rgba(0,0,0,0.05);
 
     .inputLabel{
       font-size: 0.34rem;
@@ -32,7 +34,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.2rem 0.3rem;
+    padding: 0.3rem 0.3rem;
 
     .tagLabel{
       font-size: 0.34rem;

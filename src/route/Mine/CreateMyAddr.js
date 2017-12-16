@@ -61,7 +61,7 @@ class CreateMyAddr extends React.PureComponent {
   renderTagBox(){
     return (
       <div className={styles.tagBox}>
-        <span className={styles.tagLabel}>标签</span>
+        <span className={styles.tagLabel}>标签:</span>
         <div className={styles.tagWrap}>
           <div className={this.state.tag=='家'?styles.selectedTag:styles.tag} onClick={()=>{this.setState({tag:'家'})}}>家</div>
           <div className={this.state.tag=='公司'?styles.selectedTag:styles.tag} onClick={()=>{this.setState({tag:'公司'})}}>公司</div>

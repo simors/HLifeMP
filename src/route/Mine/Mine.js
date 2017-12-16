@@ -43,7 +43,7 @@ class Mine extends React.PureComponent {
 
   gotoAbout = () => {
     let {history} = this.props
-    history.push('/about')
+    history.push('http://simors.github.io/ljyd_blog')
   }
 
   renderAvatar() {
@@ -66,7 +66,7 @@ class Mine extends React.PureComponent {
     }
     // let activeUser = {}
     return (
-      <div style={{backgroundColor:'rgba(0,0,0,0.05)'}}>
+      <div className={styles.mine} >
         <div className={styles.headerView}>
           <div className={styles.avatar}>
             {this.renderAvatar()}
@@ -104,7 +104,7 @@ class Mine extends React.PureComponent {
 
         </div>
         <div className={styles.body}>
-          <Button className={styles.ButtonWrap} onClick={this.gotoAbout}>
+          <a className={styles.ButtonWrap} href='http://simors.github.io/ljyd_blog'>
             <div className={styles.leftBox}>
               <Icon type={require('../../asset/svg/about_icon@100x.svg')} className={styles.image}/>
               <span className={styles.text}>关于汇邻优店</span>
@@ -112,7 +112,7 @@ class Mine extends React.PureComponent {
             <div className={styles.rightBox}>
               <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
             </div>
-          </Button>
+          </a>
         </div>
 
       </div>

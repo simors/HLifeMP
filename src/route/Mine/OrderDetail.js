@@ -13,6 +13,7 @@ import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector, mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
 import {getThumbUrl} from '../../util/imageUtils'
+import moment from 'moment'
 
 const ORDER_STATUS = mineConfig.ORDER_STATUS
 
@@ -130,7 +131,7 @@ class OrderDetail extends React.PureComponent {
           </div>
         </div>
         <div className={styles.orderDate}>
-          <span className={styles.orderDateText}>{'下单时间:' + order.createdAt}</span>
+          <span className={styles.orderDateText}>{'下单时间:' + moment(order.createdAt).format('YYYY-MM-DD HH:mm')}</span>
         </div>
       </div>
     )

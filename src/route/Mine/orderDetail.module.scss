@@ -1,7 +1,10 @@
 .body{
   width: 100%;
   background-color: rgba(0,0,0,0.05);
-
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  
   .header{
     background-color: rgba(255,120,25,0.12);
     width: 100%;

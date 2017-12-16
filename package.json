@@ -30,6 +30,7 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "mathjs": "^3.16.3",
+    "moment": "^2.19.4",
     "object-assign": "^4.1.1",
     "pingpp-js": "^2.1.15",
     "postcss-loader": "^2.0.6",
