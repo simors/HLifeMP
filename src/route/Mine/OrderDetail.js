@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import styles from './orderDetail.module.scss'
 import Avatar from '../../component/avatar'
-import {Button, WingBlank, Toast} from 'antd-mobile'
+import {Button, WingBlank, Toast, Icon} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector, mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
@@ -83,15 +83,17 @@ class OrderDetail extends React.PureComponent {
       return <span className={styles.wait}>等待卖家发货</span>
     } else if (orderStatus == ORDER_STATUS.DELIVER_GOODS) {
       return (
-        <div className={styles.sendBox}>
-          <img src={require('../../asset/svg/right_green@100x.svg')} className={styles.sendImg}/>
+
+        <div className={styles.sendBox} >
+          <Icon type={require('../../asset/svg/right_green@100x.svg')} className={styles.sendImg} />
           <span className={styles.sendText}>已发货</span>
         </div>
       )
     } else if (orderStatus == ORDER_STATUS.ACCOMPLISH) {
       return (
-        <div className={styles.sendBox}>
-          <img src={require('../../asset/svg/right_green@100x.svg')} className={styles.sendImg}/>
+
+        <div className={styles.sendBox} >
+          <Icon type={require('../../asset/svg/right_green@100x.svg')} className={styles.sendImg} />
           <span className={styles.sendText}>交易成功</span>
         </div>
       )
@@ -110,9 +112,9 @@ class OrderDetail extends React.PureComponent {
     return (
       <div className={styles.orderInfoBox}>
         <div className={styles.shopWrap}>
-          <img src={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon}/>
-          <span className={styles.shopName}>{order.vendor.shopName}</span>
-          <img src={require('../../asset/svg/Chevron.svg')} className={styles.backIcon}/>
+          <Icon type={require('../../asset/svg/shop_invite@100x.svg')} className={styles.shopIcon} />
+          <span className={styles.shopName} >{order.vendor.shopName}</span>
+          <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.backIcon} />
         </div>
         <div className={styles.goodsBox}>
           <img className={styles.coverPhoto} src={order.goods.coverPhoto}/>
@@ -152,7 +154,7 @@ class OrderDetail extends React.PureComponent {
     if (order.receiver && order.receiver != '') {
       return (
         <div className={styles.receiverBox}>
-          <img className={styles.receiverImg} src={require('../../asset/svg/location@100x.svg')}/>
+          <Icon className={styles.receiverImg} type={require('../../asset/svg/location@100x.svg')}/>
           <div className={styles.receiverInfo}>
             <span className={styles.receiverName}>{order.receiver + ' ' + order.receiverPhone}</span>
             <span className={styles.receiverAddr}>{order.receiverAddr}</span>

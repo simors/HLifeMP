@@ -11,6 +11,7 @@ import {Button} from 'antd-mobile'
 import pingpp from 'pingpp-js'
 import {Toast} from 'antd-mobile'
 import {shopSelector} from '../Shop'
+import {Icon} from 'antd-mobile'
 
 class SubmitOrder extends PureComponent {
   constructor(props) {
@@ -73,7 +74,7 @@ class SubmitOrder extends PureComponent {
         <div className={styles.address}>
           <div className={styles.selfPick}>
             <div className={styles.header}>
-              <img src={this.state.checked === 'selfPick'? require('../../asset/svg/selected@100x.svg') : require('../../asset/svg/select@100x.svg')} alt=""
+              <Icon type={this.state.checked === 'selfPick'? require('../../asset/svg/selected@100x.svg') : require('../../asset/svg/select@100x.svg')} alt=""
                    style={{width: '0.5rem', height: '0.5rem'}} onClick={() => {this.setState({checked: 'selfPick'})}}/>
               <div className={styles.title}>到店自提</div>
             </div>
@@ -84,7 +85,7 @@ class SubmitOrder extends PureComponent {
           </div>
           <div className={styles.express}>
             <div className={styles.header}>
-              <img src={this.state.checked === 'express'? require('../../asset/svg/selected@100x.svg') : require('../../asset/svg/select@100x.svg')} alt=""
+              <Icon type={this.state.checked === 'express'? require('../../asset/svg/selected@100x.svg') : require('../../asset/svg/select@100x.svg')} alt=""
                    style={{width: '0.5rem', height: '0.5rem'}} onClick={() => {this.setState({checked: 'express'})}}/>
               <div className={styles.title}>快递</div>
               <div className={styles.selectAddr}>
@@ -115,20 +116,20 @@ const mapStateToProps = (state, ownProps) => {
   const {addressId, metadata} = locationState
   let selectedAddress = addressId? mineSelector.getUserAddress(state, addressId): undefined
   let shopGoods = shopSelector.selectShopGoodsDetail(state, metadata.goodsId)
-
-  const defaultAddress = {
-    addr:"湘乡市东山学校",
-    adminId:"59ae0ecd1b69e6006833e0ea",
-    city:"湘潭",
-    createdAt:"2017-12-09T07:06:50.265Z",
-    district:"东山区",
-    id:"5a2b8b8aa22b9d0062621af3",
-    mobilePhoneNumber:"1877778888",
-    province:"湖南省",
-    status:2,
-    tag:"学校",
-    username:"小明",
-  }
+  let defaultAddress = mineSelector.getDefaultAddress(state)
+  // const defaultAddress = {
+  //   addr:"湘乡市东山学校",
+  //   adminId:"59ae0ecd1b69e6006833e0ea",
+  //   city:"湘潭",
+  //   createdAt:"2017-12-09T07:06:50.265Z",
+  //   district:"东山区",
+  //   id:"5a2b8b8aa22b9d0062621af3",
+  //   mobilePhoneNumber:"1877778888",
+  //   province:"湖南省",
+  //   status:2,
+  //   tag:"学校",
+  //   username:"小明",
+  // }
   return {
     shopGoods: shopGoods,
     selectedAddress: selectedAddress,

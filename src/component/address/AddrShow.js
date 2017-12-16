@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import styles from './addrShow.module.scss'
 import Avatar from '../../component/avatar'
-import {Button, WingBlank} from 'antd-mobile'
+import {Button, WingBlank, Icon} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {mineAction, mineSelector,mineConfig} from '../../route/Mine/redux'
 import Loading from '../../component/loading'
@@ -62,7 +62,7 @@ import Loading from '../../component/loading'
         </div>
         <div className={styles.buttonWrap}>
           <div className={styles.defaultBox} onClick={(addrId)=>{this.props.defaultAddr(addrId)}}>
-            <img className={styles.defaultButton} src={addr.status==mineConfig.ADDR_STATUS.DEFAUT_ADDR?require('../../asset/svg/selected@100x.svg'):require('../../asset/svg/select@100x.svg')}/>
+            <Icon className={styles.defaultButton} type={addr.status==mineConfig.ADDR_STATUS.DEFAUT_ADDR?require('../../asset/svg/selected@100x.svg'):require('../../asset/svg/select@100x.svg')}/>
             <span className={styles.defaultText}>设为默认</span>
 
           </div>

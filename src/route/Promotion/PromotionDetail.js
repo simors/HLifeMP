@@ -4,7 +4,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile'
+import { Carousel, WhiteSpace, WingBlank, Icon} from 'antd-mobile'
 import styles from './promotiondetal.module.scss'
 import ArticleViewer from '../../component/article'
 import Loading from '../../component/loading'
@@ -109,14 +109,14 @@ class PromotionDetail extends PureComponent {
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
           <div style={{paddingTop: 8}}>
-            <img src={require('../../asset/svg/service.svg')} width={40} />
+            <Icon type={require('../../asset/svg/service.svg')} width={40} />
           </div>
 
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => this.gotoBuyGoods()}>
           <span>
-            <img src={require('../../asset/svg/purchase_24.svg')} width={60} />
+            <Icon type={require('../../asset/svg/purchase_24.svg')} width={60} />
           </span>
           <span>立即购买</span>
         </div>
