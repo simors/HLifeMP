@@ -355,10 +355,6 @@ function* getUserOrderListSaga(action){
         goods.push(order.goods)
       })
     }
-    console.log('shopOrderList======>',shopOrderList)
-    console.log('shopOrders======>',shopOrders)
-    console.log('vendors======>',vendors)
-    console.log('goods======>',goods)
 
     yield put(shopAction.updateBatchShop({shopList:vendors}))
     yield put(shopAction.updateBatchShopGoods({goodsList:goods}))
@@ -384,17 +380,23 @@ function* updateUserOrderStatusSaga (action) {
     let results = yield call(mineCloud.setOrderStatus, {...payload})
     console.log('results====>',results)
 
-    if(results.errCode != 0){
+    if(results.errcode != 0){
+      console.log('here is run error====>')
+
       if(payload.error){
-        payload.error(results.error)
+        payload.error(results)
       }
     }else{
-      put(setUserOrderStatusSuccess({orderId: payload.orderId,status: payload.orderStatus}))
+      console.log('here is run win====>')
+
+      yield put(setUserOrderStatusSuccess({orderId: payload.orderId,status: payload.orderStatus, buyerId: payload.buyerId}))
+      console.log('here is run win====>')
       if(payload.success){
         payload.success()
       }
     }
   }catch(err){
+    console.log('here is run error weeoe oeoeoeq oqoeoqeo====>')
     if(payload.error){
       payload.error(err)
     }
@@ -473,6 +475,7 @@ function handleSetUserShopOrders(state, action) {
 
 function handleUpdateShopOrderStatus(state, action) {
   let payload = action.payload
+  console.log('payload======>',payload)
   let status = payload.status
   let orderId = payload.orderId
   let order = state.getIn(['orderDetail', orderId])

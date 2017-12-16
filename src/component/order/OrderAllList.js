@@ -19,11 +19,10 @@ let {Item} = List
 class OrderAllList extends React.PureComponent {
   constructor(props) {
     super(props)
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
+    // const dataSource = new ListView.DataSource({
+    //   rowHasChanged: (row1, row2) => row1 !== row2,
+    // });
     this.state = {
-      dataSource,
       isLoading: true,
       hasMore: true,
       checkedRowID: undefined,
@@ -43,15 +42,16 @@ class OrderAllList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    console.log('promotions======>', promotions)
+    console.log('alll======>promotions======>', promotions)
     if (promotions && promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
+    }else{
+      this.setState({isLoading: false})
     }
   }
 
   fetchOrderActionError = (error) => {
-    this.setState({isLoading: false})
-    Toast.fail(error)
+    this.setState({isLoading: false},()=>{Toast.fail(error)})
   }
 
   componentDidMount() {

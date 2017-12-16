@@ -18,11 +18,10 @@ let {Item} = List
 class OrderFinishList extends React.PureComponent {
   constructor(props) {
     super(props)
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
+    // const dataSource = new ListView.DataSource({
+    //   rowHasChanged: (row1, row2) => row1 !== row2,
+    // });
     this.state = {
-      dataSource,
       isLoading: true,
       hasMore: true,
       checkedRowID: undefined,
@@ -42,14 +41,16 @@ class OrderFinishList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
+    console.log('promotions======>', promotions)
     if (promotions && promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
+    }else{
+      this.setState({isLoading: false})
     }
   }
 
   fetchOrderActionError = (error) => {
-    this.setState({isLoading: false})
-    Toast.fail(error)
+    this.setState({isLoading: false},()=>{Toast.fail(error)})
   }
 
   componentDidMount() {
@@ -65,13 +66,13 @@ class OrderFinishList extends React.PureComponent {
     this.props.setUserOrderStatus(payload)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.orderList !== this.props.orderList) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.orderList !== this.props.orderList) {
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(nextProps.orderList),
+  //     });
+  //   }
+  // }
 
 
   onEndReached = (event) => {
@@ -105,7 +106,7 @@ class OrderFinishList extends React.PureComponent {
         this.setOrderStatus(buyerId, orderId, status)
       }}/></div>
     }
-    let {dataSource} = this.state
+    let {dataSource} = this.props
 
     return (
       <ListView
@@ -126,9 +127,13 @@ class OrderFinishList extends React.PureComponent {
 const mapStateToProps = (state, ownProps) => {
   let userId = authSelector.activeUserId(state)
   let orderList = mineSelector.selectUserOrders(state, userId, 'finished')
+  let dataSource = new ListView.DataSource({
+    rowHasChanged: (row1, row2) => row1 !== row2,
+  });
   return {
     orderList,
-    userId: userId
+    userId: userId,
+    dataSource: dataSource.cloneWithRows(orderList)
   }
 }
 
