@@ -51,30 +51,35 @@ class NearbyPromotion extends PureComponent {
     const {fetchPromotionAction} = this.props
     var that = this
     wx.config(configInfo)
-    wx.getLocation({
-      type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-      success: function (res) {
-        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-        fetchPromotionAction({
-          geo: {
-            latitude: latitude,
-            longitude: longitude,
-          },
-          limit: 10,
-          lastDistance: undefined,
-          nowDate: new Date(),
-          isRefresh: true,
-          success: that.fetchPromotionActionSuccess,
-          error: that.fetchPromotionActionError,
-        })
-        that.setState({
-          location: {
-            latitude: latitude,
-            longitude: longitude,
-          }
-        })
-      }
+    wx.ready(function () {
+      wx.getLocation({
+        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: function (res) {
+          var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+          var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+          fetchPromotionAction({
+            geo: {
+              latitude: latitude,
+              longitude: longitude,
+            },
+            limit: 10,
+            lastDistance: undefined,
+            nowDate: new Date(),
+            isRefresh: true,
+            success: that.fetchPromotionActionSuccess,
+            error: that.fetchPromotionActionError,
+          })
+          that.setState({
+            location: {
+              latitude: latitude,
+              longitude: longitude,
+            }
+          })
+        }
+      })
+    })
+    wx.error(function (err) {
+      console.error(err)
     })
   }
 
