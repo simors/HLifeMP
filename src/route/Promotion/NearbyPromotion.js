@@ -31,7 +31,7 @@ class NearbyPromotion extends PureComponent {
   }
 
   componentWillMount() {
-    const {getJsApiConfig, entryURL, fetchPromotionAction} = this.props
+    const {getJsApiConfig, entryURL} = this.props
     const OS = getMobileOperatingSystem()
     let jssdkURL = window.location.href
     if(OS === 'iOS') {
@@ -61,7 +61,7 @@ class NearbyPromotion extends PureComponent {
             geo: [latitude, longitude],
             limit: 10,
             lastDistance: undefined,
-            nowDate: new Date(),
+            nowDate: Date.now(),
             isRefresh: true,
             success: that.fetchPromotionActionSuccess,
             error: that.fetchPromotionActionError,
@@ -117,13 +117,10 @@ class NearbyPromotion extends PureComponent {
     const geo = nearbyPromList[nearbyPromList.length - 1].geo
     const lastDistance = getDistanceFromLatLonInKm(this.state.location.latitude, this.state.location.longitude, geo[0], geo[1])
     fetchPromotionAction({
-      geo: {
-        latitude: this.state.location.latitude,
-        longitude: this.state.location.longitude,
-      },
+      geo: [this.state.location.latitude, this.state.location.longitude],
       limit: 10,
       lastDistance: lastDistance,
-      nowDate: new Date(),
+      nowDate: Date.now(),
       isRefresh: false,
       success: this.fetchPromotionActionSuccess,
       error: this.fetchPromotionActionError,
