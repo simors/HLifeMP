@@ -39,7 +39,7 @@ class NearbyPromotion extends PureComponent {
       jssdkURL = entryURL
     }
     getJsApiConfig({
-      debug: __DEV__? false: false,
+      debug: __DEV__? true: true,
       jsApiList: ['scanQRCode', 'getLocation'],
       url: window.location.href,
       success: this.getJsApiConfigSuccess,
@@ -63,7 +63,7 @@ class NearbyPromotion extends PureComponent {
           },
           limit: 10,
           lastDistance: undefined,
-          nowDate: new Date('2016-09-01'),
+          nowDate: new Date(),
           isRefresh: true,
           success: this.fetchPromotionActionSuccess,
           error: this.fetchPromotionActionError,
@@ -121,7 +121,7 @@ class NearbyPromotion extends PureComponent {
       },
       limit: 10,
       lastDistance: lastDistance,
-      nowDate: new Date('2016-09-01'),
+      nowDate: new Date(),
       isRefresh: false,
       success: this.fetchPromotionActionSuccess,
       error: this.fetchPromotionActionError,
