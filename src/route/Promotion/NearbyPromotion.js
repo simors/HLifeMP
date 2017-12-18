@@ -39,7 +39,7 @@ class NearbyPromotion extends PureComponent {
       jssdkURL = entryURL
     }
     getJsApiConfig({
-      debug: __DEV__? true: true,
+      debug: __DEV__? true: false,
       jsApiList: ['scanQRCode', 'getLocation'],
       url: window.location.href,
       success: this.getJsApiConfigSuccess,
