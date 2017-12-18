@@ -65,8 +65,8 @@ class NearbyPromotion extends PureComponent {
           lastDistance: undefined,
           nowDate: new Date(),
           isRefresh: true,
-          success: this.fetchPromotionActionSuccess,
-          error: this.fetchPromotionActionError,
+          success: that.fetchPromotionActionSuccess,
+          error: that.fetchPromotionActionError,
         })
         that.setState({
           location: {
