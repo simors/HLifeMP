@@ -22,8 +22,11 @@ class SubmitOrder extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchMyAddr({isRefresh: true})
+  componentWillMount() {
+    const {defaultAddress, history} = this.props
+    if(!defaultAddress) {
+      history.push('/createMyAddr')
+    }
   }
   
   gotoSelectAddress = () => {

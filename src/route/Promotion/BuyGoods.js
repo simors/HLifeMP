@@ -9,6 +9,7 @@ import styles from './buygoods.module.scss'
 import { Carousel, WhiteSpace, WingBlank, TextareaItem, Icon} from 'antd-mobile'
 import {authSelector} from '../../util/auth'
 import {PAYMENT_TYPE} from './redux'
+import {mineAction} from '../Mine'
 
 
 class BuyGoods extends PureComponent {
@@ -21,6 +22,10 @@ class BuyGoods extends PureComponent {
       touchMinus: false,
       touchPlus: false,
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchMyAddr({isRefresh: true})
   }
 
   renderHeaderAlbum() {
@@ -173,6 +178,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
+  ...mineAction,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BuyGoods))
