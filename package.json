@@ -117,8 +117,5 @@
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.13.2",
     "yargs": "^8.0.1"
-  },
-  "theme": {
-    "hd": "2px"
   }
 }

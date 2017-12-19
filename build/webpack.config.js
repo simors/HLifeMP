@@ -215,7 +215,7 @@ config.module.rules.push({
           includePaths: [
             inProjectSrc('styles'),
           ],
-          modifyVars: { "@primary-color": "#ff7819" },
+          modifyVars: { "@brand-primary": "#ff7819"},
         },
       }
     ],
