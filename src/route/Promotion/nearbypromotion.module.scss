@@ -1,5 +1,5 @@
 .promContainer {
-  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+  padding: 1.07rem 1.43rem 1.07rem 1.43rem;
   display: flex;
   flex-direction: row;
   border-bottom-color: #f5f5f5;
@@ -7,7 +7,7 @@
   border-bottom-style: solid;
 
   .cover {
-    margin-right: 0.3rem;
+    margin-right: 1.07rem;
   }
   .details {
     flex: 1;
@@ -16,12 +16,12 @@
     justify-content: space-between;
 
     .goodsName {
-      font-size: 0.34rem;
+      font-size: 1.21rem;
       font-weight: bold;
     }
     .shopName {
       color: #AAAAAA;
-      font-size: 0.24rem;
+      font-size: 0.86rem;
     }
     .goodsTrip {
       display: flex;
@@ -31,17 +31,17 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        height: 0.3rem;
+        height: 1.07rem;
         background-color: #f6a623;
         border-radius: 2px;
-        font-size: 0.2rem;
+        font-size: 0.71rem;
         font-weight: bold;
         color: white;
       }
     }
     .goodsPrice {
       color: #00be96;
-      font-size: 0.3rem;
+      font-size: 1.07rem;
     }
   }
   .trips {
@@ -49,6 +49,6 @@
     flex-direction: column;
     justify-content: flex-end;
     color: #aaaaaa;
-    font-size: 0.24rem;
+    font-size: 0.86rem;
   }
 }

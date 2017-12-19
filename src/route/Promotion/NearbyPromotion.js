@@ -145,7 +145,7 @@ class NearbyPromotion extends PureComponent {
       return (
         <div key={rowID} className={styles.promContainer} style={itemStyle} onClick={() => {this.gotoPromotionDetail(rowID, rowData.goods.id)}}>
           <div className={styles.cover}>
-            <img src={rowData.goods.coverPhoto} alt="" style={{display: `block`, width: `2.0rem`, height: `2.0rem`}}/>
+            <img src={rowData.goods.coverPhoto} alt="" style={{display: `block`, width: `7.14rem`, height: `7.14rem`}}/>
           </div>
           <div className={styles.details}>
             <div className={styles.goodsName}>{rowData.goods.goodsName}</div>
