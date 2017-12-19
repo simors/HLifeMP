@@ -13,7 +13,6 @@ import styles from './promoter.module.scss'
 import math from 'mathjs'
 import {promoterSelector} from './redux'
 import {authSelector} from '../../util/auth'
-import {Icon} from 'antd-mobile'
 
 const {
   Panel
@@ -39,7 +38,7 @@ class MyNearFriend extends React.PureComponent {
               <div className={styles.performText}>最新业绩：{getConversationTime(new Date(upPromoter.updatedAt))}</div>
             </div>
             <div>
-              <Icon type={require('../../asset/svg/team_18@2x.svg')} width={48} height={48} />
+              <img src={require('../../asset/image/team_18@2x.png')} width={48} height={48} />
               <div className={styles.teamnum}>{math.chain(upPromoter.teamMemNum).add(upPromoter.level2Num).add(upPromoter.level3Num).done()}人</div>
             </div>
           </div>

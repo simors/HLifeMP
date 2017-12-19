@@ -109,14 +109,14 @@ class PromotionDetail extends PureComponent {
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
           <div style={{paddingTop: 8}}>
-            <Icon type={require('../../asset/svg/service.svg')} width={40} />
+            <img src={require('../../asset/image/icon_ service.png')} width={40} />
           </div>
 
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => this.gotoBuyGoods()}>
           <span>
-            <Icon type={require('../../asset/svg/purchase_24.svg')} width={60} />
+            <img src={require('../../asset/image/CNY.png')} width={60} />
           </span>
           <span>立即购买</span>
         </div>

@@ -238,16 +238,17 @@ config.module.rules.push({
 // ------------------------------------
 const svgDirs = [
   require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
-  path.resolve(project.basePath, 'src/asset/svg'),  // 2. 自己私人的 svg 存放目录
+  inProjectSrc('asset/svg')                                 // 2. 自己私人的 svg 存放目录
+  // path.resolve(project.basePath, 'src/asset/svg'),  // 2. 自己私人的 svg 存放目录
 ];
 
 // 暂时不添加antd的svg-sprite-loader模块，因为antd的svg大小不适配微信端；如果需要加入此模块，那么需要放开下面的注释，
 // 同时在Fonts里面将svg的解析删除
-config.module.rules.push({
-  test    : /\.(svg)$/i,
-  loader  : 'svg-sprite-loader',
-  include : svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
-})
+// config.module.rules.push({
+//   test    : /\.(svg)$/i,
+//   loader  : 'svg-sprite-loader',
+//   include : svgDirs,  // 把 svgDirs 路径下的所有 svg 文件交给 svg-sprite-loader 插件处理
+// })
 
 // Fonts
 // ------------------------------------
@@ -257,6 +258,7 @@ config.module.rules.push({
   ['otf', 'font/opentype'],
   ['ttf', 'application/octet-stream'],
   ['eot', 'application/vnd.ms-fontobject'],
+  ['svg', 'image/svg+xml'],
 ].forEach((font) => {
   const extension = font[0]
   const mimetype = font[1]

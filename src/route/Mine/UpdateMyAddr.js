@@ -100,7 +100,7 @@ class UpdateMyAddr extends React.PureComponent {
                 this.handleClick()
               })
             }}>
-              {(this.state.isCus&&this.state.tag!='') ? this.state.tag : <Icon className={styles.tagIcon} type={require('../../asset/svg/add_tag.svg')}/>}
+              {(this.state.isCus&&this.state.tag!='') ? this.state.tag : <img className={styles.tagIcon} src={require('../../asset/image/add_tag@2x.png')}/>}
             </div>
             {this.state.showCusInput ?
               <div className={styles.inputBox}>

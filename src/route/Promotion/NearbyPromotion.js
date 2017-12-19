@@ -7,7 +7,7 @@ import {Link, Route, withRouter, Switch} from 'react-router-dom'
 import {actions as promotionActions, selector as promotionSelector} from './redux'
 import {appStateAction, appStateSelector} from '../../util/appstate'
 import wx from 'tencent-wx-jssdk'
-import { WhiteSpace, Popup, Button, ListView, Toast, PullToRefresh } from 'antd-mobile'
+import { WhiteSpace, Button, ListView, Toast, PullToRefresh } from 'antd-mobile'
 import {getMobileOperatingSystem, getDistanceFromLatLonInKm} from '../../util/OSUtil'
 import styles from './nearbypromotion.module.scss'
 

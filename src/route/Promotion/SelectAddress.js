@@ -71,7 +71,7 @@ class SelectAddress extends PureComponent {
                     <div className={styles.phone}>{record.mobilePhoneNumber}</div>
                     <div className={styles.tag}>{record.tag}</div>
                     <div className={styles.edit}>
-                      <Icon type={require('../../asset/svg/edite@100x.svg')} alt=""
+                      <img src={require('../../asset/image/edite@2x.png')} alt=""
                            style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
                     </div>
                   </div>
@@ -79,7 +79,7 @@ class SelectAddress extends PureComponent {
                 </div>
                 <div className={styles.op}>
                   <div className={styles.default}>
-                    <Icon type={this.state.defaultAddressId === record.id? require('../../asset/svg/selected@100x.svg'): require('../../asset/svg/select@100x.svg')} alt=""
+                    <img src={this.state.defaultAddressId === record.id? require('../../asset/image/selected@2x.png'): require('../../asset/image/select@2x.png')} alt=""
                          style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.setDefaultAddress(record.id)}/>
                     <span className={styles.title}>设为默认</span>
                   </div>

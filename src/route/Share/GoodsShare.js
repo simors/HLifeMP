@@ -4,7 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import { Carousel, WhiteSpace, WingBlank, Popup, Icon } from 'antd-mobile'
+import { Carousel, WhiteSpace, WingBlank, Popup, Icon , Modal} from 'antd-mobile'
 import styles from "./shopshare.module.scss"
 import {shopAction, shopSelector} from '../Shop'
 import * as appConfig from '../../util/appConfig'
@@ -24,9 +24,9 @@ class GoodsShare extends React.PureComponent {
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
     setTimeout(() => (
-      Popup.show(<WelcomePanel onClick={() => Popup.hide()}/>, {
-        style: {backgroundColor: 'transparent'}
-      })
+      <Modal visible={true} popup maskClosable={true} animationType="slide-up">
+        <WelcomePanel onClick={() => {}}/>
+      </Modal>
     ), 5000)
   }
 
@@ -115,14 +115,14 @@ class GoodsShare extends React.PureComponent {
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
           <div style={{paddingTop: 8}}>
-            <Icon type={require('../../asset/svg/service.svg')} width={40} />
+            <img src={require('../../asset/image/dialog.png')} width={40} />
           </div>
 
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
           <span>
-            <Icon type={require('../../asset/svg/purchase_24.svg')} width={60} />
+            <img src={require('../../asset/image/CNY.png')} width={60} />
           </span>
           <span>立即购买</span>
         </div>

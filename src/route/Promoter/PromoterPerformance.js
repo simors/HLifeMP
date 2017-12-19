@@ -4,7 +4,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link, Route, withRouter, Switch} from 'react-router-dom'
-import math from 'mathjs'
 import WeUI from 'react-weui'
 import 'weui'
 import 'react-weui/build/dist/react-weui.css'
@@ -13,7 +12,6 @@ import PromoterLevelIcon from '../../component/promoter/levelIcon/PromoterLevelI
 import {promoterAction, promoterSelector} from './redux'
 import {authSelector} from '../../util/auth'
 import Loading from '../../component/loading'
-import {Icon} from 'antd-mobile'
 
 const {
   Page,
@@ -101,7 +99,7 @@ class PromoterPerformance extends React.PureComponent {
         <Cells className={styles.cellStyle}>
           <Cell access={true} onClick={() => this.friendCellClick(1)}>
             <CellHeader>
-              <Icon type={require('../../asset/svg/friend01@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
+              <img src={require('../../asset/image/friend01@2x.png')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               好友
@@ -112,7 +110,7 @@ class PromoterPerformance extends React.PureComponent {
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(2)}>
             <CellHeader>
-              <Icon type={require('../../asset/svg/friend02@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
+              <img src={require('../../asset/image/friend02@2x.png')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               熟人
@@ -123,7 +121,7 @@ class PromoterPerformance extends React.PureComponent {
           </Cell>
           <Cell access={true} onClick={() => this.friendCellClick(3)}>
             <CellHeader>
-              <Icon type={require('../../asset/svg/friend03@2x.svg')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
+              <img src={require('../../asset/image/friend03@2x.png')} alt="" style={{display: `block`, width: `40px`, marginRight: `10px`}}/>
             </CellHeader>
             <CellBody>
               人脉

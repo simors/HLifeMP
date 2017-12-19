@@ -18,7 +18,7 @@ export default class Avatar extends React.PureComponent {
     if (!src || src == "") {
       return (
         <div className={[styles.container, {width: size, height: size, borderRadius: size/2}]}>
-          <Icon type={require('../../asset/svg/user.svg')} width={size} height={size} />
+          <img src={require('../../asset/image/user.png')} width={size} height={size} />
         </div>
       )
     }

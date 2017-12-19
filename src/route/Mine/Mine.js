@@ -54,7 +54,7 @@ class Mine extends React.PureComponent {
       )
     } else {
       return(
-        <Icon className={styles.avatar} type={require('../../asset/svg/user.svg')}/>
+        <img className={styles.avatar} src={require('../../asset/image/user.png')}/>
       )
     }
   }
@@ -76,29 +76,29 @@ class Mine extends React.PureComponent {
         <div className={styles.body}>
           <Button className={styles.ButtonWrap} onClick={this.gotoWallet}>
             <div className={styles.leftBox}>
-              <Icon type={require('../../asset/svg/wallet_icon@100x.svg')} className={styles.image}/>
+              <img src={require('../../asset/image/wallet_icon@2x.png')} className={styles.image}/>
               <span className={styles.text}>钱包</span>
             </div>
             <div className={styles.rightBox}>
-              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <img src={require('../../asset/image/right.png')} className={styles.icon}/>
             </div>
           </Button>
           <Button className={styles.ButtonWrap} onClick={this.gotoOrder}>
             <div className={styles.leftBox}>
-              <Icon type={require('../../asset/svg/order_icon@100x.svg')} className={styles.image}/>
+              <img src={require('../../asset/image/order_icon@2x.png')} className={styles.image}/>
               <span className={styles.text}>我的订单</span>
             </div>
             <div className={styles.rightBox}>
-              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <img src={require('../../asset/image/right.png')} className={styles.icon}/>
             </div>
           </Button>
           <Button className={styles.ButtonWrap} onClick={this.gotoAddr}>
             <div className={styles.leftBox}>
-              <Icon type={require('../../asset/svg/address_icon@100x.svg')} className={styles.image}/>
+              <img src={require('../../asset/image/address_icon@2x.png')} className={styles.image}/>
               <span className={styles.text}>地址管理</span>
             </div>
             <div className={styles.rightBox}>
-              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <img src={require('../../asset/image/right.png')} className={styles.icon}/>
             </div>
           </Button>
 
@@ -106,11 +106,11 @@ class Mine extends React.PureComponent {
         <div className={styles.body}>
           <a className={styles.ButtonWrap} href='http://simors.github.io/ljyd_blog'>
             <div className={styles.leftBox}>
-              <Icon type={require('../../asset/svg/about_icon@100x.svg')} className={styles.image}/>
+              <img src={require('../../asset/image/about_icon@2x.png')} className={styles.image}/>
               <span className={styles.text}>关于汇邻优店</span>
             </div>
             <div className={styles.rightBox}>
-              <Icon type={require('../../asset/svg/Chevron.svg')} className={styles.icon}/>
+              <img src={require('../../asset/image/right.png')} className={styles.icon}/>
             </div>
           </a>
         </div>
