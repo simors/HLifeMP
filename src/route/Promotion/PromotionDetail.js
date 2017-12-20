@@ -108,17 +108,15 @@ class PromotionDetail extends PureComponent {
     return (
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
-          <div style={{paddingTop: 8}}>
-            <img src={require('../../asset/image/icon_ service.png')} width={40} />
+          <div>
+            <img src={require('../../asset/image/icon_ service.png')} className={styles.icon} />
           </div>
 
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => this.gotoBuyGoods()}>
-          <span>
-            <img src={require('../../asset/image/CNY.png')} width={60} />
-          </span>
-          <span>立即购买</span>
+          <img src={require('../../asset/image/CNY.png')} className={styles.icon}/>
+          <div>立即购买</div>
         </div>
       </div>
     )
@@ -152,7 +150,7 @@ class PromotionDetail extends PureComponent {
         <WingBlank size="sm" style={{marginTop: 20}}>
           <ArticleViewer artlcleContent={JSON.parse(shopGoods.detail)} />
         </WingBlank>
-        <div style={{width: '100%', height: '1.0rem'}}>
+        <div style={{width: '100%', height: '3.57rem'}}>
         </div>
         {this.renderToolbar()}
       </div>
