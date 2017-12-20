@@ -8,7 +8,7 @@
     .imgStyle {
       width: 100%;
       vertical-align: top;
-      max-height: 4.8rem;
+      max-height: 17.1rem;
     }
   }
 
@@ -16,23 +16,23 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.3rem;
+    padding: 1.07rem;
     background-color: #fff;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.36rem;
     .cover {
     }
     .desc {
 
       flex: 1;
-      padding-left: 0.2rem;
-      height: 2.0rem;
+      padding-left: 0.71rem;
+      height: 7.14rem;
       .name {
-        font-size: 0.34rem;
+        font-size: 1.21rem;
         font-weight: bold;
-        margin-bottom: 0.3rem;
+        margin-bottom: 1.07rem;
       }
       .price {
-        font-size: 0.4rem;
+        font-size: 1.43rem;
         color: #ff7819;
       }
     }
@@ -40,7 +40,7 @@
 
   .form {
     background-color: #fff;
-    padding: 0 0.3rem 0 0.3rem;
+    padding: 0 1.07rem 0 1.07rem;
     .count {
       display: flex;
       flex-direction: row;
@@ -49,15 +49,15 @@
       border-bottom: 1px solid rgba(0,0,0,0.05);
 
       .countTitle {
-        font-size: 0.34rem;
+        font-size: 1.21rem;
       }
       .stepper {
-        width: 2.4rem;
-        height: 0.5rem;
+        width: 8.57rem;
+        height: 1.78rem;
         display: flex;
         flex-direction: row;
         border: 1px solid rgba(0,0,0,0.2);
-        margin: 0.2rem 0 0.2rem 0;
+        margin: 0.71rem 0 0.71rem 0;
         .minus {
           flex: 1;
           background-color: rgba(0,0,0,0.2);
@@ -79,7 +79,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 40px;
+          font-size: 35px;
           border: 1px solid rgba(0,0,0,0.2);
         }
       }
@@ -87,10 +87,10 @@
 
     .mark {
       .markTitle {
-        font-size: 0.34rem;
+        font-size: 1.21rem;
       }
       .textArea {
-        font-size: 0.3rem;
+        font-size: 1.07rem;
       }
     }
 
@@ -98,7 +98,7 @@
 
   .toolbar {
     width: 100%;
-    height: 0.98rem;
+    height: 3.57rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -108,25 +108,25 @@
 
     .price {
       .title {
-        margin-left: 0.3rem;
+        margin-left: 1.07rem;
       }
       .symbol {
         color: #ff7819;
       }
       .number {
         color: #ff7819;
-        font-size: 0.4rem;
+        font-size: 1.43rem;
       }
     }
 
     .purchaseBtn {
-      width: 2.7rem;
+      width: 9.64rem;
       height: 100%;
       background-color: #ff7819;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.3rem;
+      font-size: 1.07rem;
       color: #fff;
     }
   }

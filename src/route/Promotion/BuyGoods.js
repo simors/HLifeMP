@@ -120,7 +120,7 @@ class BuyGoods extends PureComponent {
         {this.renderHeaderAlbum()}
         <div className={styles.goodsDesc}>
           <div className={styles.cover}>
-            <img src={shopGoods.coverPhoto} alt="" style={{display: `block`, width: `2.0rem`, height: `2.0rem`}}/>
+            <img src={shopGoods.coverPhoto} alt="" style={{display: `block`, width: `7.14rem`, height: `7.14rem`}}/>
           </div>
           <div className={styles.desc}>
             <div className={styles.name}>{shopGoods.goodsName}</div>
