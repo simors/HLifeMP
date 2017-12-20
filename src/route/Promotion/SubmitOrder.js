@@ -81,7 +81,7 @@ class SubmitOrder extends PureComponent {
           <div className={styles.selfPick}>
             <div className={styles.header}>
               <img src={this.state.checked === 'selfPick'? require('../../asset/image/selected@2x.png') : require('../../asset/image/select@2x.png')} alt=""
-                   style={{width: '0.5rem', height: '0.5rem'}} onClick={() => {this.setState({checked: 'selfPick'})}}/>
+                   style={{width: '1.78rem', height: '1.78rem'}} onClick={() => {this.setState({checked: 'selfPick'})}}/>
               <div className={styles.title}>到店自提</div>
             </div>
             <div className={styles.shop}>
@@ -92,7 +92,7 @@ class SubmitOrder extends PureComponent {
           <div className={styles.express}>
             <div className={styles.header}>
               <img src={this.state.checked === 'express'? require('../../asset/image/selected@2x.png') : require('../../asset/image/select@2x.png')} alt=""
-                   style={{width: '0.5rem', height: '0.5rem'}} onClick={() => {this.setState({checked: 'express'})}}/>
+                   style={{width: '1.78rem', height: '1.78rem'}} onClick={() => {this.setState({checked: 'express'})}}/>
               <div className={styles.title}>快递</div>
               <div className={styles.selectAddr}>
                 <div className={styles.selectAddrbtn} onClick={this.gotoSelectAddress}>更换地址</div>

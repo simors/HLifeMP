@@ -68,11 +68,13 @@ class SelectAddress extends PureComponent {
                 <div className={styles.item}>
                   <div className={styles.user}>
                     <div className={styles.username}>{record.username}</div>
-                    <div className={styles.phone}>{record.mobilePhoneNumber}</div>
-                    <div className={styles.tag}>{record.tag}</div>
+                    <div className={styles.mid}>
+                      <div className={styles.phone}>{record.mobilePhoneNumber}</div>
+                      <div className={styles.tag}>{record.tag}</div>
+                    </div>
                     <div className={styles.edit}>
                       <img src={require('../../asset/image/edite@2x.png')} alt=""
-                           style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
+                           style={{width: '1.78rem', height: '1.78rem'}} onClick={() => this.gotoUpdateAddress(record.id)}/>
                     </div>
                   </div>
                   <div className={styles.address}>{record.addr}</div>
@@ -80,7 +82,7 @@ class SelectAddress extends PureComponent {
                 <div className={styles.op}>
                   <div className={styles.default}>
                     <img src={this.state.defaultAddressId === record.id? require('../../asset/image/selected@2x.png'): require('../../asset/image/select@2x.png')} alt=""
-                         style={{width: '0.5rem', height: '0.5rem'}} onClick={() => this.setDefaultAddress(record.id)}/>
+                         style={{width: '1.78rem', height: '1.78rem'}} onClick={() => this.setDefaultAddress(record.id)}/>
                     <span className={styles.title}>设为默认</span>
                   </div>
                   <div className={styles.checked} onClick={() => {this.goBack(record.id)}}>
@@ -92,7 +94,7 @@ class SelectAddress extends PureComponent {
           })
         }
         <div className={styles.addAddress} onClick={this.gotoAddAddress}>
-          <div style={{fontSize: '50px'}}>+</div>
+          <img src={require('../../asset/image/add.png')} alt="" className={styles.icon}/>
           <div>添加新地址</div>
         </div>
       </div>
