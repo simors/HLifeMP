@@ -95,7 +95,7 @@ class PromoterPerformance extends React.PureComponent {
           <div className={styles.headerText}>推广总收益</div>
           <div className={styles.headerEarn}>¥{Number(promoter.shopEarnings + promoter.royaltyEarnings).toFixed(2)}</div>
         </div>
-        <CellsTitle style={{fontSize: '0.28rem'}}>我的邻友</CellsTitle>
+        <CellsTitle style={{fontSize: '1.0rem'}}>我的邻友</CellsTitle>
         <Cells className={styles.cellStyle}>
           <Cell access={true} onClick={() => this.friendCellClick(1)}>
             <CellHeader>

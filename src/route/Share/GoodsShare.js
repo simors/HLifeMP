@@ -114,17 +114,15 @@ class GoodsShare extends React.PureComponent {
     return (
       <div className={styles.toolbar}>
         <div className={styles.contactBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
-          <div style={{paddingTop: 8}}>
-            <img src={require('../../asset/image/dialog.png')} width={40} />
+          <div>
+            <img src={require('../../asset/image/icon_ service.png')} className={styles.icon} />
           </div>
 
           <div>联系卖家</div>
         </div>
         <div className={styles.purchaseBtn} onClick={() => document.location=appConfig.APP_DOWNLOAD_URL}>
-          <span>
-            <img src={require('../../asset/image/CNY.png')} width={60} />
-          </span>
-          <span>立即购买</span>
+          <img src={require('../../asset/image/CNY.png')} className={styles.icon}/>
+          <div>立即购买</div>
         </div>
       </div>
     )

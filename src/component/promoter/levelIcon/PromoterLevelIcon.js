@@ -17,7 +17,7 @@ export default class PromoterLevelIcon extends React.PureComponent {
       <div className={styles.container}>
         <div className={styles.levelText}>当前等级</div>
         <div>
-          <img src={require('../../../asset/image/vip.png')} width={32} height={32}/>
+          <img src={require('../../../asset/image/vip.png')} width={16} height={16}/>
         </div>
         <div className={styles.levelText}>{level[this.props.level-1]}</div>
       </div>

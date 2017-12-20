@@ -1,11 +1,6 @@
 /**
  * Created by lilu on 2017/12/3.
  */
-/**
- * Created by lilu on 2017/12/3.
- */
-
-
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
