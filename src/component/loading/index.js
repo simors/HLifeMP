@@ -11,7 +11,7 @@ export default class Loading extends React.PureComponent {
   render() {
     return (
       <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <img src={require("../../asset/gif/loading.gif")} />
+        <img src={require("../../asset/gif/loading.gif")} style={{width: '6rem'}}/>
       </div>
     )
   }
