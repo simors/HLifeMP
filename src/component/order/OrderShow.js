@@ -115,15 +115,14 @@ class OrderShow extends React.PureComponent {
 
   render() {
     let {order} = this.props
-    console.log('order=====>', order)
     let goods = order.goods
     let vendor = order.vendor
     if (!goods || !vendor) {
       return <div/>
     }
-    console.log('order=====>', order)
     return (
       <div className={styles.body}>
+        <div className={styles.headWrap}></div>
         <div
           onClick={()=> {
             this.gotoOrderDetail(order.id)

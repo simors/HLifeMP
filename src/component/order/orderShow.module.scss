@@ -5,6 +5,13 @@
   width:100%;
   background-color: #FFFFFF;
 
+  .headWrap{
+    height: 0.7rem;
+    width: 100%;
+    background-color: rgba(0,0,0,0.05);
+    border: 0.03rem solid rgba(0,0,0,0.02);
+  }
+
 
   .statusBox{
     flex-direction: row;
@@ -148,16 +155,23 @@
     .confirmButton{
       border-radius: 1.07rem;
       height: 2.14rem;
-      width: 2rem;
-      border: 0.02rem solid #FF7819;
+      width: 7.1rem;
+      align-items: center;
+      justify-content: center;
+      border: 0.07rem solid #FF7819;
       font-size: 1.07rem;
-      color: #FF7819
+      color: #FF7819;
+      display: flex;
+
 
     }
     .deleteButton{
+      display: flex;
       border-radius: 1.07rem;
       height: 2.14rem;
       width: 7.1rem;
+      align-items: center;
+      justify-content: center;
       border: 0.07rem solid #000000;
       font-size: 1.07rem;
       color: #000000;

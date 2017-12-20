@@ -41,7 +41,6 @@ class OrderFinishList extends React.PureComponent {
   }
 
   fetchOrderActionSuccess = (promotions) => {
-    console.log('promotions======>', promotions)
     if (promotions && promotions.length === 0) {
       this.setState({hasMore: false, isLoading: false})
     }else{

@@ -412,8 +412,8 @@ export const mineSaga = [
   takeLatest(DISABLE_MY_ADDR, disableAddrSaga),
   takeLatest(SET_DEFAULT_ADDR, setDefaultAddrSaga),
   takeLatest(SET_USER_ORDER_STATUS, updateUserOrderStatusSaga),
-  takeLatest(FETCH_SET_USER_ORDERS_LIST, getUserOrderListSaga),
-  takeLatest(FETCH_ADD_USER_ORDERS_LIST, getUserOrderListSaga),
+  takeEvery(FETCH_SET_USER_ORDERS_LIST, getUserOrderListSaga),
+  takeEvery(FETCH_ADD_USER_ORDERS_LIST, getUserOrderListSaga),
 
 
 ]
@@ -463,6 +463,7 @@ function handleSetUserShopOrders(state, action) {
   let buyerId = payload.buyerId
   let type = payload.type
   let shopOrderList = payload.shopOrderList
+  console.log('payload======>',payload)
   if ('all' == type) {
     state = state.setIn(['userAllOrders', buyerId], new List(shopOrderList))
   } else if ('waiting' == type) {
@@ -521,7 +522,6 @@ function handleAddUserShopOrders(state, action) {
 }
 
 function handleBatchAddOrdersDetail(state, action) {
-  console.log('action.payload=====>',action.payload)
   let orders = action.payload.shopOrders
   if(orders&&orders.length>0){
     orders.forEach((order) => {

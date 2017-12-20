@@ -85,7 +85,6 @@ class OrderDetail extends React.PureComponent {
     } else if (orderStatus == ORDER_STATUS.DELIVER_GOODS) {
       return (
         <div className={styles.sendBox} >
-          <img src={require('../../asset/image/right_green@2x.png')} className={styles.sendImg} />
           <span className={styles.sendText}>已发货</span>
         </div>
       )
@@ -93,7 +92,6 @@ class OrderDetail extends React.PureComponent {
       return (
 
         <div className={styles.sendBox} >
-          <img src={require('../../asset/image/right_green@2x.png')} className={styles.sendImg} />
           <span className={styles.sendText}>交易成功</span>
         </div>
       )

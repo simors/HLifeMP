@@ -129,8 +129,6 @@ export function getUserOrders(payload) {
     limit: payload.limit,
   }
   return AV.Cloud.run('orderQueryOrdersV2', params).then((result) => {
-    console.log('result=============>',result)
-
     return result
   }, (err) => {
     err.message = ERROR[err.code] ? ERROR[err.code] : ERROR[9999]

@@ -19,12 +19,10 @@ import OrderDeliverList from '../../component/order/OrderDeliverList'
 import OrderFinishList from '../../component/order/OrderFinishList'
 import styles from './myOrder.module.scss'
 
-const TabPane = Tabs.TabPane;
-
-let tabs = [
-  { title: '全部订单' ,tab : 1,key: 1},
-  { title: '待收货订单' ,tab : 2, key: 2},
-  { title: '已完成订单',tab : 3, key: 3 },
+const tabs2 = [
+  { title: 'First Tab', sub: '1' },
+  { title: 'Second Tab', sub: '2' },
+  { title: 'Third Tab', sub: '3' },
 ];
 
  class MyOrder extends React.PureComponent {
@@ -51,26 +49,19 @@ let tabs = [
 
   render() {
     let tabs = [
-      { title: '全部订单' ,tab : 1,key: 1},
-      { title: '待收货订单' ,tab : 2, key: 2},
-      { title: '已完成订单',tab : 3, key: 3 },
+      { title: '全部订单', sub: 1 },
+      { title: '待收货订单', sub: 2 },
+      { title: '已完成订单', sub: 3 },
     ];
     return (
       <div>
-        <Tabs
-          swipeable = {false}
-
+        <Tabs tabs={tabs}
+              renderTab={tab => <span>{tab.title}</span>}
+              initialPage={1}
         >
-
-          <TabPane tab='全部订单' key="1">
-            <OrderAllList />
-          </TabPane>
-          <TabPane tab='待收订单' key="2">
-            <OrderDeliverList />
-          </TabPane>
-          <TabPane tab='完成订单' key="3">
-            <OrderFinishList />
-          </TabPane>
+            <OrderAllList/>
+           <OrderDeliverList/>
+            <OrderFinishList/>
         </Tabs>
       </div>
     )
