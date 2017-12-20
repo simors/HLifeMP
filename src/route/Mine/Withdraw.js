@@ -72,7 +72,7 @@ class Withdraw extends React.PureComponent{
         maskClosable={true}
         visible={this.state.showModel}
         footer={[{ text: '确定', onPress: () => { this.setState({showModel: false}) } }]}
-        style={{width: '100%', paddingLeft: 10, paddingRight: 10, fontSize: '1rem'}}
+        style={{width: '100%', paddingLeft: 10, paddingRight: 10, fontSize: '3.57rem'}}
       >
         {content}
       </Modal>
@@ -103,12 +103,12 @@ class Withdraw extends React.PureComponent{
             clear
             locale={{ confirmLabel: '提现' }}
             onChange={(value) => this.setState({money: value})}
-            style={{minHeight: '1.6rem', height: '1.6rem'}}
+            style={{minHeight: '5.71rem', height: '5.71rem'}}
           >
             ¥
           </InputItem>
           <div style={{paddingLeft: 8, marginTop: 15}}>当前余额：{balance}元
-            <div style={{fontSize: '0.2rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
+            <div style={{fontSize: '0.14rem', color: '#ddd'}}>平台将收取1.0%的手续费，最少1.0元</div>
           </div>
         </div>
         <WingBlank size="md">
