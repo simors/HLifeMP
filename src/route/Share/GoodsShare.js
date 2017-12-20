@@ -23,11 +23,6 @@ class GoodsShare extends React.PureComponent {
     let {match} = this.props
     let {goodsId} = match.params
     this.props.getShopGoodsDetail({goodsId})
-    setTimeout(() => (
-      <Modal visible={true} popup maskClosable={true} animationType="slide-up">
-        <WelcomePanel onClick={() => {}}/>
-      </Modal>
-    ), 5000)
   }
 
   renderHeaderAlbum() {
@@ -159,6 +154,7 @@ class GoodsShare extends React.PureComponent {
         <WhiteSpace size="xl" />
         <EndPanel/>
         {this.renderToolbar()}
+        <WelcomePanel />
       </div>
     )
   }
